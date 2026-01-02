@@ -1,0 +1,146 @@
+.onboarding-wrapper {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 900px;
+  margin: auto;
+}
+ 
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+ 
+.step {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #cbd5f5;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+ 
+.step.active {
+  background: #1e293b;
+  color: white;
+}
+ 
+.line {
+  width: 60px;
+  height: 2px;
+  background: #cbd5f5;
+}
+ 
+.step-titles {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+ 
+.step-content {
+  margin-bottom: 20px;
+}
+ 
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+ 
+input, select {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+ 
+.disclaimer {
+  margin-top: 10px;
+  color: #b91c1c;
+  font-size: 13px;
+}
+ 
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+ 
+.actions button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #1e293b;
+  color: white;
+}
+ 
+.actions button:hover {
+  background: #334155;
+}
+
+small {
+  color: #b91c1c;
+  font-size: 12px;
+}
+ 
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched {
+  border: 1px solid #b91c1c;
+}
+
+.otp-btn {
+  margin-top: 6px;
+  background: #0f172a;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+ 
+.verify-btn {
+  margin-left: 6px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+ 
+.success {
+  color: #15803d;
+  font-size: 13px;
+  display: block;
+  margin-top: 4px;
+}
+
+.review-box {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 8px;
+}
+ 
+.review-box h4 {
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+ 
+.review-box p,
+.review-box li {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+ 
+.verified {
+  color: #15803d;
+  margin-left: 6px;
+  font-weight: 600;
+}
+ 

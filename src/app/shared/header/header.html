@@ -1,0 +1,23 @@
+<header class="app-header">
+  <div class="left-section">
+    <button class="hamburger" (click)="toggleSidebar()">☰</button>
+ 
+    <div class="brand">
+      <img src="assets/logo.jpg" alt="FinGuard Logo" class="logo" />
+      <span class="title">FinGuard</span>
+    </div>
+  </div>
+ 
+  <div class="right-section">
+    <div class="user-info" (click)="toggleProfile()">
+      <span class="user-name">John Doe | ABC Bank</span>
+      <span class="user-icon">👤</span>
+    </div>
+ 
+    <div class="profile-menu" *ngIf="showProfile">
+      <p class="email">john.doe@abcbank.com</p>
+      <p class="role">Banker</p>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</header>

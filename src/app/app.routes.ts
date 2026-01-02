@@ -4,8 +4,8 @@ import { Routes } from '@angular/router';
 import { bankerRoutes } from './banker/banker.routes';
 
 export const routes: Routes = [
-  {path:'',redirectTo:'LoginPage',pathMatch:'full'},
-  {path:'', component:LoginPage},
+  {path:'',redirectTo:'login',pathMatch:'full'},
+  {path:'login', component:LoginPage},
   {path:'admin-dashboard',component:AdminDashboard},
   ...bankerRoutes
 ]

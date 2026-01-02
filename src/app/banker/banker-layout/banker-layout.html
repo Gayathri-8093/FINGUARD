@@ -1,11 +1,9 @@
 <app-header></app-header>
  
-<div class="layout-wrapper">
   <app-sidebar [isOpen]="isSidebarOpen"></app-sidebar>
  
   <main class="main-content" [class.expanded]="!isSidebarOpen">
     <router-outlet></router-outlet>
   </main>
-</div>
- 
+   
 <app-footer></app-footer>

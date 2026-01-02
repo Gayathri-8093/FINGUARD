@@ -1,0 +1,39 @@
+.sidebar {
+  width: 260px;
+  background-color: var(--primary);
+  color: white;
+  transition: transform 0.3s ease;
+ 
+  /* mobile default */
+  transform: translateX(-100%);
+}
+ 
+/* OPEN STATE */
+.sidebar.open {
+  transform: translateX(0);
+}
+
+/* DESKTOP: sidebar visible by default */
+@media (min-width: 1024px) {
+  .sidebar {
+    transform: translateX(0);
+  }
+}
+ 
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+ 
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+ 
+.sidebar a:hover {
+  background-color: var(--accent2-dark);
+}

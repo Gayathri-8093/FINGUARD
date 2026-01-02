@@ -14,7 +14,7 @@ import { Sidebar } from '../../shared/sidebar/sidebar';
   styleUrl: './banker-layout.css',
 })
 export class BankerLayout implements OnInit, OnDestroy{
-   isSidebarOpen = false;
+  isSidebarOpen = false;
   private routerSub!: Subscription;
  
   constructor(
@@ -23,15 +23,21 @@ export class BankerLayout implements OnInit, OnDestroy{
   ) {}
  
   ngOnInit() {
-    // Listen to sidebar open/close
+    // Sync sidebar open state
     this.uiStateService.sidebarOpen$
       .subscribe(open => this.isSidebarOpen = open);
  
-    // Close sidebar on route change
+    // Handle route-based sidebar behavior
     this.routerSub = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.uiStateService.closeSidebar();
+      .subscribe((event: NavigationEnd) => {
+        if (event.urlAfterRedirects === '/banker/dashboard') {
+          // ✅ Auto-open sidebar ONLY on dashboard
+          this.uiStateService.openSidebar();
+        } else {
+          // ❌ Close sidebar on all other pages
+          this.uiStateService.closeSidebar();
+        }
       });
   }
  

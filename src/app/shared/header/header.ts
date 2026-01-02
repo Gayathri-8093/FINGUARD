@@ -33,4 +33,8 @@ export class Header {
     // later: clear tokens/session here
     this.router.navigate(['/login']);
   }
+
+  goToDashboard() {
+  this.router.navigate(['/banker/dashboard']);
+}
 }

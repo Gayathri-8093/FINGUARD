@@ -1,11 +1,11 @@
-<app-header (menuClick)="toggleSidebar()"></app-header>
+<app-header></app-header>
  
-<app-sidebar [isOpen]="isSidebarOpen"></app-sidebar>
+<div class="layout-wrapper">
+  <app-sidebar [isOpen]="isSidebarOpen"></app-sidebar>
  
-<div class="banker-body">
-  <h2>Banker Dashboard Area</h2>
-  <router-outlet></router-outlet>
+  <main class="main-content" [class.expanded]="!isSidebarOpen">
+    <router-outlet></router-outlet>
+  </main>
 </div>
  
 <app-footer></app-footer>
-

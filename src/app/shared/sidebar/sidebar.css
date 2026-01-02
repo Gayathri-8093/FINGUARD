@@ -1,23 +1,21 @@
 .sidebar {
+  position: fixed;
+  top: 60px; /* below header */
+  left: -260px;
+ 
   width: 260px;
+  height: calc(100vh - 60px);
+ 
   background-color: var(--primary);
   color: white;
-  transition: transform 0.3s ease;
  
-  /* mobile default */
-  transform: translateX(-100%);
+  padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 999;
 }
  
-/* OPEN STATE */
 .sidebar.open {
-  transform: translateX(0);
-}
-
-/* DESKTOP: sidebar visible by default */
-@media (min-width: 1024px) {
-  .sidebar {
-    transform: translateX(0);
-  }
+  left: 0;
 }
  
 .sidebar nav {

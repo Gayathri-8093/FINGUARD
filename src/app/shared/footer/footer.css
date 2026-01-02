@@ -1,7 +1,11 @@
 .footer {
   background-color: var(--grey-very-light);
   color: var(--grey-very-dark);
+  position: fixed;
+  left: 0; bottom: 0;
   text-align: center;
-  padding: 12px;
+  padding: 10px 0;
+  width: 100%;
   font-size: 13px;
+  margin-top: 40px;
 }

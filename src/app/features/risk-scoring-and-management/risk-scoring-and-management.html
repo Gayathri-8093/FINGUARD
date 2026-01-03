@@ -1,1 +1,110 @@
-<p>risk-scoring-and-management works!</p>
+<div class="page">
+  <h2>Risk Scoring & Alert Management</h2>
+  <p class="subtitle">Monitor risk scores and manage fraud alerts</p>
+ 
+  <!-- SUMMARY CARDS -->
+  <div class="summary">
+    <div class="card">
+      <h3>2</h3>
+      <span>Open Alerts</span>
+    </div>
+    <div class="card">
+      <h3>1</h3>
+      <span>In Progress</span>
+    </div>
+    <div class="card">
+      <h3>1</h3>
+      <span>Closed Today</span>
+    </div>
+    <div class="card">
+      <h3>1.2h</h3>
+      <span>Avg Response Time</span>
+    </div>
+  </div>
+ 
+  <!-- TABS -->
+  <div class="tabs">
+    <button [class.active]="activeTab==='open'" (click)="activeTab='open'">Open</button>
+    <button [class.active]="activeTab==='in-progress'" (click)="activeTab='in-progress'">In Progress</button>
+    <button [class.active]="activeTab==='closed'" (click)="activeTab='closed'">Closed</button>
+  </div>
+ 
+  <!-- TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>Alert ID</th>
+        <th>Type</th>
+        <th>Customer</th>
+        <th>Severity</th>
+        <th>Timestamp</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+ 
+    <tbody>
+      <tr *ngFor="let a of filteredAlerts">
+        <td>{{ a.id }}</td>
+        <td>{{ a.type }}</td>
+        <td>{{ a.customer }}</td>
+        <td>
+          <span class="badge"
+            [class.high]="a.severity==='HIGH'"
+            [class.medium]="a.severity==='MEDIUM'"
+            [class.low]="a.severity==='LOW'">
+            {{ a.severity }}
+          </span>
+        </td>
+        <td>{{ a.timestamp }}</td>
+        <td>
+          <span class="status"
+            [class.open]="a.status==='open'"
+            [class.progress]="a.status==='in-progress'"
+            [class.closed]="a.status==='closed'">
+            {{ a.status }}
+          </span>
+        </td>
+        <td>
+          <button class="btn" (click)="investigate(a)">Investigate</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ 
+<!-- MODAL BACKDROP -->
+<div class="backdrop" *ngIf="showModal" (click)="closeModal()"></div>
+ 
+<!-- MODAL -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-header">
+    <h3>Alert Investigation</h3>
+    <span class="close" (click)="closeModal()">✕</span>
+  </div>
+ 
+  <div class="modal-body">
+    <p><b>Alert ID:</b> {{ selectedAlert.id }}</p>
+    <p><b>Customer:</b> {{ selectedAlert.customer }}</p>
+    <p><b>Alert Type:</b> {{ selectedAlert.type }}</p>
+    <p><b>Severity:</b> {{ selectedAlert.severity }}</p>
+    <p><b>Timestamp:</b> {{ selectedAlert.timestamp }}</p>
+ 
+    <label>Assign To</label>
+    <select>
+      <option>Select team member</option>
+      <option>John – Senior Analyst</option>
+      <option>Sarah – Team Lead</option>
+      <option>Mike – Fraud Specialist</option>
+    </select>
+ 
+    <label>Investigation Notes</label>
+    <textarea placeholder="Add notes about this investigation"></textarea>
+  </div>
+ 
+  <div class="modal-actions">
+    <button class="danger" (click)="escalateAlert()">Escalate</button>
+    <button class="success" (click)="closeAlert()">Close Alert</button>
+  </div>
+</div>
+

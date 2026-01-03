@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Onboarding } from '../services/onboarding';
-import { OnboardingApplication } from '../models/onboarding.model';
+import { Onboarding } from '../../../core/services/onboarding';
+import { OnboardingApplication } from '../../../core/models/onboarding.model';
 
 @Component({
   selector: 'app-customer-onboarding-list',

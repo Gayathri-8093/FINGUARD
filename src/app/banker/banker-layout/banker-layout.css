@@ -1,0 +1,13 @@
+/* Full page container */
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.main-content {
+  margin-top: 60px;       /* header height */
+  margin-left: 260px;     /* sidebar width */
+  padding: 24px;
+  background-color: var(--container-background);
+}
+

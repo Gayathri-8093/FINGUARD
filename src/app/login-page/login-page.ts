@@ -35,7 +35,7 @@ export class LoginPage {
 
     if (email === 'banker@finguard.com' && password === 'banker123') {
       localStorage.setItem('role', 'banker');
-      this.router.navigate(['/banker-dashboard']);
+      this.router.navigate(['/dashboard']);
     } else if (email === 'admin@finguard.com' && password === 'admin123') {
       localStorage.setItem('role', 'admin');
       this.router.navigate(['/admin-dashboard']);

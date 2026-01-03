@@ -1,29 +1,46 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
-  imports: [CommonModule,FormsModule],
+  standalone:true,
+  imports: [CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
 export class LoginPage {
-   email = '';
- password = '';
- constructor(private router: Router) {}
- login() {
-   if (this.email === 'banker@finguard.com' && this.password === 'banker123') {
-     localStorage.setItem('role', 'banker');
-     this.router.navigate(['/banker/dashboard']);
-   }
-   else if (this.email === 'admin@finguard.com' && this.password === 'admin123') {
-     localStorage.setItem('role', 'admin');
-     this.router.navigate(['/admin-dashboard']);
-   }
-   else {
-     alert('Invalid Credentials');
-   }
- }
+  form!:FormGroup;
+  constructor(private fb: FormBuilder, private router: Router) {
+  this.form = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern(/^[A-Za-z0-9@#$%^&+=!._-]{6,}$/),
+      ],
+    ],
+  });
+}
+
+  login() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    const { email, password } = this.form.value;
+
+    if (email === 'banker@finguard.com' && password === 'banker123') {
+      localStorage.setItem('role', 'banker');
+      this.router.navigate(['/dashboard']);
+    } else if (email === 'admin@finguard.com' && password === 'admin123') {
+      localStorage.setItem('role', 'admin');
+      this.router.navigate(['/admin-dashboard']);
+    } else {
+      alert('Invalid Credentials');
+    }
+  }
 }

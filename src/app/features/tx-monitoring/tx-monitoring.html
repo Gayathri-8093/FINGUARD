@@ -1,1 +1,183 @@
-<p>tx-monitoring works!</p>
+<!-- PAGE WRAPPER -->
+<div class="page">
+<!-- PAGE TITLE -->
+<h1>Transaction Monitoring</h1>
+<p class="subtitle">
+
+    Real-time monitoring and fraud detection for all transactions
+</p>
+<!-- TOP SUMMARY CARDS -->
+<div class="cards">
+<div class="card">
+<span>Total Today</span>
+<h2>12,847</h2>
+<small class="green">↑ 12% vs yesterday</small>
+</div>
+<div class="card">
+<span>Flagged</span>
+<h2 class="red">23</h2>
+<small>High priority</small>
+</div>
+<div class="card">
+<span>Blocked</span>
+<h2>8</h2>
+<small>Fraud prevented</small>
+</div>
+<div class="card">
+<span>Total Amount</span>
+<h2>₦1.2B</h2>
+<small class="green">↑ 8% vs yesterday</small>
+</div>
+</div>
+<!-- TRANSACTION LIST CARD -->
+<div class="transaction-card">
+<h2>Transaction List</h2>
+<p class="subtitle">
+
+      Monitor and manage all transactions in real-time
+</p>
+<!-- SEARCH + FILTERS -->
+<div class="filters">
+<input
+
+        type="text"
+
+        placeholder="Search by transaction ID or customer..."
+
+        [(ngModel)]="searchText"
+
+      />
+<select [(ngModel)]="selectedRisk">
+<option value="ALL">All Risk Levels</option>
+<option value="LOW">Low Risk</option>
+<option value="MEDIUM">Medium Risk</option>
+<option value="HIGH">High Risk</option>
+</select>
+<select [(ngModel)]="selectedStatus">
+<option value="ALL">All Status</option>
+<option value="completed">Completed</option>
+<option value="pending">Pending</option>
+<option value="flagged">Flagged</option>
+<option value="blocked">Blocked</option>
+</select>
+</div>
+<!-- TRANSACTION TABLE -->
+<table>
+<thead>
+<tr>
+<th>Transaction ID</th>
+<th>Customer</th>
+<th>Amount</th>
+<th>Channel</th>
+<th>Timestamp</th>
+<th>Risk Level</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr
+
+          *ngFor="let t of filteredTransactions; let i = index"
+
+          [class.alt]="i % 2 === 1"
+>
+<td>{{ t.id }}</td>
+<td>{{ t.customer }}</td>
+<td>₦{{ t.amount | number }}</td>
+<td>{{ t.channel }}</td>
+<td>{{ t.timestamp }}</td>
+<td>
+<span class="risk" [ngClass]="t.risk.toLowerCase()">
+
+              {{ t.risk }}
+</span>
+</td>
+<td>
+<span class="status" [ngClass]="t.status">
+
+              {{ t.status }}
+</span>
+</td>
+<td>
+<!-- ✅ VIEW BUTTON (CLICKABLE) -->
+<button class="view-btn" (click)="openModal(t)">
+
+              👁 View
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div> <!-- ✅ END transaction-card -->
+</div> <!-- ✅ END page -->
+
+<!-- ================= MODAL (MUST BE OUTSIDE CARD & TABLE) ================= -->
+<div
+
+  class="modal-backdrop"
+
+  *ngIf="showModal && selectedTransaction"
+>
+<div class="modal">
+<h3>Transaction Details</h3>
+<div class="grid">
+<p>
+<b>Transaction ID</b><br />
+
+        {{ selectedTransaction.id }}
+</p>
+<p>
+<b>Customer</b><br />
+
+        {{ selectedTransaction.customer }}
+</p>
+<p>
+<b>Amount</b><br />
+
+        ₦{{ selectedTransaction.amount | number }}
+</p>
+<p>
+<b>Channel</b><br />
+
+        {{ selectedTransaction.channel }}
+</p>
+<p>
+<b>Location</b><br />
+
+        {{ selectedTransaction.location }}
+</p>
+<p>
+<b>Timestamp</b><br />
+
+        {{ selectedTransaction.timestamp }}
+</p>
+</div>
+<!-- HIGH RISK WARNING -->
+<p
+
+      class="alert"
+
+      *ngIf="selectedTransaction.risk === 'HIGH'"
+>
+
+      ⚠ High Risk Transaction Detected.
+
+      Please review carefully before taking action.
+</p>
+<!-- MODAL ACTIONS -->
+<div class="modal-actions">
+<button class="allow" (click)="allowTransaction()">
+
+        Allow Transaction
+</button>
+<button class="block" (click)="blockTransaction()">
+
+        Block Transaction
+</button>
+</div>
+<!-- CLOSE -->
+<span class="close" (click)="closeModal()">✕</span>
+</div>
+</div>
+ 

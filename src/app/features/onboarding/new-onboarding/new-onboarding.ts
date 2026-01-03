@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, FormsModule } from '@angular/forms';
-import { Onboarding } from '../services/onboarding';
-import { OnboardingApplication } from '../models/onboarding.model';
+import { Onboarding } from '../../../core/services/onboarding';
+import { OnboardingApplication } from '../../../core/models/onboarding.model';
 
 @Component({
   selector: 'app-new-onboarding',

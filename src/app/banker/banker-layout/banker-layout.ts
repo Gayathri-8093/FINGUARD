@@ -34,7 +34,7 @@ export class BankerLayout implements OnInit, OnDestroy{
         this.uiStateService.closeSidebar();
       });
   }
- 
+  
   ngOnDestroy() {
     this.routerSub.unsubscribe();
   }

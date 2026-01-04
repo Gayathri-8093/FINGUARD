@@ -11,9 +11,9 @@ export const routes: Routes = [
   {path:'',redirectTo:'login',pathMatch:'full'},
   {path:'login', component:LoginPage},
   {path:'admin-dashboard',component:AdminDashboard},
-  {path: 'transactions', component:TxMonitoring},
-  {path: 'risk', component:RiskScoringAndManagement},
-  {path: 'compliance', component:ComplianceAndRegulatory},
-  {path: 'analytics', component:AnalyticsAndDashboard},
+  // {path: 'transactions', component:TxMonitoring},
+  // {path: 'risk', component:RiskScoringAndManagement},
+  // {path: 'compliance', component:ComplianceAndRegulatory},
+  // {path: 'analytics', component:AnalyticsAndDashboard},
   ...bankerRoutes
 ]

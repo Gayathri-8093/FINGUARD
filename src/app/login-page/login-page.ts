@@ -34,11 +34,17 @@ export class LoginPage {
     const { email, password } = this.form.value;
 
     if (email === 'banker@finguard.com' && password === 'banker123') {
-      localStorage.setItem('role', 'banker');
-      this.router.navigate(['/banker/dashboard']);
-    } else if (email === 'admin@finguard.com' && password === 'admin123') {
-      localStorage.setItem('role', 'admin');
-      this.router.navigate(['/admin-dashboard']);
+      localStorage.setItem('role', 'BANKER');
+      localStorage.setItem('email', email);
+      localStorage.setItem('name', 'Banker User');
+      this.router.navigate(['/banker']);
+    }
+    
+    else if (email === 'admin@finguard.com' && password === 'admin123') {
+      localStorage.setItem('role', 'ADMIN');
+      localStorage.setItem('email', email);
+      localStorage.setItem('name', 'Admin User');
+      this.router.navigate(['/admin']);
     } else {
       alert('Invalid Credentials');
     }

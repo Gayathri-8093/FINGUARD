@@ -13,28 +13,43 @@ import { Router } from '@angular/router';
 export class Header {
   showProfile = false;
  
+  userName = '';
+  userEmail = '';
+  userRole: 'ADMIN' | 'BANKER' | '' = '';
+ 
   constructor(
     private uiStateService: UiState,
     private router: Router
   ) {}
  
-  // 🔹 Called when hamburger icon is clicked
+  ngOnInit() {
+    this.userName = localStorage.getItem('name') || 'User';
+    this.userEmail = localStorage.getItem('email') || '';
+    this.userRole = localStorage.getItem('role') as 'ADMIN' | 'BANKER';
+  }
+ 
+  // Hamburger toggle
   toggleSidebar() {
     this.uiStateService.toggleSidebar();
   }
  
-  // 🔹 Show / hide profile dropdown
+  // Profile dropdown
   toggleProfile() {
     this.showProfile = !this.showProfile;
   }
  
-  // 🔹 Logout logic
+  // ✅ Role-aware dashboard navigation
+  goToDashboard() {
+    if (this.userRole === 'ADMIN') {
+      this.router.navigate(['/admin/dashboard']);
+    } else {
+      this.router.navigate(['/banker/dashboard']);
+    }
+  }
+ 
+  // ✅ Proper logout
   logout() {
-    // later: clear tokens/session here
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
-
-  goToDashboard() {
-  this.router.navigate(['/banker/dashboard']);
-}
 }

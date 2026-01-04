@@ -34,11 +34,11 @@ export class LoginPage {
     const { email, password } = this.form.value;
 
     if (email === 'banker@finguard.com' && password === 'banker123') {
-      localStorage.setItem('role', 'banker');
-      this.router.navigate(['/banker/dashboard']);
+      localStorage.setItem('role', 'BANKER');
+      this.router.navigate(['/banker']);
     } else if (email === 'admin@finguard.com' && password === 'admin123') {
-      localStorage.setItem('role', 'admin');
-      this.router.navigate(['/admin-dashboard']);
+      localStorage.setItem('role', 'ADMIN');
+      this.router.navigate(['/admin']);
     } else {
       alert('Invalid Credentials');
     }

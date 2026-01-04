@@ -21,6 +21,7 @@
   border-left: 4px solid var(--accent2-dark);
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
  
 .card:hover {

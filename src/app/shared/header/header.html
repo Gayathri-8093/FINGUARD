@@ -10,13 +10,13 @@
  
   <div class="right-section">
     <div class="user-info" (click)="toggleProfile()">
-      <span class="user-name">John Doe</span>
+      <span class="user-name">{{userName}}</span>
       <span class="user-icon">👤</span>
     </div>
  
     <div class="profile-menu" *ngIf="showProfile">
-      <p class="email">banker@finguard.com</p>
-      <p class="role">Banker</p>
+      <p class="email">{{userEmail}}</p>
+      <p class="role">{{ userRole === 'ADMIN' ? 'Admin' : 'Banker' }}</p>
       <button class="logout-btn" (click)="logout()">Logout</button>
     </div>
   </div>

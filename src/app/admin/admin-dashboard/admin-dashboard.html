@@ -1,1 +1,85 @@
-<p>admin-dashboard works!</p>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="logo-container">
+            <div class="logo-icon">🛡️</div>
+                <h2 class="logo-text">FinGuard</h2>
+            </div>
+            <ul class="menu">
+                <li (click)="switchPage('Dashboard')" [class.active]="currentPage === 'Dashboard'">Dashboard</li>
+                <li (click)="switchPage('Transactions')" [class.active]="currentPage === 'Transactions'">Transactions</li>
+                <li (click)="switchPage('Risk')" [class.active]="currentPage === 'Risk'">Risk & Alerts</li>
+                <li (click)="switchPage('Compliance')" [class.active]="currentPage === 'Compliance'">Compliance</li>
+                <li (click)="switchPage('Analytics')" [class.active]="currentPage === 'Analytics'">Analytics</li>
+            </ul>
+        </aside>
+        <div class="main">
+            <header class="topbar">
+                <div class="user-info">
+                    <span class="badge-admin">Administrator</span>
+                    <span class="user-name">Admin User</span>
+                </div>
+            </header>
+            <div class="container" [ngSwitch]="currentPage">
+            <section *ngSwitchCase="'Dashboard'">
+                <h1 class="page-title">Welcome back, Admin User</h1>
+                <p class="page-sub">Access your modules and manage fraud detection operations</p>
+                <div class="dashboard-grid">
+                    <div class="module-card" *ngFor="let m of modules; let i = index" [class.highlight]="i === 0">
+                        <div class="card-header">
+                            <span class="card-icon">{{m.icon}}</span>
+                            <span class="status-badge">Active</span>
+                        </div>
+                        <h3>{{m.title}}</h3>
+                        <p>{{m.desc}}</p>
+                    </div>
+                </div>
+            </section>
+            <section *ngSwitchCase="'Transactions'">
+                <h1 class="page-title">Transaction Monitoring</h1>
+                <p class="page-sub">Real-time monitoring and fraud detection for all transactions</p>
+                <div class="stats-row">
+                    <div class="stat-card">Total Today <strong>12,847</strong></div>
+                        <div class="stat-card danger">Flagged <strong>23</strong></div>
+                            <div class="stat-card">Blocked <strong>8</strong></div>
+                        </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Customer</th>
+                                    <th>Amount</th>
+                                    <th>Channel</th>
+                                    <th>Timestamp</th>
+                                    <th>Risk Level</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let t of transactions">
+                                    <td>{{t.id}}</td>
+                                    <td>{{t.customer}}</td>
+                                    <td>{{t.amount}}</td>
+                                    <td>{{t.channel}}</td>
+                                    <td>{{t.time}}</td>
+                                    <td><span class="risk-tag" [attr.data-risk]="t.risk">{{t.risk}}</span></td>
+                                    <td><span class="status-tag">{{t.status}}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </section>
+            <section *ngSwitchCase="'Compliance'">
+                <h1 class="page-title">Compliance & Regulatory Reporting</h1>
+                    <div class="form-container">
+                        <h3>Generate Compliance Report</h3>
+                        <div class="form-group">
+                            <label>Report Type</label>
+                            <select><option>AML Compliance Report</option></select>
+                        </div>
+                        <button class="btn-generate">Generate Report</button>
+                    </div>
+            </section>
+        </div>
+    </div>
+</div>

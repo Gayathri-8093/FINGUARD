@@ -64,22 +64,22 @@ button:hover {
   margin-bottom: 10px;
 }
 
-/* --- Optional validation styles --- */
+
 .form-group .error small {
   display: block;
-  color: #d93025; /* subtle red for errors */
+  color: #d93025;
   margin-top: 6px;
   font-size: 12px;
 }
 
-/* Show invalid state after touch/dirty (Angular adds classes automatically) */
+
 input.ng-touched.ng-invalid,
 input.ng-dirty.ng-invalid {
   border-color: #d93025;
   background: #fff6f6;
 }
 
-/* Disabled button look */
+
 button[disabled] {
   opacity: 0.6;
   cursor: not-allowed;

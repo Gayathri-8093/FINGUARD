@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-risk-scoring-and-management',
   standalone:true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './risk-scoring-and-management.html',
   styleUrl: './risk-scoring-and-management.css',
 })
 export class RiskScoringAndManagement {
   activeTab: 'open' | 'in-progress' | 'closed' = 'open';
- 
+  
   showModal = false;
   selectedAlert: any = null;
+  assignedUser : string = '';
  
   alerts = [
     {
@@ -65,6 +67,7 @@ export class RiskScoringAndManagement {
   closeModal() {
     this.showModal = false;
     this.selectedAlert = null;
+    this.assignedUser = '';
   }
  
   closeAlert() {
@@ -75,11 +78,14 @@ export class RiskScoringAndManagement {
   }
  
   escalateAlert() {
-    alert('Alert escalated successfully');
+      if (this.selectedAlert) {
+    alert(`Alert ${this.selectedAlert.id} has been escalated to senior management`);
+    // this.selectedAlert.status = 'in-progress';
+    
     this.closeModal();
   }
+    // alert('Alert escalated successfully');
+    // this.closeModal();
 
-  test(){
-    alert("Button works!");
   }
-}
+  }

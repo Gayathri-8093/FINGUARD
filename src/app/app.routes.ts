@@ -2,18 +2,42 @@ import { LoginPage } from './login-page/login-page';
 import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { Routes } from '@angular/router';
 import { bankerRoutes } from './banker/banker.routes';
-import { TxMonitoring } from './features/tx-monitoring/tx-monitoring';
-import { RiskScoringAndManagement } from './features/risk-scoring-and-management/risk-scoring-and-management';
-import { ComplianceAndRegulatory } from './features/compliance-and-regulatory/compliance-and-regulatory';
-import { AnalyticsAndDashboard } from './features/analytics-and-dashboard/analytics-and-dashboard';
+import { adminRoutes } from './admin/admin.routes';
+import { AdminGuard } from './core/guards/admin.guard';
+import { AdminLayout } from './admin/admin-layout/admin-layout';
+import { BankerLayout } from './banker/banker-layout/banker-layout';
+import { BankerGuard } from './core/guards/banker.guard';
 
 export const routes: Routes = [
-  {path:'',redirectTo:'login',pathMatch:'full'},
-  {path:'login', component:LoginPage},
-  {path:'admin-dashboard',component:AdminDashboard},
-  {path: 'transactions', component:TxMonitoring},
-  {path: 'risk', component:RiskScoringAndManagement},
-  {path: 'compliance', component:ComplianceAndRegulatory},
-  {path: 'analytics', component:AnalyticsAndDashboard},
-  ...bankerRoutes
+   {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+ 
+  {
+    path: 'login',
+    component: LoginPage
+  },
+ 
+  // 🔐 ADMIN SECTION
+  {
+    path: 'admin',
+    component: AdminLayout,
+    canActivate: [AdminGuard],
+    children: adminRoutes
+  },
+ 
+  // 🔐 BANKER SECTION
+  {
+    path: 'banker',
+    component: BankerLayout,
+    canActivate: [BankerGuard],
+    children: bankerRoutes
+  },
+ 
+  {
+    path: '**',
+    redirectTo: 'login'
+  }
 ]

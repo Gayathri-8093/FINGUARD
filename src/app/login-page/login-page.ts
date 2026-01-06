@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginPage {
   form!:FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router,private authService:AuthService) {
   this.form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: [
@@ -26,7 +27,7 @@ export class LoginPage {
   });
 }
 
-  login() {
+  login(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -34,14 +35,14 @@ export class LoginPage {
     const { email, password } = this.form.value;
 
     if (email === 'banker@finguard.com' && password === 'banker123') {
-      localStorage.setItem('role', 'BANKER');
+      this.authService.setRole('BANKER');
       localStorage.setItem('email', email);
       localStorage.setItem('name', 'Banker User');
       this.router.navigate(['/banker']);
     }
     
     else if (email === 'admin@finguard.com' && password === 'admin123') {
-      localStorage.setItem('role', 'ADMIN');
+      this.authService.setRole('ADMIN');
       localStorage.setItem('email', email);
       localStorage.setItem('name', 'Admin User');
       this.router.navigate(['/admin']);

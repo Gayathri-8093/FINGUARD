@@ -10,13 +10,10 @@ export class BankerGuard implements CanActivate {
     private router: Router
   ) {}
  
-  canActivate(): boolean {
-  const role = localStorage.getItem('role');
- 
-  if (role === 'BANKER') {
+ canActivate(): boolean {
+  if (this.auth.isBanker()) {
     return true;
   }
- 
   this.router.navigate(['/login']);
   return false;
 }

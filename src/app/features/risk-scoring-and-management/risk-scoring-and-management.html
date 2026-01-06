@@ -91,7 +91,16 @@
     <p><b>Timestamp:</b> {{ selectedAlert.timestamp }}</p>
  
     <label>Assign To</label>
-    <select>
+       <select [(ngModel)]="assignedUser">
+        <option value="" disabled selected>Select team member</option>
+        <option value="John">John - Senior Analyst</option>
+        <option value="Sarah">Sarah - Team Lead</option>
+        <option value="Mike">Mike - Fraud Specialist</option>
+    </select>
+ 
+    <label>Investigation Notes</label>
+    <textarea placeholder="Add notes about this investigation"></textarea>
+    <!-- <select>
       <option>Select team member</option>
       <option>John – Senior Analyst</option>
       <option>Sarah – Team Lead</option>
@@ -99,7 +108,7 @@
     </select>
  
     <label>Investigation Notes</label>
-    <textarea placeholder="Add notes about this investigation"></textarea>
+    <textarea placeholder="Add notes about this investigation"></textarea> -->
   </div>
  
   <div class="modal-actions">

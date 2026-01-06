@@ -13,6 +13,5 @@ export class BankerDashboard {
  
   goTo(path: string) {
     this.router.navigate(['/banker', path]);
-  }
-
+  }  
 }

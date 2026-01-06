@@ -15,7 +15,4 @@ export class BankerDashboard {
     this.router.navigate(['/banker', path]);
   }
 
-  chalChal(daari: string){
-    this.router.navigate([`/${daari}`]);
-  }
 }

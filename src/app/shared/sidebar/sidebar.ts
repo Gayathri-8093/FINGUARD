@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UiState } from '../services/ui-state';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,12 +13,20 @@ import { UiState } from '../services/ui-state';
 })
 export class Sidebar implements OnInit{
   @Input() isOpen = false;
+
+  isAdmin=false;
+  isBanker=false;
  
-  constructor(private uiStateService: UiState) {}
+  constructor(private uiStateService: UiState,
+    private authService: AuthService
+  ) {}
  
-  ngOnInit() {
+  ngOnInit(): void{
     this.uiStateService.sidebarOpen$
       .subscribe(open => this.isOpen = open);
+
+    this.isAdmin=this.authService.isAdmin();
+    this.isBanker=this.authService.isBanker();
   }
 
   onMenuClick(){

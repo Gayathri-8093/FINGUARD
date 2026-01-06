@@ -1,31 +1,38 @@
 import { Injectable } from '@angular/core';
  
-@Injectable({ providedIn: 'root' })
+export type UserRole = 'ADMIN' | 'BANKER';
+ 
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  private role: 'ADMIN' | 'BANKER' | null = null;
  
-  setRole(role: 'ADMIN' | 'BANKER') {
+  private role: UserRole | null = null;
+ 
+  setRole(role: UserRole) {
     this.role = role;
+    localStorage.setItem('role', role); // 🔥 SYNC STORAGE
   }
  
-  getRole(): 'ADMIN' | 'BANKER' | null {
-    return localStorage.getItem('role') as 'ADMIN' | 'BANKER' | null;
+  getRole(): UserRole | null {
+    return this.role || (localStorage.getItem('role') as UserRole | null);
   }
-  
+ 
   isAdmin(): boolean {
     return this.getRole() === 'ADMIN';
   }
-  
+ 
   isBanker(): boolean {
     return this.getRole() === 'BANKER';
   }
  
   isLoggedIn(): boolean {
-    return this.role !== null;
+    return this.getRole() !== null;
   }
  
   logout() {
     this.role = null;
+    localStorage.removeItem('role');
   }
 }
  

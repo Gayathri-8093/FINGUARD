@@ -14,7 +14,12 @@ import { Sidebar } from '../../shared/sidebar/sidebar';
   styleUrl: './banker-layout.css',
 })
 export class BankerLayout implements OnInit, OnDestroy{
-   isSidebarOpen = false;
+  //isSidebarOpen= false;
+  isSidebarOpen = true;
+ 
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
   private routerSub!: Subscription;
  
   constructor(

@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormBuilder, Validators, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, Validators, FormsModule, FormControl, FormGroup } from '@angular/forms';
 import { Onboarding } from '../../../core/services/onboarding';
 import { OnboardingApplication } from '../../../core/models/onboarding.model';
+
 
 @Component({
   selector: 'app-new-onboarding',
@@ -15,7 +16,14 @@ import { OnboardingApplication } from '../../../core/models/onboarding.model';
 export class NewOnboarding {
   currentStep = 1;
  
-  customerForm;
+  customerForm!: FormGroup<{
+  fullName: FormControl<string>;
+  dob: FormControl<string>;
+  gender: FormControl<string>;
+  address: FormControl<string>;
+  mobile: FormControl<string>;
+  email: FormControl<string>;
+}>;
 
   mobileOtpSent = false;
   emailOtpSent = false;
@@ -32,14 +40,20 @@ export class NewOnboarding {
   photoFile?: File;
  
   constructor(private fb: FormBuilder, private router: Router, private onboardingService: Onboarding) {
-  this.customerForm = this.fb.group({
-    fullName: ['', Validators.required],
-    dob: ['', Validators.required],
-    gender: ['', Validators.required],
-    address: ['', Validators.required],
-    mobile: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
-    email: ['', [Validators.required, Validators.email]]
-  });
+  this.customerForm = new FormGroup({
+  fullName: new FormControl('', { nonNullable: true, validators: Validators.required }),
+  dob: new FormControl('', { nonNullable: true, validators: Validators.required }),
+  gender: new FormControl('', { nonNullable: true, validators: Validators.required }),
+  address: new FormControl('', { nonNullable: true, validators: Validators.required }),
+  mobile: new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]
+  }),
+  email: new FormControl('', {
+    nonNullable: true,
+    validators: [Validators.required, Validators.email]
+  })
+});
 }
  
   nextStep() {
@@ -65,10 +79,11 @@ export class NewOnboarding {
     }
   
     // 2️⃣ Safely extract values (NO type assertion)
-    const {
-      fullName,
-      mobile
-    } = this.customerForm.getRawValue();
+    const formValue = this.customerForm.getRawValue();
+ 
+    const fullName = formValue.fullName;
+    const mobile = formValue.mobile;
+    const email = formValue.email;
   
     // 3️⃣ Defensive check (extra safety for strict mode)
     if (!fullName || !mobile) {
@@ -79,6 +94,7 @@ export class NewOnboarding {
     const newApplication: OnboardingApplication = {
       applicationId: 'KYC' + Math.floor(1000 + Math.random() * 9000),
       name: fullName,
+      email: email,
       mobile: mobile,
       date: new Date().toLocaleDateString(),
       status: 'Pending'

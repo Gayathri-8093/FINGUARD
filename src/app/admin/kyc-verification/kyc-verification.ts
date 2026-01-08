@@ -1,15 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { OnboardingApplication } from '../../core/models/onboarding.model';
+import { Onboarding } from '../../core/services/onboarding';
 
-interface KycRecord {
-  id: string;
-  customer: string;
-  email: string;
-  mobile: string;
-  date:string;
-  status: 'Pending' | 'Approved' | 'Rejected';
-}
 
 @Component({
   selector: 'app-kyc-verification',
@@ -17,31 +11,18 @@ interface KycRecord {
   templateUrl: './kyc-verification.html',
   styleUrl: './kyc-verification.css',
 })
-export class KycVerification {
+export class KycVerification implements OnInit{
   view: 'list' | 'review' = 'list';
-  selectedKyc?: KycRecord;
+  selectedKyc?: OnboardingApplication;
   remarks = '';
  
-  kycList: KycRecord[] = [
-    {
-      id: 'KYC-001',
-      customer: 'Alice Johnson',
-      email: 'alice@example.com',
-      mobile: '+1 234-567-8901',
-      date: '2024-12-27',
-      status: 'Pending'
-    },
-    {
-      id: 'KYC-002',
-      customer: 'Bob Smith',
-      email: 'bob@example.com',
-      mobile: '+1 234-567-8902',
-      date: '2024-12-26',
-      status: 'Approved'
+  kycList: OnboardingApplication[] = [];
+    constructor(private onboardingService: Onboarding){}
+    ngOnInit() : void{
+      this.kycList = this.onboardingService.getApplications();
     }
-  ];
  
-  reviewKyc(kyc: KycRecord) {
+  reviewKyc(kyc: OnboardingApplication) {
     this.selectedKyc = kyc;
     this.view = 'review';
   }

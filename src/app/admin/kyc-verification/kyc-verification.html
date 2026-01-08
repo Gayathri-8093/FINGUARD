@@ -18,8 +18,8 @@
  
     <tbody>
       <tr *ngFor="let kyc of kycList">
-        <td>{{ kyc.id }}</td>
-        <td>{{ kyc.customer }}</td>
+        <td>{{ kyc.applicationId }}</td>
+        <td>{{ kyc.name }}</td>
         <td>{{ kyc.email }}</td>
         <td>{{ kyc.mobile }}</td>
         <td>{{ kyc.date }}</td>
@@ -44,7 +44,7 @@
   <h1 class="page-title">KYC Verification</h1>
  
   <div class="card">
-    <p><strong>Name:</strong> {{ selectedKyc?.customer }}</p>
+    <p><strong>Name:</strong> {{ selectedKyc?.name }}</p>
     <p><strong>Email:</strong> {{ selectedKyc?.email }}</p>
     <p><strong>Mobile:</strong> {{ selectedKyc?.mobile }}</p>
     <p><strong>Status:</strong> {{ selectedKyc?.status }}</p>

@@ -1,11 +1,10 @@
-import { LoginPage } from './login-page/login-page';
-import { AdminDashboard } from './admin/admin-dashboard/admin-dashboard';
 import { Routes } from '@angular/router';
-import { bankerRoutes } from './banker/banker.routes';
-import { adminRoutes } from './admin/admin.routes';
-import { AdminGuard } from './core/guards/admin.guard';
+import { LoginPage } from './login-page/login-page';
 import { AdminLayout } from './admin/admin-layout/admin-layout';
 import { BankerLayout } from './banker/banker-layout/banker-layout';
+import { adminRoutes } from './admin/admin.routes';
+import { AdminGuard } from './core/guards/admin.guard';
+import { bankerRoutes } from './banker/banker.routes';
 import { BankerGuard } from './core/guards/banker.guard';
 
 export const routes: Routes = [

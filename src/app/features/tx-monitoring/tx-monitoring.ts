@@ -32,23 +32,5 @@ export class TxMonitoring {
      (this.selectedStatus === 'ALL' || t.status === this.selectedStatus)
    );
  }
- openModal(tx: Transaction) {
-  console.log('View clicked:',tx);
-   this.selectedTransaction = tx;
-   this.showModal = true;
- }
- closeModal() {
-   this.showModal = false;
-   this.selectedTransaction = null;
- }
- allowTransaction() {
-   if (!this.selectedTransaction) return;
-   this.selectedTransaction.status = 'completed';
-   this.closeModal();
- }
- blockTransaction() {
-   if (!this.selectedTransaction) return;
-   this.selectedTransaction.status = 'blocked';
-   this.closeModal();
- }
+ 
 }

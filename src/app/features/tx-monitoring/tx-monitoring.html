@@ -92,7 +92,7 @@
 </td>
 <td>
 
-<button class="view-btn" (click)="openModal(t)">👁 View</button>            
+<button class="view-btn" >👁 View</button>            
 
 </td>
 </tr>
@@ -101,55 +101,3 @@
 </div> 
 </div> 
 
-<div
-  class="modal-backdrop"
-  *ngIf="showModal && selectedTransaction"
->
-<div class="modal">
-<h3>Transaction Details</h3>
-<div class="grid">
-<p>
-<b>Transaction ID</b><br />
-        {{ selectedTransaction.id }}
-</p>
-<p>
-<b>Customer</b><br />
-        {{ selectedTransaction.customer }}
-</p>
-<p>
-<b>Amount</b><br />
-        ₦{{ selectedTransaction.amount | number }}
-</p>
-<p>
-<b>Channel</b><br />
-        {{ selectedTransaction.channel }}
-</p>
-<p>
-<b>Location</b><br />
-        {{ selectedTransaction.location }}
-</p>
-<p>
-<b>Timestamp</b><br />
-        {{ selectedTransaction.timestamp }}
-</p>
-</div>
-
-<p
-   class="alert"
-      *ngIf="selectedTransaction.risk === 'HIGH'" > ⚠ High Risk Transaction Detected.
-      Please review carefully before taking action.
-</p>
-
-<div class="modal-actions">
-<button class="allow" (click)="allowTransaction()">
-        Allow Transaction
-</button>
-<button class="block" (click)="blockTransaction()">
-        Block Transaction
-</button>
-</div>
-
-<span class="close" (click)="closeModal()">✕</span>
-</div>
-</div>
- 

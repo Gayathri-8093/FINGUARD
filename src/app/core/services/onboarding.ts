@@ -9,7 +9,7 @@ export class Onboarding {
     {
       applicationId: 'KYC1001',
       name: 'Ramesh Kumar',
-      mobile: '9XXXXXXXXX',
+      mobile: '9849891099',
       email: 'alice@example.com',
       date: '12-May-2026',
       status: 'Pending'
@@ -17,7 +17,7 @@ export class Onboarding {
     {
       applicationId: 'KYC1002',
       name: 'Anjali Sharma',
-      mobile: '8XXXXXXXXX',
+      mobile: '8027893779',
       email: 'bob@example.com',
       date: '11-May-2026',
       status: 'Approved'

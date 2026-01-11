@@ -5,38 +5,37 @@
   overflow: hidden;
 }
  
-/* Sidebar */
+
 app-sidebar {
   width: 240px;
   transition: width 0.3s ease;
 }
  
-/* Sidebar closed state */
+
 .app-shell.sidebar-collapsed app-sidebar {
   width: 60px;
 }
  
-/* Main area */
+
 .app-main {
   display: flex;
   flex-direction: column;
   flex: 1;
-  min-width: 0; /* IMPORTANT for flex shrink */
+  min-width: 0; 
 }
- 
-/* Header */
+
 app-header {
   height: 64px;
   flex-shrink: 0;
 }
  
-/* Footer */
+
 app-footer {
   height: 48px;
   flex-shrink: 0;
 }
  
-/* Content area (CARDS LIVE HERE) */
+
 .app-content {
   flex: 1;
   overflow-y: auto;

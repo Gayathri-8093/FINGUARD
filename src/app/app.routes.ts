@@ -7,6 +7,7 @@ import { AdminGuard } from './core/guards/admin.guard';
 import { AdminLayout } from './admin/admin-layout/admin-layout';
 import { BankerLayout } from './banker/banker-layout/banker-layout';
 import { BankerGuard } from './core/guards/banker.guard';
+import { NotFound } from './shared/not-found/not-found';
 
 export const routes: Routes = [
    {
@@ -20,7 +21,7 @@ export const routes: Routes = [
     component: LoginPage
   },
  
-  // 🔐 ADMIN SECTION
+
   {
     path: 'admin',
     component: AdminLayout,
@@ -28,7 +29,7 @@ export const routes: Routes = [
     children: adminRoutes
   },
  
-  // 🔐 BANKER SECTION
+  
   {
     path: 'banker',
     component: BankerLayout,
@@ -38,6 +39,6 @@ export const routes: Routes = [
  
   {
     path: '**',
-    redirectTo: 'login'
+    component:NotFound
   }
 ]

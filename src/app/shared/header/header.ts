@@ -28,17 +28,17 @@ export class Header {
     this.userRole = localStorage.getItem('role') as 'ADMIN' | 'BANKER';
   }
  
-  // Hamburger toggle
+
   toggleSidebar() {
     this.uiStateService.toggleSidebar();
   }
  
-  // Profile dropdown
+
   toggleProfile() {
     this.showProfile = !this.showProfile;
   }
  
-  // Role-aware dashboard navigation
+ 
   goToDashboard() {
     if (this.userRole === 'ADMIN') {
       this.router.navigate(['/admin/dashboard']);
@@ -46,8 +46,7 @@ export class Header {
       this.router.navigate(['/banker/dashboard']);
     }
   }
- 
-  // Proper logout
+
   logout() {
     localStorage.clear();
     this.router.navigate(['/login']);

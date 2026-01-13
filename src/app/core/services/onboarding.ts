@@ -29,6 +29,6 @@ export class Onboarding {
   }
  
   addApplication(app: OnboardingApplication) {
-    this.applications.unshift(app); // add on top
+    this.applications.unshift(app); 
   }
 }

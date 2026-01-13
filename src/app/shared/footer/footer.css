@@ -1,21 +1,17 @@
-/* =========================
-   FOOTER
-   ========================= */
 .footer {
   width: 100%;
   padding: 12px 20px;
  
   font-size: 13px;
-  color: #64748b; /* slate gray */
+  color: #64748b; 
   text-align: center;
  
-  background-color: #f8fafc; /* light background */
+  background-color: #f8fafc;
   border-top: 1px solid #e2e8f0;
  
-  /* keep footer at bottom naturally */
+  
   box-sizing: border-box;
  
-  /* smooth resize when sidebar opens/closes */
   transition: width 0.3s ease, margin-left 0.3s ease;
 }
  

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component} from '@angular/core';
 import { UiState } from '../services/ui-state';
 import { Router } from '@angular/router';
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   standalone:true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

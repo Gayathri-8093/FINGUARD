@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-analytics-and-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './analytics-and-dashboard.html',
   styleUrl: './analytics-and-dashboard.css',
 })

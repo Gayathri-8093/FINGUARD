@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OnboardingApplication } from '../../core/models/onboarding.model';
@@ -7,7 +7,7 @@ import { Onboarding } from '../../core/services/onboarding';
 
 @Component({
   selector: 'app-kyc-verification',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './kyc-verification.html',
   styleUrl: './kyc-verification.css',
 })

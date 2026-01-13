@@ -1,24 +1,26 @@
 <div class="compliance-container">
- 
+
   <h2 class="page-title">Compliance & Audit Logs</h2>
   <p class="subtitle">Track all system activities and user actions</p>
- 
+
   <!-- SUMMARY CARDS -->
   <div class="summary-grid">
-    <div class="summary-card" *ngFor="let card of summaryCards">
-      <h3>{{ card.title }}</h3>
-      <h1>{{ card.value }}</h1>
-      <span>{{ card.sub }}</span>
-    </div>
+    @for (card of summaryCards; track card) {
+      <div class="summary-card">
+        <h3>{{ card.title }}</h3>
+        <h1>{{ card.value }}</h1>
+        <span>{{ card.sub }}</span>
+      </div>
+    }
   </div>
- 
+
   <!-- AUDIT LOG TABLE -->
   <div class="table-card">
     <div class="table-header">
       <h3>Audit Logs</h3>
       <input type="text" placeholder="Search audit logs..." />
     </div>
- 
+
     <table>
       <thead>
         <tr>
@@ -31,16 +33,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let log of auditLogs">
-          <td>{{ log.time }}</td>
-          <td>{{ log.user }}</td>
-          <td class="action">{{ log.action }}</td>
-          <td>{{ log.module }}</td>
-          <td>{{ log.details }}</td>
-          <td>{{ log.ip }}</td>
-        </tr>
+        @for (log of auditLogs; track log) {
+          <tr>
+            <td>{{ log.time }}</td>
+            <td>{{ log.user }}</td>
+            <td class="action">{{ log.action }}</td>
+            <td>{{ log.module }}</td>
+            <td>{{ log.details }}</td>
+            <td>{{ log.ip }}</td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
- 
+
 </div>

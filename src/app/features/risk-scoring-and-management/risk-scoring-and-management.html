@@ -1,31 +1,31 @@
 <div class="risk-container">
- 
+
   <h2>Risk Scoring & Alert Management</h2>
   <p class="subtitle">Monitor risk scores and manage fraud alerts</p>
- 
+
 
   <div class="summary">
     <div class="card">
       <h3>Open Alerts</h3>
       <span>{{ openAlertsCount }}</span>
     </div>
- 
+
     <div class="card">
       <h3>In Progress</h3>
       <span>{{ inProgressAlertsCount }}</span>
     </div>
- 
+
     <div class="card">
       <h3>Closed Today</h3>
       <span>{{ closedAlertsCount }}</span>
     </div>
- 
+
     <div class="card">
       <h3>Avg Response Time</h3>
       <span>15 mins</span>
     </div>
   </div>
- 
+
 
   <div class="tabs">
     <button
@@ -33,20 +33,20 @@
       (click)="activeTab = 'open'">
       Open
     </button>
- 
+
     <button
       [class.active]="activeTab === 'in-progress'"
       (click)="activeTab = 'in-progress'">
       In Progress
     </button>
- 
+
     <button
       [class.active]="activeTab === 'closed'"
       (click)="activeTab = 'closed'">
       Closed
     </button>
   </div>
- 
+
 
   <table class="alerts-table">
     <thead>
@@ -59,80 +59,78 @@
         <th>Action</th>
       </tr>
     </thead>
- 
+
     <tbody>
-      <tr *ngFor="let a of filteredAlerts">
-        <td>{{ a.id }}</td>
-        <td>{{ a.type }}</td>
-        <td>{{ a.customer }}</td>
-        <td>
-          <span
-            class="status"
+      @for (a of filteredAlerts; track a) {
+        <tr>
+          <td>{{ a.id }}</td>
+          <td>{{ a.type }}</td>
+          <td>{{ a.customer }}</td>
+          <td>
+            <span
+              class="status"
             [ngClass]="{
               'open': a.status === 'open',
               'in-progress': a.status === 'in-progress',
               'closed': a.status === 'closed'
             }">
-            {{ a.status }}
-          </span>
-        </td>
-        <td>{{ a.timestamp }}</td>
-        <td>
-          <button
-            class="btn"
-            *ngIf="a.status !== 'closed'"
-            (click)="investigate(a)">
-            Investigate
-          </button>
-        </td>
-      </tr>
- 
-      <tr *ngIf="filteredAlerts.length === 0">
-        <td colspan="6" class="no-data">
-          No alerts found
-        </td>
-      </tr>
+              {{ a.status }}
+            </span>
+          </td>
+          <td>{{ a.timestamp }}</td>
+          <td>
+            @if (a.status !== 'closed') {
+              <button
+                class="btn"
+                (click)="investigate(a)">
+                Investigate
+              </button>
+            }
+          </td>
+        </tr>
+      }
+
+      @if (filteredAlerts.length === 0) {
+        <tr>
+          <td colspan="6" class="no-data">
+            No alerts found
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
- 
 
-  <div class="modal-backdrop" *ngIf="showModal">
-    <div class="modal">
- 
-    
-      <div class="modal-header">
-        <h3>Alert Investigation</h3>
-        <span class="close" (click)="closeModal()">×</span>
+
+  @if (showModal) {
+    <div class="modal-backdrop">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>Alert Investigation</h3>
+          <span class="close" (click)="closeModal()">×</span>
+        </div>
+        <div class="modal-body">
+          <p><b>Alert ID:</b> {{ selectedAlert?.id }}</p>
+          <p><b>Customer:</b> {{ selectedAlert?.customer }}</p>
+          <p><b>Alert Type:</b> {{ selectedAlert?.type }}</p>
+          <p><b>Severity:</b> {{ selectedAlert?.severity }}</p>
+          <p><b>Timestamp:</b> {{ selectedAlert?.timestamp }}</p>
+          <label>Assign To</label>
+          <select [(ngModel)]="assignedUser">
+            <option value="" disabled selected>Select team member</option>
+            <option value="John">John - Senior Analyst</option>
+            <option value="Sarah">Sarah - Risk Investigator</option>
+            <option value="Mike">Mike - Fraud Specialist</option>
+          </select>
+          <label>Investigation Notes</label>
+          <textarea placeholder="Add notes about this investigation"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button class="danger" (click)="closeAlert()">Close Alert</button>
+          <button class="warning" (click)="escalateAlert()">Escalate</button>
+          <button class="secondary" (click)="closeModal()">Cancel</button>
+        </div>
       </div>
- 
-  
-      <div class="modal-body">
-        <p><b>Alert ID:</b> {{ selectedAlert?.id }}</p>
-        <p><b>Customer:</b> {{ selectedAlert?.customer }}</p>
-        <p><b>Alert Type:</b> {{ selectedAlert?.type }}</p>
-        <p><b>Severity:</b> {{ selectedAlert?.severity }}</p>
-        <p><b>Timestamp:</b> {{ selectedAlert?.timestamp }}</p>
- 
-        <label>Assign To</label>
-        <select [(ngModel)]="assignedUser">
-          <option value="" disabled selected>Select team member</option>
-          <option value="John">John - Senior Analyst</option>
-          <option value="Sarah">Sarah - Risk Investigator</option>
-          <option value="Mike">Mike - Fraud Specialist</option>
-        </select>
- 
-        <label>Investigation Notes</label>
-        <textarea placeholder="Add notes about this investigation"></textarea>
-      </div>
- 
-    
-      <div class="modal-actions">
-        <button class="danger" (click)="closeAlert()">Close Alert</button>
-        <button class="warning" (click)="escalateAlert()">Escalate</button>
-        <button class="secondary" (click)="closeModal()">Cancel</button>
-      </div>
- 
     </div>
-  </div>
- 
+  }
+
 </div>

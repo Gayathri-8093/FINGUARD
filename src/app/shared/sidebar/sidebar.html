@@ -1,23 +1,23 @@
 <aside class="sidebar" [class.open]="isOpen">
-    <nav>
-          <!-- ADMIN MENU -->
-    <ng-container *ngIf="isAdmin">
+  <nav>
+    <!-- ADMIN MENU -->
+    @if (isAdmin) {
       <a routerLink="/admin/dashboard" (click)="onMenuClick()">Dashboard</a>
       <a routerLink="/admin/verification" (click)="onMenuClick()">Kyc Verification</a>
       <a routerLink="/admin/tx-monitoring" (click)="onMenuClick()">Transaction Monitoring</a>
       <a routerLink="/admin/risk" (click)="onMenuClick()">Risk Management</a>
       <a routerLink="/admin/compliance" (click)="onMenuClick()">Complaints & Regulatory</a>
       <a routerLink="/admin/analytics" (click)="onMenuClick()">Analytics & Dashboard</a>
-    </ng-container>
- 
+    }
+
     <!-- BANKER MENU -->
-    <ng-container *ngIf="isBanker">
+    @if (isBanker) {
       <a routerLink="/banker/dashboard" (click)="onMenuClick()">Dashboard</a>
       <a routerLink="/banker/onboarding" (click)="onMenuClick()">Customer Onboarding</a>
       <a routerLink="/banker/tx-monitoring" (click)="onMenuClick()">Transaction Monitoring</a>
       <a routerLink="/banker/risk" (click)="onMenuClick()">Risk Scoring & Management</a>
       <a routerLink="/banker/compliance" (click)="onMenuClick()">Complaints & Regulatory</a>
       <a routerLink="/banker/analytics" (click)="onMenuClick()">Analytics & Dashboard</a>
-    </ng-container>
-    </nav>
+    }
+  </nav>
 </aside>

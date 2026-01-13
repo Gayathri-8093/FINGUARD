@@ -4,42 +4,56 @@
     <h2>FinGuard</h2>
     <p class="subtitle">Fraud Detection & Risk Management System</p>
 
-    
+
     <div class="form-group">
       <input
         type="email"
         placeholder="Enter your email"
         formControlName="email"
         autocomplete="username"
-      />
-      <div class="error" *ngIf="form.controls['email'].invalid && form.controls['email'].touched ">
-        <small *ngIf="form.controls['email'].errors?.['required']">Email is required.</small>
-        <small *ngIf="form.controls['email'].errors?.['email']">Please enter a valid email address.</small>
+        />
+        @if (form.controls['email'].invalid && form.controls['email'].touched ) {
+          <div class="error">
+            @if (form.controls['email'].errors?.['required']) {
+              <small>Email is required.</small>
+            }
+            @if (form.controls['email'].errors?.['email']) {
+              <small>Please enter a valid email address.</small>
+            }
+          </div>
+        }
       </div>
-    </div>
 
-    
-    <div class="form-group">
-      <input
-        type="password"
-        placeholder="Enter your password"
-        formControlName="password"
-        autocomplete="current-password"
-      />
-      <div class="error" *ngIf="form.controls['password'].invalid && form.controls['password'].touched ">
-        <small *ngIf="form.controls['password'].errors?.['required']">Password is required.</small>
-        <small *ngIf="form.controls['password'].errors?.['minlength']">Minimum 6 characters.</small>
-        <small *ngIf="form.controls['password'].errors?.['pattern']">
-          Use only letters, numbers, and common symbols (@ # $ % ^ & + = ! . _ -).
-        </small>
+
+      <div class="form-group">
+        <input
+          type="password"
+          placeholder="Enter your password"
+          formControlName="password"
+          autocomplete="current-password"
+          />
+          @if (form.controls['password'].invalid && form.controls['password'].touched ) {
+            <div class="error">
+              @if (form.controls['password'].errors?.['required']) {
+                <small>Password is required.</small>
+              }
+              @if (form.controls['password'].errors?.['minlength']) {
+                <small>Minimum 6 characters.</small>
+              }
+              @if (form.controls['password'].errors?.['pattern']) {
+                <small>
+                  Use only letters, numbers, and common symbols (@ # $ % ^ & + = ! . _ -).
+                </small>
+              }
+            </div>
+          }
+        </div>
+
+        <button type="submit" [disabled]="form.invalid">Sign In</button>
+
+        <div class="demo">
+          <p><b>Banker:</b> banker@finguard.com / banker123</p>
+          <p><b>Admin:</b> admin@finguard.com / admin123</p>
+        </div>
       </div>
-    </div>
-
-    <button type="submit" [disabled]="form.invalid">Sign In</button>
-
-    <div class="demo">
-      <p><b>Banker:</b> banker@finguard.com / banker123</p>
-      <p><b>Admin:</b> admin@finguard.com / admin123</p>
-    </div>
-  </div>
-</form>
+    </form>

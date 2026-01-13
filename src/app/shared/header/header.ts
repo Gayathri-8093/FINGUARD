@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component} from '@angular/core';
 import { UiState } from '../services/ui-state';
 import { Router } from '@angular/router';
 
@@ -38,7 +38,7 @@ export class Header {
     this.showProfile = !this.showProfile;
   }
  
-  // ✅ Role-aware dashboard navigation
+  // Role-aware dashboard navigation
   goToDashboard() {
     if (this.userRole === 'ADMIN') {
       this.router.navigate(['/admin/dashboard']);
@@ -47,7 +47,7 @@ export class Header {
     }
   }
  
-  // ✅ Proper logout
+  // Proper logout
   logout() {
     localStorage.clear();
     this.router.navigate(['/login']);

@@ -72,25 +72,25 @@ export class NewOnboarding {
   }
  
   submit() {
-    // 1️⃣ Guard clause – stop if form is invalid
+    // Guard clause – stop if form is invalid
     if (this.customerForm.invalid) {
       this.customerForm.markAllAsTouched();
       return;
     }
   
-    // 2️⃣ Safely extract values (NO type assertion)
+    // Safely extract values (NO type assertion)
     const formValue = this.customerForm.getRawValue();
  
     const fullName = formValue.fullName;
     const mobile = formValue.mobile;
     const email = formValue.email;
   
-    // 3️⃣ Defensive check (extra safety for strict mode)
+    // Defensive check (extra safety for strict mode)
     if (!fullName || !mobile) {
       return;
     }
   
-    // 4️⃣ Map explicitly to domain model
+    // Map explicitly to domain model
     const newApplication: OnboardingApplication = {
       applicationId: 'KYC' + Math.floor(1000 + Math.random() * 9000),
       name: fullName,
@@ -100,16 +100,16 @@ export class NewOnboarding {
       status: 'Pending'
     };
   
-    // 5️⃣ Update shared service (mock backend)
+    // Update shared service (mock backend)
     this.onboardingService.addApplication(newApplication);
   
-    // 6️⃣ User feedback
+    //  User feedback
     alert(
       'KYC Submitted Successfully!\n\n' +
       'The application will be reviewed and the status will be updated within 3 working days.'
     );
   
-    // 7️⃣ Redirect
+    //  Redirect
     this.router.navigate(['/banker/onboarding']);
   }
 

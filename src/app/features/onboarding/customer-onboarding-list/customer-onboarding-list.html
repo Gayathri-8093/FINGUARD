@@ -3,7 +3,7 @@
     <h2>Customer Onboarding & KYC</h2>
     <button class="primary-btn" (click)="goToNewOnboarding()">+ New Onboarding</button>
   </div>
- 
+
   <table class="onboarding-table">
     <thead>
       <tr>
@@ -14,20 +14,22 @@
         <th>Status</th>
       </tr>
     </thead>
- 
+
     <tbody>
-      <tr *ngFor="let app of applications">
-        <td>{{ app.applicationId }}</td>
-        <td>{{ app.name }}</td>
-        <td>{{ app.mobile }}</td>
-        <td>{{ app.date }}</td>
-        <td>
-          <span class="status"
-                [ngClass]="app.status.toLowerCase()">
-            {{ app.status }}
-          </span>
-        </td>
-      </tr>
+      @for (app of applications; track app) {
+        <tr>
+          <td>{{ app.applicationId }}</td>
+          <td>{{ app.name }}</td>
+          <td>{{ app.mobile }}</td>
+          <td>{{ app.date }}</td>
+          <td>
+            <span class="status"
+              [ngClass]="app.status.toLowerCase()">
+              {{ app.status }}
+            </span>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>

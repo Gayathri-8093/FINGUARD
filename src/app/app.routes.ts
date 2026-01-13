@@ -1,10 +1,5 @@
 import { Routes } from '@angular/router';
-import { LoginPage } from './login-page/login-page';
-import { AdminLayout } from './admin/admin-layout/admin-layout';
-import { BankerLayout } from './banker/banker-layout/banker-layout';
-import { adminRoutes } from './admin/admin.routes';
 import { AdminGuard } from './core/guards/admin.guard';
-import { bankerRoutes } from './banker/banker.routes';
 import { BankerGuard } from './core/guards/banker.guard';
 import { NotFound } from './shared/not-found/not-found';
 
@@ -17,23 +12,23 @@ export const routes: Routes = [
  
   {
     path: 'login',
-    component: LoginPage
+    loadComponent:()=> import('./login-page/login-page') .then(m=>m.LoginPage)
   },
  
 
   {
     path: 'admin',
-    component: AdminLayout,
+    loadComponent:()=> import('./admin/admin-layout/admin-layout') .then(m=>m.AdminLayout),
     canActivate: [AdminGuard],
-    children: adminRoutes
+    loadChildren:()=>import('./admin/admin.routes').then(m=>m.adminRoutes)
   },
  
   
   {
     path: 'banker',
-    component: BankerLayout,
+    loadComponent:()=> import('./banker/banker-layout/banker-layout') .then(m=>m.BankerLayout),
     canActivate: [BankerGuard],
-    children: bankerRoutes
+    loadChildren:()=>import('./banker/banker.routes').then(m=>m.bankerRoutes)
   },
  
   {

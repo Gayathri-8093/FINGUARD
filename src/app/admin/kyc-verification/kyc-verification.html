@@ -32,7 +32,7 @@
               </span>
             </td>
             <td>
-              <button (click)="reviewKyc(kyc)">Review</button>
+              <button (click)="reviewKyc(kyc)" class="review-kyc-button">Review</button>
             </td>
           </tr>
         }
@@ -43,7 +43,7 @@
 
 <!-- REVIEW VIEW -->
 @if (view === 'review') {
-  <section>
+  <section class="review-page">
     <h1 class="page-title">KYC Verification</h1>
     <div class="card">
       <p><strong>Name:</strong> {{ selectedKyc?.name }}</p>

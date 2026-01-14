@@ -1,8 +1,9 @@
 <div class="risk-container">
 
   <h2>Risk Scoring & Alert Management</h2>
-  <p class="subtitle">Monitor risk scores and manage fraud alerts</p>
-
+  <p class="subtitle">
+    Monitor risk scores and manage fraud alerts
+  </p>
 
   <div class="summary">
     <div class="card">
@@ -22,11 +23,10 @@
 
     <div class="card">
       <h3>Avg Response Time</h3>
-      <span>15 mins</span>
+      <span>1.2h</span>
     </div>
   </div>
-
-
+ 
   <div class="tabs">
     <button
       [class.active]="activeTab === 'open'"
@@ -46,91 +46,51 @@
       Closed
     </button>
   </div>
-
-
+ 
   <table class="alerts-table">
     <thead>
       <tr>
         <th>Alert ID</th>
         <th>Type</th>
         <th>Customer</th>
-        <th>Status</th>
+        <th>Severity</th>
         <th>Timestamp</th>
-        <th>Action</th>
+        <th>Status</th>
       </tr>
     </thead>
 
     <tbody>
-      @for (a of filteredAlerts; track a) {
-        <tr>
-          <td>{{ a.id }}</td>
-          <td>{{ a.type }}</td>
-          <td>{{ a.customer }}</td>
-          <td>
-            <span
-              class="status"
+      <tr *ngFor="let alert of filteredAlerts">
+        <td>{{ alert.id }}</td>
+        <td>{{ alert.type }}</td>
+        <td>{{ alert.customer }}</td>
+        <td>
+          <span
+            class="badge"
             [ngClass]="{
-              'open': a.status === 'open',
-              'in-progress': a.status === 'in-progress',
-              'closed': a.status === 'closed'
+              'high': alert.severity === 'HIGH',
+              'medium': alert.severity === 'MEDIUM',
+              'low': alert.severity === 'LOW'
             }">
-              {{ a.status }}
-            </span>
-          </td>
-          <td>{{ a.timestamp }}</td>
-          <td>
-            @if (a.status !== 'closed') {
-              <button
-                class="btn"
-                (click)="investigate(a)">
-                Investigate
-              </button>
-            }
-          </td>
-        </tr>
-      }
-
-      @if (filteredAlerts.length === 0) {
-        <tr>
-          <td colspan="6" class="no-data">
-            No alerts found
-          </td>
-        </tr>
-      }
+            {{ alert.severity }}
+          </span>
+        </td>
+        <td>{{ alert.timestamp }}</td>
+        <td>
+          <span
+            class="status"
+            [ngClass]="alert.status">
+            {{ alert.status }}
+          </span>
+        </td>
+      </tr>
+ 
+      <tr *ngIf="filteredAlerts.length === 0">
+        <td colspan="7" class="no-data">
+          No alerts found
+        </td>
+      </tr>
     </tbody>
   </table>
-
-
-  @if (showModal) {
-    <div class="modal-backdrop">
-      <div class="modal">
-        <div class="modal-header">
-          <h3>Alert Investigation</h3>
-          <span class="close" (click)="closeModal()">×</span>
-        </div>
-        <div class="modal-body">
-          <p><b>Alert ID:</b> {{ selectedAlert?.id }}</p>
-          <p><b>Customer:</b> {{ selectedAlert?.customer }}</p>
-          <p><b>Alert Type:</b> {{ selectedAlert?.type }}</p>
-          <p><b>Severity:</b> {{ selectedAlert?.severity }}</p>
-          <p><b>Timestamp:</b> {{ selectedAlert?.timestamp }}</p>
-          <label>Assign To</label>
-          <select [(ngModel)]="assignedUser">
-            <option value="" disabled selected>Select team member</option>
-            <option value="John">John - Senior Analyst</option>
-            <option value="Sarah">Sarah - Risk Investigator</option>
-            <option value="Mike">Mike - Fraud Specialist</option>
-          </select>
-          <label>Investigation Notes</label>
-          <textarea placeholder="Add notes about this investigation"></textarea>
-        </div>
-        <div class="modal-actions">
-          <button class="danger" (click)="closeAlert()">Close Alert</button>
-          <button class="warning" (click)="escalateAlert()">Escalate</button>
-          <button class="secondary" (click)="closeModal()">Cancel</button>
-        </div>
-      </div>
-    </div>
-  }
-
+ 
 </div>

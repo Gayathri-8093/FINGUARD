@@ -15,7 +15,7 @@ export class ComplianceService {
   private auditLogs: AuditLog[] = [
     {
       time: '2024-12-28 10:12:15',
-      user: 'Sarah Operations',
+      user: 'Sarah Banker',
       action: 'Blocked Transaction',
       module: 'Transaction Monitoring',
       details: 'Transaction TXN-1001 due to high risk',
@@ -31,7 +31,7 @@ export class ComplianceService {
     },
     {
       time: '2024-12-28 09:30:12',
-      user: 'Sarah Operations',
+      user: 'Sarah Banker',
       action: 'Closed Alert',
       module: 'Risk Management',
       details: 'Closed ALT-003 – False positive',

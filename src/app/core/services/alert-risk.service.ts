@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Alert } from '../models/alert.model';
-
+ 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AlertRiskService {
-   private alerts: Alert[] = [
+ 
+  private alerts: Alert[] = [
     {
       id: 'ALT-001',
       type: 'Unusual Transaction Pattern',
@@ -17,7 +18,7 @@ export class AlertRiskService {
     },
     {
       id: 'ALT-002',
-      type: 'Velocity Check Failed',
+      type: 'Transcation Check Failed',
       customer: 'David Brown',
       severity: 'HIGH',
       timestamp: '2024-12-28 09:45:33',
@@ -44,15 +45,16 @@ export class AlertRiskService {
     }
   ];
  
+  constructor() {}
+ 
   getAlerts(): Alert[] {
     return this.alerts;
   }
  
-  updateAlertStatus(id: string, status: Alert['status']) {
+  updateAlertStatus(id: string, status: 'open' | 'in-progress' | 'closed'): void {
     const alert = this.alerts.find(a => a.id === id);
     if (alert) {
       alert.status = status;
     }
   }
-  
 }

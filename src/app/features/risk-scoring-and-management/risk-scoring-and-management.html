@@ -1,5 +1,5 @@
 <div class="risk-container">
- 
+
   <h2>Risk Scoring & Alert Management</h2>
   <p class="subtitle">
     Monitor risk scores and manage fraud alerts
@@ -10,17 +10,17 @@
       <h3>Open Alerts</h3>
       <span>{{ openAlertsCount }}</span>
     </div>
- 
+
     <div class="card">
       <h3>In Progress</h3>
       <span>{{ inProgressAlertsCount }}</span>
     </div>
- 
+
     <div class="card">
       <h3>Closed Today</h3>
       <span>{{ closedAlertsCount }}</span>
     </div>
- 
+
     <div class="card">
       <h3>Avg Response Time</h3>
       <span>1.2h</span>
@@ -33,13 +33,13 @@
       (click)="activeTab = 'open'">
       Open
     </button>
- 
+
     <button
       [class.active]="activeTab === 'in-progress'"
       (click)="activeTab = 'in-progress'">
       In Progress
     </button>
- 
+
     <button
       [class.active]="activeTab === 'closed'"
       (click)="activeTab = 'closed'">
@@ -58,7 +58,7 @@
         <th>Status</th>
       </tr>
     </thead>
- 
+
     <tbody>
       <tr *ngFor="let alert of filteredAlerts">
         <td>{{ alert.id }}</td>

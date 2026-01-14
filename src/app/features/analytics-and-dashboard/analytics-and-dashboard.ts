@@ -1,34 +1,34 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-analytics-and-dashboard',
-  standalone : true,
-  imports:[CommonModule],
+  standalone: true,
+  imports: [],
   templateUrl: './analytics-and-dashboard.html',
   styleUrl: './analytics-and-dashboard.css',
 })
-export class AnalyticsAndDashboard  {
+export class AnalyticsAndDashboard {
   activeTab: 'patterns' | 'drilldown' = 'patterns';
-   setTab(tab: 'patterns' | 'drilldown') {
-   this.activeTab = tab;
- }
-  
+  setTab(tab: 'patterns' | 'drilldown') {
+    this.activeTab = tab;
+  }
+
 
 
 
 
   ngAfterViewInit(): void {
 
-    this.loadFraudTrendsChart(); 
+    this.loadFraudTrendsChart();
     this.loadRiskChart();
     this.loadTransactionVolumeChart();
     this.loadChannelPerformanceChart();
 
 
   }
-  
+
 
   loadFraudTrendsChart() {
 
@@ -157,208 +157,208 @@ export class AnalyticsAndDashboard  {
   }
   loadRiskChart() {
 
-  new Chart('riskChart', {
+    new Chart('riskChart', {
 
-    type: 'pie',
+      type: 'pie',
 
-    data: {
+      data: {
 
-      labels: ['Low Risk', 'Medium Risk', 'High Risk'],
+        labels: ['Low Risk', 'Medium Risk', 'High Risk'],
 
-      datasets: [
+        datasets: [
 
-        {
+          {
 
-          data: [76, 20, 4],
+            data: [76, 20, 4],
 
-          backgroundColor: [
+            backgroundColor: [
 
-            '#22c55e', // green
+              '#22c55e', // green
 
-            '#f59e0b', // orange
+              '#f59e0b', // orange
 
-            '#ef4444'  // red
+              '#ef4444'  // red
 
-          ],
+            ],
 
-          hoverOffset: 10
-
-        }
-
-      ]
-
-    },
-
-    options: {
-
-      responsive: true,
-
-      plugins: {
-
-        legend: {
-
-          position: 'right',
-
-          labels: {
-
-            color: '#64748b',
-
-            font: { size: 12 }
+            hoverOffset: 10
 
           }
 
-        },
-
-        tooltip: {
-
-          callbacks: {
-
-            label: (ctx) => `${ctx.label}: ${ctx.parsed}%`
-
-          }
-
-        }
-
-      }
-
-    }
-
-  });
-
-}
-loadTransactionVolumeChart() {
-
-  new Chart('transactionVolume', {
-
-    type: 'line',
-
-    data: {
-
-      labels: ['03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
-
-      datasets: [
-
-        {
-
-          label: 'Transactions',
-
-          data: [200, 180, 500, 1200, 1800, 2100, 1000],
-
-          borderColor: '#2563eb',
-
-          backgroundColor: 'rgba(37,99,235,0.15)',
-
-          tension: 0.4,
-
-          fill: true,
-
-          pointRadius: 4,
-
-          pointHoverRadius: 6
-
-        }
-
-      ]
-
-    },
-
-    options: {
-
-      responsive: true,
-
-      plugins: {
-
-        legend: {
-
-          position: 'bottom',
-
-          labels: {
-
-            color: '#64748b',
-
-            font: { size: 12 }
-
-          }
-
-        },
-
-        tooltip: {
-
-          callbacks: {
-
-            label: (ctx) => `Transactions: ${ctx.formattedValue}`
-
-          }
-
-        }
+        ]
 
       },
 
-      scales: {
+      options: {
 
-        x: {
+        responsive: true,
 
-          grid: { color: '#e5e7eb' },
+        plugins: {
 
-          ticks: { color: '#64748b' }
+          legend: {
 
-        },
+            position: 'right',
 
-        y: {
+            labels: {
 
-          beginAtZero: true,
+              color: '#64748b',
 
-          grid: { color: '#e5e7eb' },
+              font: { size: 12 }
 
-          ticks: { color: '#64748b' }
+            }
+
+          },
+
+          tooltip: {
+
+            callbacks: {
+
+              label: (ctx) => `${ctx.label}: ${ctx.parsed}%`
+
+            }
+
+          }
 
         }
 
       }
 
-    }
+    });
 
-  });
+  }
+  loadTransactionVolumeChart() {
 
-}
-loadChannelPerformanceChart() {
- new Chart('channelPerformanceChart', {
-   type: 'bar',
-   data: {
-     labels: ['Online', 'Mobile App', 'ATM', 'Wire Transfer'],
-     datasets: [
-       {
-         label: 'Fraud Cases',
-         data: [120, 98, 65, 30],
-         backgroundColor: '#ef4444',
-         borderRadius: 6,
-         barPercentage: 0.5
-       },
-       {
-         label: 'Total Transactions',
-         data: [4600, 3800, 2400, 1100],
-         backgroundColor: '#2563eb',
-         borderRadius: 6,
-         barPercentage: 0.5
-       }
-     ]
-   },
-   options: {
-     responsive: true,
-     plugins: {
-       legend: {
-         display: false   // ❗ we use custom legend
-       }
-     },
-     scales: {
-       y: {
-         beginAtZero: true,
-         ticks: {
-           stepSize: 1500
-         }
-       }
-     }
-   }
- });
-}
+    new Chart('transactionVolume', {
+
+      type: 'line',
+
+      data: {
+
+        labels: ['03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+
+        datasets: [
+
+          {
+
+            label: 'Transactions',
+
+            data: [200, 180, 500, 1200, 1800, 2100, 1000],
+
+            borderColor: '#2563eb',
+
+            backgroundColor: 'rgba(37,99,235,0.15)',
+
+            tension: 0.4,
+
+            fill: true,
+
+            pointRadius: 4,
+
+            pointHoverRadius: 6
+
+          }
+
+        ]
+
+      },
+
+      options: {
+
+        responsive: true,
+
+        plugins: {
+
+          legend: {
+
+            position: 'bottom',
+
+            labels: {
+
+              color: '#64748b',
+
+              font: { size: 12 }
+
+            }
+
+          },
+
+          tooltip: {
+
+            callbacks: {
+
+              label: (ctx) => `Transactions: ${ctx.formattedValue}`
+
+            }
+
+          }
+
+        },
+
+        scales: {
+
+          x: {
+
+            grid: { color: '#e5e7eb' },
+
+            ticks: { color: '#64748b' }
+
+          },
+
+          y: {
+
+            beginAtZero: true,
+
+            grid: { color: '#e5e7eb' },
+
+            ticks: { color: '#64748b' }
+
+          }
+
+        }
+
+      }
+
+    });
+
+  }
+  loadChannelPerformanceChart() {
+    new Chart('channelPerformanceChart', {
+      type: 'bar',
+      data: {
+        labels: ['Online', 'Mobile App', 'ATM', 'Wire Transfer'],
+        datasets: [
+          {
+            label: 'Fraud Cases',
+            data: [120, 98, 65, 30],
+            backgroundColor: '#ef4444',
+            borderRadius: 6,
+            barPercentage: 0.5
+          },
+          {
+            label: 'Total Transactions',
+            data: [4600, 3800, 2400, 1100],
+            backgroundColor: '#2563eb',
+            borderRadius: 6,
+            barPercentage: 0.5
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false   // ❗ we use custom legend
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1500
+            }
+          }
+        }
+      }
+    });
+  }
 }

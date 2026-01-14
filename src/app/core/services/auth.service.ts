@@ -11,7 +11,7 @@ export class AuthService {
  
   setRole(role: UserRole) {
     this.role = role;
-    localStorage.setItem('role', role); // 🔥 SYNC STORAGE
+    localStorage.setItem('role', role); 
   }
  
   getRole(): UserRole | null {

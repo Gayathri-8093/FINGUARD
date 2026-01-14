@@ -1,5 +1,5 @@
 <div class="onboarding-wrapper">
- 
+
   <!-- Stepper -->
   <div class="stepper">
     <div class="step" [class.active]="currentStep >= 1">1</div>
@@ -8,150 +8,162 @@
     <div class="line"></div>
     <div class="step" [class.active]="currentStep >= 3">3</div>
   </div>
- 
+
   <!-- Step Titles -->
   <div class="step-titles">
     <span>Customer Details</span>
     <span>Document Upload</span>
     <span>Review & Submit</span>
   </div>
- 
+
   <!-- STEP 1 -->
-<div *ngIf="currentStep === 1" class="step-content">
-  <h3>Customer Details</h3>
- 
-  <form [formGroup]="customerForm" class="form-grid">
- 
-    <div>
-      <input placeholder="Full Name" formControlName="fullName" />
-      <small *ngIf="customerForm.get('fullName')?.touched && customerForm.get('fullName')?.invalid">
-        Full Name is required
-      </small>
-    </div>
- 
-    <div>
-      <input type="date" formControlName="dob" />
-      <small *ngIf="customerForm.get('dob')?.touched && customerForm.get('dob')?.invalid">
-        Date of Birth is required
-      </small>
-    </div>
- 
-    <div>
-      <select formControlName="gender">
-        <option value="">Select Gender</option>
-        <option>Male</option>
-        <option>Female</option>
-        <option>Other</option>
-      </select>
-      <small *ngIf="customerForm.get('gender')?.touched && customerForm.get('gender')?.invalid">
-        Gender is required
-      </small>
-    </div>
- 
-    <div>
-      <input placeholder="Address" formControlName="address" />
-      <small *ngIf="customerForm.get('address')?.touched && customerForm.get('address')?.invalid">
-        Address is required
-      </small>
-    </div>
- 
-    <div>
-      <input placeholder="Mobile Number" formControlName="mobile" />
-      <button type="button"
-              class="otp-btn"
-              (click)="sendMobileOtp()"
-              [disabled]="customerForm.get('mobile')?.invalid || mobileOtpSent">
-        Send OTP
-      </button>
-    
-      <small *ngIf="mobileVerified" class="success">✔ Mobile Verified</small>
-    
-      <div *ngIf="mobileOtpSent && !mobileVerified">
-        <input
-          type="text"
-          placeholder="Enter Mobile OTP"
-          [(ngModel)]="mobileOtp"
-          [ngModelOptions]="{ standalone: true }" />
-        <button type="button" class="verify-btn" (click)="verifyMobileOtp()">Verify OTP</button>
-      </div>
-    </div>
- 
-    <div>
-      <input placeholder="Email" formControlName="email" />
-      <button type="button"
+  @if (currentStep === 1) {
+    <div class="step-content">
+      <h3>Customer Details</h3>
+      <form [formGroup]="customerForm" class="form-grid">
+        <div>
+          <input placeholder="Full Name" formControlName="fullName" />
+          @if (customerForm.get('fullName')?.touched && customerForm.get('fullName')?.invalid) {
+            <small>
+              Full Name is required
+            </small>
+          }
+        </div>
+        <div>
+          <input type="date" formControlName="dob" />
+          @if (customerForm.get('dob')?.touched && customerForm.get('dob')?.invalid) {
+            <small>
+              Date of Birth is required
+            </small>
+          }
+        </div>
+        <div>
+          <select formControlName="gender">
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+          @if (customerForm.get('gender')?.touched && customerForm.get('gender')?.invalid) {
+            <small>
+              Gender is required
+            </small>
+          }
+        </div>
+        <div>
+          <input placeholder="Address" formControlName="address" />
+          @if (customerForm.get('address')?.touched && customerForm.get('address')?.invalid) {
+            <small>
+              Address is required
+            </small>
+          }
+        </div>
+        <div>
+          <input placeholder="Mobile Number" formControlName="mobile" />
+          <button type="button"
+            class="otp-btn"
+            (click)="sendMobileOtp()"
+            [disabled]="customerForm.get('mobile')?.invalid || mobileOtpSent">
+            Send OTP
+          </button>
+          @if (mobileVerified) {
+            <small class="success">✔ Mobile Verified</small>
+          }
+          @if (mobileOtpSent && !mobileVerified) {
+            <div>
+              <input
+                type="text"
+                placeholder="Enter Mobile OTP"
+                [(ngModel)]="mobileOtp"
+                [ngModelOptions]="{ standalone: true }" />
+                <button type="button" class="verify-btn" (click)="verifyMobileOtp()">Verify OTP</button>
+              </div>
+            }
+          </div>
+          <div>
+            <input placeholder="Email" formControlName="email" />
+            <button type="button"
               class="otp-btn"
               (click)="sendEmailOtp()"
               [disabled]="customerForm.get('email')?.invalid || emailOtpSent">
-        Send OTP
-      </button>
-      <small *ngIf="emailVerified" class="success">✔ Email Verified</small>
-      <div *ngIf="emailOtpSent && !emailVerified">
-        <input
-          type="text"
-          placeholder="Enter Email OTP"
-          [(ngModel)]="emailOtp"
-          [ngModelOptions]="{ standalone: true }" />
-        <button type="button" class="verify-btn" (click)="verifyEmailOtp()">Verify OTP</button>
+              Send OTP
+            </button>
+            @if (emailVerified) {
+              <small class="success">✔ Email Verified</small>
+            }
+            @if (emailOtpSent && !emailVerified) {
+              <div>
+                <input
+                  type="text"
+                  placeholder="Enter Email OTP"
+                  [(ngModel)]="emailOtp"
+                  [ngModelOptions]="{ standalone: true }" />
+                  <button type="button" class="verify-btn" (click)="verifyEmailOtp()">Verify OTP</button>
+                </div>
+              }
+            </div>
+          </form>
+        </div>
+      }
+
+      <!-- STEP 2 -->
+      @if (currentStep === 2) {
+        <div class="step-content">
+          <h3>Upload Documents</h3>
+          <div class="form-grid">
+            <input type="file" (change)="onFileSelect($event, 'aadhaarFront')" />
+            <input type="file" (change)="onFileSelect($event, 'aadhaarBack')" />
+            <input type="file" (change)="onFileSelect($event, 'pan')" />
+            <input type="file" (change)="onFileSelect($event, 'photo')" />
+          </div>
+          <p class="disclaimer">
+            ⚠ Images must be JPG/PNG, max size 2MB, clear and readable.
+          </p>
+        </div>
+      }
+
+      <!-- STEP 3 -->
+      @if (currentStep === 3) {
+        <div class="step-content">
+          <h3>Review & Submit</h3>
+          <div class="review-box">
+            <h4>Customer Details</h4>
+            <p><strong>Full Name:</strong> {{ customerForm.value.fullName }}</p>
+            <p><strong>Date of Birth:</strong> {{ customerForm.value.dob }}</p>
+            <p><strong>Gender:</strong> {{ customerForm.value.gender }}</p>
+            <p><strong>Address:</strong> {{ customerForm.value.address }}</p>
+            <p>
+              <strong>Mobile:</strong>
+              {{ customerForm.value.mobile | slice:0:2 }}******{{ customerForm.value.mobile | slice:8:10 }}
+              <span class="verified">✔ Verified</span>
+            </p>
+            <p>
+              <strong>Email:</strong>
+              {{ customerForm.value.email }}
+              <span class="verified">✔ Verified</span>
+            </p>
+            <h4>Uploaded Documents</h4>
+            <ul>
+              <li>Aadhaar Front: {{ aadhaarFrontFile?.name || 'Not uploaded' }}</li>
+              <li>Aadhaar Back: {{ aadhaarBackFile?.name || 'Not uploaded' }}</li>
+              <li>PAN Card: {{ panFile?.name || 'Not uploaded' }}</li>
+              <li>Photo: {{ photoFile?.name || 'Not uploaded' }}</li>
+            </ul>
+          </div>
+        </div>
+      }
+
+      <!-- Navigation Buttons -->
+      <div class="actions">
+        @if (currentStep > 1) {
+          <button (click)="previousStep()">Back</button>
+        }
+        @if (currentStep < 3) {
+          <button (click)="nextStep()">Next</button>
+        }
+        @if (currentStep === 3) {
+          <button (click)="submit()">Submit</button>
+        }
       </div>
+
     </div>
- 
-  </form>
-</div>
- 
-  <!-- STEP 2 -->
-  <div *ngIf="currentStep === 2" class="step-content">
-    <h3>Upload Documents</h3>
-  
-    <div class="form-grid">
-      <input type="file" (change)="onFileSelect($event, 'aadhaarFront')" />
-      <input type="file" (change)="onFileSelect($event, 'aadhaarBack')" />
-      <input type="file" (change)="onFileSelect($event, 'pan')" />
-      <input type="file" (change)="onFileSelect($event, 'photo')" />
-    </div>
-  
-    <p class="disclaimer">
-      ⚠ Images must be JPG/PNG, max size 2MB, clear and readable.
-    </p>
-  </div>
- 
-  <!-- STEP 3 -->
-  <div *ngIf="currentStep === 3" class="step-content">
-    <h3>Review & Submit</h3>
-  
-    <div class="review-box">
-      <h4>Customer Details</h4>
-      <p><strong>Full Name:</strong> {{ customerForm.value.fullName }}</p>
-      <p><strong>Date of Birth:</strong> {{ customerForm.value.dob }}</p>
-      <p><strong>Gender:</strong> {{ customerForm.value.gender }}</p>
-      <p><strong>Address:</strong> {{ customerForm.value.address }}</p>
-  
-      <p>
-        <strong>Mobile:</strong>
-        {{ customerForm.value.mobile | slice:0:2 }}******{{ customerForm.value.mobile | slice:8:10 }}
-        <span class="verified">✔ Verified</span>
-      </p>
-  
-      <p>
-        <strong>Email:</strong>
-        {{ customerForm.value.email }}
-        <span class="verified">✔ Verified</span>
-      </p>
-  
-      <h4>Uploaded Documents</h4>
-      <ul>
-        <li>Aadhaar Front: {{ aadhaarFrontFile?.name || 'Not uploaded' }}</li>
-        <li>Aadhaar Back: {{ aadhaarBackFile?.name || 'Not uploaded' }}</li>
-        <li>PAN Card: {{ panFile?.name || 'Not uploaded' }}</li>
-        <li>Photo: {{ photoFile?.name || 'Not uploaded' }}</li>
-      </ul>
-    </div>
-  </div>
- 
-  <!-- Navigation Buttons -->
-  <div class="actions">
-    <button *ngIf="currentStep > 1" (click)="previousStep()">Back</button>
-    <button *ngIf="currentStep < 3" (click)="nextStep()">Next</button>
-    <button *ngIf="currentStep === 3" (click)="submit()">Submit</button>
-  </div>
- 
-</div>

@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ComplianceService } from '../../core/services/compliance.service';
 import { SummaryCard,AuditLog } from '../../core/models/compliance.model';
 
 @Component({
   selector: 'app-compliance-and-regulatory',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './compliance-and-regulatory.html',
   styleUrl: './compliance-and-regulatory.css',
 })

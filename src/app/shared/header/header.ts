@@ -1,12 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+
+import { Component} from '@angular/core';
 import { UiState } from '../services/ui-state';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone:true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -28,17 +28,17 @@ export class Header {
     this.userRole = localStorage.getItem('role') as 'ADMIN' | 'BANKER';
   }
  
-  // Hamburger toggle
+
   toggleSidebar() {
     this.uiStateService.toggleSidebar();
   }
  
-  // Profile dropdown
+
   toggleProfile() {
     this.showProfile = !this.showProfile;
   }
  
-  // ✅ Role-aware dashboard navigation
+ 
   goToDashboard() {
     if (this.userRole === 'ADMIN') {
       this.router.navigate(['/admin/dashboard']);
@@ -46,8 +46,7 @@ export class Header {
       this.router.navigate(['/banker/dashboard']);
     }
   }
- 
-  // ✅ Proper logout
+
   logout() {
     localStorage.clear();
     this.router.navigate(['/login']);

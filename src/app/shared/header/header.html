@@ -1,23 +1,25 @@
 <header class="app-header">
   <div class="left-section">
     <button class="hamburger" (click)="toggleSidebar()">☰</button>
- 
+
     <div class="brand" (click)="goToDashboard()">
       <img src="assets/logotoo.png" alt="FinGuard Logo" class="logo" />
       <span class="title">FinGuard</span>
     </div>
   </div>
- 
+
   <div class="right-section">
     <div class="user-info" (click)="toggleProfile()">
       <span class="user-name">{{userName}}</span>
       <span class="user-icon">👤</span>
     </div>
- 
-    <div class="profile-menu" *ngIf="showProfile">
-      <p class="email">{{userEmail}}</p>
-      <p class="role">{{ userRole === 'ADMIN' ? 'Admin' : 'Banker' }}</p>
-      <button class="logout-btn" (click)="logout()">Logout</button>
-    </div>
+
+    @if (showProfile) {
+      <div class="profile-menu">
+        <p class="email">{{userEmail}}</p>
+        <p class="role">{{ userRole === 'ADMIN' ? 'Admin' : 'Banker' }}</p>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </div>
+    }
   </div>
 </header>

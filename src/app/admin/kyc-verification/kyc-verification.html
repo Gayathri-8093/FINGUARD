@@ -1,64 +1,65 @@
 <!-- LIST VIEW -->
-<section *ngIf="view === 'list'">
-  <h1 class="page-title">Onboarding & KYC</h1>
-  <p class="page-sub">Review customer KYC applications</p>
- 
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Customer</th>
-        <th>Email</th>
-        <th>Mobile</th>
-        <th>Date</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
- 
-    <tbody>
-      <tr *ngFor="let kyc of kycList">
-        <td>{{ kyc.applicationId }}</td>
-        <td>{{ kyc.name }}</td>
-        <td>{{ kyc.email }}</td>
-        <td>{{ kyc.mobile }}</td>
-        <td>{{ kyc.date }}</td>
-        <td>
-          <span class="status"
+@if (view === 'list') {
+  <section>
+    <h1 class="page-title">Onboarding & KYC</h1>
+    <p class="page-sub">Review customer KYC applications</p>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Customer</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (kyc of kycList; track kyc) {
+          <tr>
+            <td>{{ kyc.applicationId }}</td>
+            <td>{{ kyc.name }}</td>
+            <td>{{ kyc.email }}</td>
+            <td>{{ kyc.mobile }}</td>
+            <td>{{ kyc.date }}</td>
+            <td>
+              <span class="status"
                 [class.pending]="kyc.status === 'Pending'"
                 [class.approved]="kyc.status === 'Approved'"
                 [class.rejected]="kyc.status === 'Rejected'">
-            {{ kyc.status }}
-          </span>
-        </td>
-        <td>
-          <button (click)="reviewKyc(kyc)">Review</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</section>
- 
+                {{ kyc.status }}
+              </span>
+            </td>
+            <td>
+              <button (click)="reviewKyc(kyc)" class="review-kyc-button">Review</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </section>
+}
+
 <!-- REVIEW VIEW -->
-<section *ngIf="view === 'review'">
-  <h1 class="page-title">KYC Verification</h1>
- 
-  <div class="card">
-    <p><strong>Name:</strong> {{ selectedKyc?.name }}</p>
-    <p><strong>Email:</strong> {{ selectedKyc?.email }}</p>
-    <p><strong>Mobile:</strong> {{ selectedKyc?.mobile }}</p>
-    <p><strong>Status:</strong> {{ selectedKyc?.status }}</p>
- 
-    <textarea
-      [(ngModel)]="remarks"
-      placeholder="Enter remarks (required for rejection)">
-    </textarea>
- 
-    <div class="actions">
-      <button class="approve" (click)="approve()">Approve</button>
-      <button class="reject" (click)="reject()">Reject</button>
-      <button class="back" (click)="back()">Back</button>
+@if (view === 'review') {
+  <section class="review-page">
+    <h1 class="page-title">KYC Verification</h1>
+    <div class="card">
+      <p><strong>Name:</strong> {{ selectedKyc?.name }}</p>
+      <p><strong>Email:</strong> {{ selectedKyc?.email }}</p>
+      <p><strong>Mobile:</strong> {{ selectedKyc?.mobile }}</p>
+      <p><strong>Status:</strong> {{ selectedKyc?.status }}</p>
+      <textarea
+        [(ngModel)]="remarks"
+        placeholder="Enter remarks (required for rejection)">
+      </textarea>
+      <div class="actions">
+        <button class="approve" (click)="approve()">Approve</button>
+        <button class="reject" (click)="reject()">Reject</button>
+        <button class="back" (click)="back()">Back</button>
+      </div>
     </div>
-  </div>
-</section>
- 
+  </section>
+}
+

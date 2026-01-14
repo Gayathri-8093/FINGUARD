@@ -14,7 +14,6 @@ import { Sidebar } from '../../shared/sidebar/sidebar';
   styleUrl: './banker-layout.css',
 })
 export class BankerLayout implements OnInit, OnDestroy{
-  //isSidebarOpen= false;
   isSidebarOpen = true;
  
   toggleSidebar() {
@@ -28,11 +27,11 @@ export class BankerLayout implements OnInit, OnDestroy{
   ) {}
  
   ngOnInit() {
-    // Listen to sidebar open/close
+    // used to sidebar open/close
     this.uiStateService.sidebarOpen$
       .subscribe(open => this.isSidebarOpen = open);
  
-    // Close sidebar on route change
+    //used to close the sidebar when route changes
     this.routerSub = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {

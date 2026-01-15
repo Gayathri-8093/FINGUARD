@@ -1,6 +1,6 @@
 .sidebar {
   position: fixed;
-  top: 60px; /* below header */
+  top: 60px; 
   left: -260px;
  
   width: 260px;

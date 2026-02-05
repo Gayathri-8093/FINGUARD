@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AdminGuard } from './core/guards/admin.guard';
 import { BankerGuard } from './core/guards/banker.guard';
 import { NotFound } from './shared/not-found/not-found';
+import { Signup } from './signup/signup';
 
 export const routes: Routes = [
    {
@@ -14,6 +15,13 @@ export const routes: Routes = [
     path: 'login',
     loadComponent:()=> import('./login-page/login-page') .then(m=>m.LoginPage)
   },
+  {
+    path:'signup',
+    loadComponent:()=> import('./signup/signup').then(m => m.Signup)
+      
+  },
+
+
  
 
   {

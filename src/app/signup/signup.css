@@ -1,0 +1,90 @@
+.auth-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f7fb;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+ 
+.auth-card {
+  width: 380px;
+  background: white;
+  border-radius: 16px;
+  padding: 35px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+ 
+.auth-right {
+  text-align: center;
+}
+ 
+.logo {
+  width: 95px;
+  height: 90px;
+  margin-bottom: 10px;
+}
+ 
+h2 {
+  margin: 5px 0;
+  font-weight: 700;
+}
+ 
+.subtitle {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+ 
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+ 
+select {
+  background: white;
+}
+ 
+small {
+  color: red;
+  font-size: 12px;
+  text-align: left;
+  display: block;
+  margin-top: 3px;
+}
+ 
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  border-radius: 25px;
+  border: none;
+  background: #66c2c2;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+ 
+button:hover {
+  background: #56b3b3;
+}
+ 
+.switch-link {
+  margin-top: 15px;
+  font-size: 13px;
+}
+ 
+.switch-link a {
+  color: #66c2c2;
+  text-decoration: none;
+  font-weight: 600;
+}
+

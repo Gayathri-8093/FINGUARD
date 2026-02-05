@@ -87,3 +87,13 @@ button[disabled] {
 img{
   height: 90px;
 }
+.switch-link {
+  margin-top: 15px;
+  font-size: 13px;
+}
+ 
+.switch-link a {
+  color: #66c2c2;
+  text-decoration: none;
+  font-weight: 600;
+}

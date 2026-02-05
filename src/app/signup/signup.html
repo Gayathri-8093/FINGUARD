@@ -1,0 +1,77 @@
+<div class="auth-container">
+  <div class="auth-card">
+ 
+    <!-- Right Section -->
+    <div class="auth-right">
+      <img src="assets/logotoo.png" alt="FinGuard Logo" class="logo" />
+ 
+      <h2>FinGuard</h2>
+      <p class="subtitle">Fraud Detection & Risk Management System</p>
+ 
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <input type="name" placeholder="Enter your full Name"/>
+ 
+        <input
+          type="email"
+          placeholder="Enter your email"
+          formControlName="email"
+        />
+ 
+        <small *ngIf="submitted && f['email']?.errors">
+          Enter a valid email
+        </small>
+ 
+        <input
+          type="password"
+          placeholder="Enter your password"
+          formControlName="password"
+        />
+ 
+        <small *ngIf="
+   submitted &&
+   f['password']?.errors?.['minlength']
+ ">
+ Minimum 8 characters required
+</small>
+<small
+ *ngIf="
+   submitted &&
+   f['password']?.errors?.['pattern']
+ "
+>
+ Password must contain uppercase, lowercase, number and special character
+</small>
+ 
+        <input
+          type="password"
+          placeholder="Confirm your password"
+          formControlName="confirmPassword"
+        />
+ 
+        <small *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.errors?.['mismatch']">
+          Passwords do not match
+        </small>
+ 
+        <select formControlName="role">
+          <option value="">Select Role</option>
+          <option value="BANKER">Banker</option>
+          <option value="ADMIN">Admin</option>
+          <option value="CUSTOMER">Customer</option>
+        </select>
+ 
+        <small *ngIf="submitted && f['role']?.errors">
+          Role is required
+        </small>
+ 
+        <button type="submit">Sign Up</button>
+ 
+        <p class="switch-link">
+          Already have an account?
+          <a routerLink="/login">Log In</a>
+        </p>
+ 
+      </form>
+    </div>
+ 
+  </div>
+</div>

@@ -17,7 +17,7 @@
     @if (showProfile) {
       <div class="profile-menu">
         <p class="email">{{userEmail}}</p>
-        <p class="role">{{ userRole === 'ADMIN' ? 'Admin' : 'Banker' }}</p>
+        <p class="role">{{ userRole === 'ADMIN'? 'Admin': userRole === 'BANKER'? 'Banker': 'Customer'}}</p>
         <button class="logout-btn" (click)="logout()">Logout</button>
       </div>
     }

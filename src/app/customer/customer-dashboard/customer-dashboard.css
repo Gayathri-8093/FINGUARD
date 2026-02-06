@@ -1,4 +1,75 @@
-.customer-dashboard h2 { margin: 0 0 16px; font-weight: 600; }
-.cards { display: grid; grid-template-columns: repeat(3, minmax(220px, 1fr)); gap: 16px; }
-.card { background: #fff; border: 1px solid #e7e7e7; border-radius: 8px; padding: 16px; }
-@media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
+/* src/app/features/customer-dashboard/customer-dashboard.css */
+.dashboard {
+  display: grid;
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.balance-card, .card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+
+.balance-card h1 {
+  margin: 8px 0 0;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card label {
+  display: block;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.card input, .card select, .card button {
+  margin-top: 6px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.card button {
+  cursor: pointer;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  margin-top: 12px;
+}
+
+.card button:disabled {
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+th, td {
+  border-bottom: 1px solid #eee;
+  padding: 8px;
+  text-align: left;
+}
+
+.risk.high {
+  color: #b00020;
+  font-weight: 700;
+}
+
+.status.pending {
+  color: #b06a00;
+  font-weight: 700;
+}

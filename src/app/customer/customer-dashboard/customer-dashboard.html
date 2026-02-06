@@ -1,8 +1,100 @@
-<section class="customer-dashboard">
-  <h2>Customer Dashboard</h2>
-  <div class="cards">
-    <div class="card">Accounts Summary</div>
-    <div class="card">Recent Transactions</div>
-    <div class="card">Payments & Transfers</div>
+<!-- src/app/features/customer-dashboard/customer-dashboard.html -->
+ <div class="dashboard">
+  <!-- Balance -->
+   <h3>Heyy Customer(FIN12XXXX)</h3>
+  <div class="balance-card">
+    <div>
+      <p>Available Balance</p>
+      <h1>₹{{ balance | number: '1.0-0' }}</h1>
+    </div>
   </div>
-</section>
+
+  <!-- Make Transaction -->
+  <div class="card">
+    <h3>Make a Transaction</h3>
+
+    <label>Channel</label>
+    <select [(ngModel)]="transaction.channel">
+      <option value="UPI">UPI</option>
+      <option value="OnlineBanking">Online Banking</option>
+      <!-- <option disabled>NEFT (Coming Soon)</option>
+      <option disabled>RTGS (Coming Soon)</option>
+      <option disabled>IMPS (Coming Soon)</option> -->
+    </select>
+
+    <label>Recipient Customer ID</label>
+    <input type="text" [(ngModel)]="transaction.recipientId" placeholder="e.g., CUST12345" />
+
+    <label>Amount</label>
+    <input
+      type="number"
+      [(ngModel)]="transaction.amount"
+      min="1"
+      placeholder="Enter amount"
+    />
+
+    <label>Confirm Banking Password</label>
+    <input
+      type="password"
+      [(ngModel)]="transaction.password"
+      placeholder="(ignored in mock)"
+    />
+
+    <button [disabled]="isBusy" (click)="submitTransaction()">
+      {{ isBusy ? 'Processing...' : 'Send Transaction' }}
+    </button>
+  </div>
+
+  <!-- Transaction History -->
+  <div class="card">
+    <h3>Transaction History</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Recipient</th>
+          <th>Amount</th>
+          <th>Channel</th>
+          <th>Risk</th>
+          <th>Status</th>
+          <th>Timestamp</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let tx of transactions">
+          <td>{{ tx.id }}</td>
+          <td>{{ tx.recipientId }}</td>
+          <td>₹{{ tx.amount | number: '1.0-0' }}</td>
+          <td>{{ tx.channel }}</td>
+          <td>
+            <span class="risk" [class.high]="tx.riskLevel === 'HIGH'">
+              {{ tx.riskLevel }}
+            </span>
+          </td>
+          <td>
+            <span class="status" [class.pending]="tx.status === 'PENDING'">
+              {{ tx.status }}
+            </span>
+          </td>
+          <td>{{ tx.timestamp | date:'medium' }}</td>
+          <td>
+            <button
+              *ngIf="tx.status === 'PENDING'"
+              [disabled]="isBusy"
+              (click)="approveTx(tx.id)"
+            >
+              Approve
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="transactions.length === 0">
+          <td colspan="8" style="text-align:center; color:#888;">No transactions yet</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

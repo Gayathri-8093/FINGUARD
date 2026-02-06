@@ -1,11 +1,10 @@
 <div class="analytics-container">
-  <!-- Header -->
+
   <h2>Analytics & Insights Dashboard</h2>
   <p class="subtitle">
 
     Comprehensive analytics with fraud trends and predictive insights
   </p>
-  <!-- ================= TOP CARDS ================= -->
   <div class="cards">
     <div class="card">
       <h4>Fraud Prevention Rate</h4>
@@ -28,7 +27,7 @@
       <span class="up">↓ 15% improvement</span>
     </div>
   </div>
-  <!-- ================= CHARTS ================= -->
+
   <div class="grid-2">
     <div class="box">
       <h3>Fraud Trends</h3>
@@ -58,7 +57,7 @@
       </div>
     </div>
   </div>
-  <!-- TAB SWITCH -->
+
   <div class="tab-switch">
     <button
 
@@ -77,7 +76,7 @@
       Drilldown Data
     </button>
   </div>
-  <!-- TOP FRAUD PATTERNS -->
+  
   @if (activeTab === 'patterns') {
     <div class="box">
       <h3>Top Fraud Patterns</h3>
@@ -126,7 +125,7 @@
       </table>
     </div>
   }
-  <!-- DRILLDOWN DATA -->
+
   @if (activeTab === 'drilldown') {
     <div class="box drilldown">
       <h3>Drilldown Data</h3>

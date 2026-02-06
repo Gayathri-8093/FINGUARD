@@ -1,4 +1,4 @@
-/* ================== BASE LAYOUT ================== */
+
 
 .analytics-container {
 
@@ -16,7 +16,6 @@
 
 }
 
-/* ================== CARDS ================== */
 
 .cards {
 
@@ -70,7 +69,7 @@
 
 }
 
-/* ================== GRID ================== */
+
 
 .grid-2 {
 
@@ -84,7 +83,7 @@
 
 }
 
-/* ================== BOX ================== */
+
 
 .box {
 
@@ -98,7 +97,7 @@
 
 }
 
-/* ================== TABLE ================== */
+
 
 table {
 
@@ -128,11 +127,7 @@ tbody tr:not(:last-child) {
 
 }
 
-/* =================================================
 
-   🔹 TAB SWITCH (NEW – ADDED)
-
-   ================================================= */
 
 .tab-switch {
 
@@ -180,11 +175,7 @@ tbody tr:not(:last-child) {
 
 }
 
-/* =================================================
 
-   🔹 DRILLDOWN EMPTY STATE (NEW – ADDED)
-
-   ================================================= */
 
 .drilldown {
 
@@ -211,9 +202,7 @@ tbody tr:not(:last-child) {
   margin-bottom: 10px;
 
 }
-/* ============================= */
-/* CHANNEL PERFORMANCE – FINAL  */
-/* ============================= */
+
 .channel-performance-card {
  height: 460px;
 }
@@ -230,7 +219,7 @@ tbody tr:not(:last-child) {
 
 
 
-/* Chart sizing */
+
 
 .channel-performance canvas {
 
@@ -240,11 +229,7 @@ tbody tr:not(:last-child) {
 
 }
 
-/* =======================
 
-   CUSTOM LEGEND
-
-======================= */
 
 .chart-legend {
 
@@ -284,7 +269,7 @@ tbody tr:not(:last-child) {
 
 }
 
-/* Colors EXACT like screenshot */
+
 
 .legend-item.fraud .dot {
 

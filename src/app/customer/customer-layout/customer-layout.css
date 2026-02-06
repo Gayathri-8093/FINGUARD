@@ -1,0 +1,9 @@
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: calc(100vh - 120px);
+}
+.content {
+  padding: 16px;
+  background: #fafafa;
+}

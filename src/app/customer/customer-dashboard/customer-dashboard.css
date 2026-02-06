@@ -1,0 +1,4 @@
+.customer-dashboard h2 { margin: 0 0 16px; font-weight: 600; }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(220px, 1fr)); gap: 16px; }
+.card { background: #fff; border: 1px solid #e7e7e7; border-radius: 8px; padding: 16px; }
+@media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }

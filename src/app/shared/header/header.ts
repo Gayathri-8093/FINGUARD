@@ -15,7 +15,7 @@ export class Header {
  
   userName = '';
   userEmail = '';
-  userRole: 'ADMIN' | 'BANKER' | '' = '';
+  userRole: 'ADMIN' | 'BANKER' | 'CUSTOMER' | '' = '';
  
   constructor(
     private uiStateService: UiState,
@@ -25,7 +25,7 @@ export class Header {
   ngOnInit() {
     this.userName = localStorage.getItem('name') || 'User';
     this.userEmail = localStorage.getItem('email') || '';
-    this.userRole = localStorage.getItem('role') as 'ADMIN' | 'BANKER';
+    this.userRole = localStorage.getItem('role') as 'ADMIN' | 'BANKER' | 'CUSTOMER';
   }
  
 
@@ -42,8 +42,10 @@ export class Header {
   goToDashboard() {
     if (this.userRole === 'ADMIN') {
       this.router.navigate(['/admin/dashboard']);
-    } else {
+    } else if(this.userRole === 'BANKER'){
       this.router.navigate(['/banker/dashboard']);
+    } else{
+      this.router.navigate(['/customer/dashboard']);
     }
   }
 

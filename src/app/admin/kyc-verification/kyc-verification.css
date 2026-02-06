@@ -74,6 +74,6 @@ textarea {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 50px;  /* vertical center */
-  align-items: center;      /* horizontal center */
+  padding-top: 50px; 
+  align-items: center;      
 }

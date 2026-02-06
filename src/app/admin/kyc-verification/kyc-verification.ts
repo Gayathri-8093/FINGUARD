@@ -12,6 +12,7 @@ import { Onboarding } from '../../core/services/onboarding';
   styleUrl: './kyc-verification.css',
 })
 export class KycVerification implements OnInit{
+
   view: 'list' | 'review' = 'list';
   selectedKyc?: OnboardingApplication;
   remarks = '';

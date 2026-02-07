@@ -9,7 +9,7 @@
       <p class="subtitle">Fraud Detection & Risk Management System</p>
  
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-        <input type="name" placeholder="Enter your full Name"/>
+        <input type="name" placeholder="Enter your full Name"  formControlName="name"/>
  
         <input
           type="email"

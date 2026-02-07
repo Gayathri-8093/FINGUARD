@@ -1,60 +1,79 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule,FormBuilder,FormGroup,Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../core/services/auth.service';
 @Component({
   selector: 'app-signup',
-  imports: [CommonModule,ReactiveFormsModule,RouterModule],
-  standalone:true,
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './signup.html',
-  styleUrl: './signup.css',
+  styleUrls: ['./signup.css']
 })
 export class Signup {
   signupForm!: FormGroup;
   submitted = false;
- 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.signupForm = this.fb.group(
       {
+        name: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', 
-          [Validators.required, 
-           Validators.minLength(8),
-           Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).{8,}$')]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern(
+              '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).{8,}$'
+            )
+          ]
+        ],
         confirmPassword: ['', Validators.required],
         role: ['', Validators.required]
       },
       { validators: this.passwordMatchValidator }
     );
   }
- 
-  passwordMatchValidator(form: FormGroup) {
+    passwordMatchValidator(form: FormGroup) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('confirmPassword')?.value;
- 
-    if (password && confirmPassword !== confirmPassword) 
-    {
-      return {mismatch: true};
+    if (password && confirmPassword && password !== confirmPassword) {
+      return { mismatch: true };
     }
-    return null; 
+    return null;
   }
- 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
- 
     if (this.signupForm.invalid) {
       this.signupForm.markAllAsTouched();
       return;
     }
- 
-    console.log('Signup Data:', this.signupForm.value);
- 
-    // API call will come here later
+    const payload = {
+      name: this.signupForm.value.name,
+      email: this.signupForm.value.email,
+      password: this.signupForm.value.password,
+      role: this.signupForm.value.role
+    };
+    this.authService.signup(payload).subscribe({
+      next: (res) => {
+        alert(res.message);
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        alert(err?.error || 'Signup failed');
+      }
+    });
   }
- 
   get f() {
     return this.signupForm.controls;
   }
-
 }

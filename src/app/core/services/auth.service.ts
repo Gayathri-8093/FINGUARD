@@ -1,75 +1,104 @@
 import { Injectable } from '@angular/core';
 
+import { HttpClient } from '@angular/common/http';
+
+import { Observable, tap } from 'rxjs';
+
 export type UserRole = 'ADMIN' | 'BANKER' | 'CUSTOMER';
 
 @Injectable({
+
   providedIn: 'root'
+
 })
+
 export class AuthService {
 
-  private role: UserRole | null = null;
+  private API_URL = 'http://localhost:9090/api/auth';
 
-  /**
-   * Persist the selected role and cache it in memory
-   */
-  setRole(role: UserRole) {
-    this.role = role;
-    localStorage.setItem('role', role);
+  constructor(private http: HttpClient) {}
+
+  // ================= SIGNUP =================
+
+  signup(payload: any): Observable<any> {
+
+    return this.http.post(`${this.API_URL}/signup`, payload);
+
   }
 
-  /**
-   * Returns the currently active role (reads from cache, falls back to localStorage).
-   * Also refreshes the in-memory cache if it was empty.
-   */
+  // ================= LOGIN =================
+
+  login(payload: any): Observable<any> {
+
+    return this.http.post<any>(`${this.API_URL}/login`, payload).pipe(
+
+      tap((res) => {
+
+        localStorage.setItem('token', res.token);
+
+        localStorage.setItem('role', res.role);
+
+        localStorage.setItem('email', res.email);
+
+      })
+
+    );
+
+  }
+
+  // ================= ROLE HELPERS (FIXES ALL ERRORS) =================
+
   getRole(): UserRole | null {
-    if (this.role) return this.role;
-    const stored = localStorage.getItem('role') as UserRole | null;
-    this.role = stored ?? null;
-    return this.role;
+
+    return localStorage.getItem('role') as UserRole | null;
+
   }
 
-  /**
-   * Convenience: true if any role is set.
-   */
   isLoggedIn(): boolean {
-    return this.getRole() !== null;
+
+    return !!localStorage.getItem('token');
+
   }
 
-  /**
-   * Role checks (existing)
-   */
   isAdmin(): boolean {
+
     return this.getRole() === 'ADMIN';
+
   }
 
   isBanker(): boolean {
+
     return this.getRole() === 'BANKER';
+
   }
 
-  /**
-   * ⭐ NEW: Customer role check
-   */
   isCustomer(): boolean {
+
     return this.getRole() === 'CUSTOMER';
+
   }
 
-  /**
-   * ⭐ NEW: Generic helpers (useful for guards/components)
-   */
   isInRole(role: UserRole): boolean {
+
     return this.getRole() === role;
+
   }
 
   hasAnyRole(roles: UserRole[]): boolean {
-    const r = this.getRole();
-    return !!r && roles.includes(r);
+
+    const role = this.getRole();
+
+    return !!role && roles.includes(role);
+
   }
 
-  /**
-   * Clear role and storage
-   */
-  logout() {
-    this.role = null;
-    localStorage.removeItem('role');
+  // ================= LOGOUT =================
+
+  logout(): void {
+
+    localStorage.clear();
+
   }
+
 }
+ 

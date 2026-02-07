@@ -31,27 +31,27 @@ export class LoginPage {
       this.form.markAllAsTouched();
       return;
     }
-    const { email, password } = this.form.value;
+    const payload={
+       email:this.form.value.email?.trim(),
+       password : this.form.value.password
+    };
+    this.authService.login(payload).subscribe({
+      next:(res)=>{
+        alert('Login successful');
 
-    if (email === 'banker@finguard.com' && password === 'banker123') {
-      this.authService.setRole('BANKER');
-      localStorage.setItem('email', email);
-      localStorage.setItem('name', 'Banker User');
+    if (res.role ==="BANKER") {
       this.router.navigate(['/banker']);
     }
-    else if (email === 'admin@finguard.com' && password === 'admin123') {
-      this.authService.setRole('ADMIN');
-      localStorage.setItem('email', email);
-      localStorage.setItem('name', 'Admin User');
+    else if (res.role === 'ADMIN') {
       this.router.navigate(['/admin']);
     }
-    else if (email === 'customer@finguard.com' && password === 'customer123') {
-      this.authService.setRole('CUSTOMER');
-      localStorage.setItem('email', email);
-      localStorage.setItem('name', 'Customer User');
+    else {
       this.router.navigate(['/customer']);
-    } else {
+    } 
+  },
+  error:()=> {
       alert('Invalid Credentials');
     }
+  });
   }
 }

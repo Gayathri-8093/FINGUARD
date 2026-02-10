@@ -16,6 +16,7 @@ import {
 })
 export class CustomerDashboard implements OnInit {
   balance = 0;
+  userName='';
   transactions: Transaction[] = [];
 
   // password is ignored in the mock but kept for UI consistency
@@ -36,6 +37,7 @@ export class CustomerDashboard implements OnInit {
   constructor(private dashboardService: CustomerTxService) {}
 
   ngOnInit(): void {
+    this.userName = localStorage.getItem('name') || 'Customer';
     this.loadDashboard();
   }
 

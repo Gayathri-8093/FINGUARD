@@ -6,11 +6,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class BankerService {
-  private baseUrl = environment.apiBaseUrl;
- 
+  private API_URL = `${environment.apiBaseUrl}/banker`;
+
   constructor(private http: HttpClient) {}
- 
+
   getDashboard() {
-    return this.http.get(`${this.baseUrl}/banker/dashboard`);
-  }  
+    // This will hit http://localhost:9091/banker/dashboard
+    return this.http.get<any>(`${this.API_URL}/dashboard`);
+  }
 }

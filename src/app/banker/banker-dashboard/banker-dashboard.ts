@@ -19,9 +19,16 @@ export class BankerDashboard implements OnInit {
       next: (res) => {
         this.dashboardData = res;
       },
-      error: () => {
-        alert('Unauthorized or session expired');
-      }
+      error: (err) => {
+  console.error('Full Error Object:', err); // Check this in the console!
+  if (err.status === 403) {
+    alert('403: You do not have the Banker role or CORS is blocked.');
+  } else if (err.status === 401) {
+    alert('401: Token is missing or expired.');
+  } else {
+    alert('An unexpected error occurred.');
+  }
+}
     });
   }
 

@@ -63,14 +63,20 @@ export class Signup {
       password: this.signupForm.value.password,
       role: this.signupForm.value.role
     };
-    this.authService.signup(payload).subscribe({
+    this.authService.register(payload).subscribe({
       next: (res) => {
-        alert(res.message);
+        alert("signIn susscussfoooll");
         this.router.navigate(['/login']);
       },
       error: (err) => {
-        alert(err?.error || 'Signup failed');
+      if (err.error?.message) {
+        alert(err.error.message);
+      } else if (typeof err.error === 'string') {
+        alert(err.error);
+      } else {
+        alert('Signup failed. Check backend or network.');
       }
+    }
     });
   }
   get f() {

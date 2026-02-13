@@ -61,5 +61,16 @@ export class TransactionService {
   getTransactions() : Transaction[] {
     return this.transactions;
   }
+
+  updateStatus(id: string, newStatus: 'flagged'|'completed'|'pending') {
+  const tx = this.transactions.find(t => t.id === id);
+  if (tx) {
+    const tx = this.transactions.find(t=> t.id === id);
+    if (tx){
+      tx.status = newStatus;
+    }
+    
+  }
+}
   
 }

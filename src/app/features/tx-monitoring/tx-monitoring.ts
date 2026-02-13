@@ -16,8 +16,11 @@ export class TxMonitoring {
   searchText = '';
   selectedRisk = 'ALL';
   selectedStatus = 'ALL';
+  popupMessage : string = '';
+  showPopup : boolean = false;
+  
 
-  selectedTransaction: Transaction | null = null;
+  selectedTransaction: any | null = null;
   transactions: Transaction[] = [];
   constructor(private transactionService: TransactionService) {
     this.transactions = this.transactionService.getTransactions();
@@ -30,5 +33,43 @@ export class TxMonitoring {
       (this.selectedStatus === 'ALL' || t.status === this.selectedStatus)
     );
   }
+
+  refreshTransactions(){
+    this.transactions = this.transactionService.getTransactions();
+  }
+
+  viewTransaction(tx:any){
+    this.selectedTransaction = tx;
+  }
+
+  approveTransaction(){
+    if(this.selectedTransaction){
+
+      this.transactionService.updateStatus(
+        this.selectedTransaction.id,
+        'completed'
+      );
+      this.refreshTransactions();
+      this.selectedTransaction= null;
+      alert('Transaction Approved');
+    }
+  }
+
+  rejectTransaction(){
+    if(this.selectedTransaction){
+      this.transactionService.updateStatus(
+        this.selectedTransaction.id,'flagged'
+      );
+      this.refreshTransactions();
+      this.selectedTransaction= null;
+      alert('Transaction Rejected');
+    }
+  }
+
+  closePopup(){
+    this.selectedTransaction = null;   
+  }
+
+
 
 }

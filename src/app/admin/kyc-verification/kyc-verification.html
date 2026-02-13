@@ -16,18 +16,18 @@
         </tr>
       </thead>
       <tbody>
-        @for (kyc of kycList; track kyc) {
+        @for (kyc of kycList; track kyc.id) {
           <tr>
             <td>{{ kyc.applicationId }}</td>
             <td>{{ kyc.fullName }}</td>
             <td>{{ kyc.email }}</td>
             <td>{{ kyc.mobile }}</td>
-            <td>{{ kyc.created_at|date:"mediumDate" }}</td>
+            <td>{{ kyc.createdAt | date:"mediumDate" }}</td>
             <td>
               <span class="status"
-                [class.pending]="kyc.status === 'Pending'"
-                [class.approved]="kyc.status === 'Approved'"
-                [class.rejected]="kyc.status === 'Rejected'">
+                [class.pending]="kyc.status?.toLowerCase() === 'pending'"
+                [class.approved]="kyc.status?.toLowerCase() === 'approved'"
+                [class.rejected]="kyc.status?.toLowerCase() === 'rejected'">
                 {{ kyc.status }}
               </span>
             </td>
@@ -63,4 +63,4 @@
   </section>
   
 }
-
+<!-- tes edit -->

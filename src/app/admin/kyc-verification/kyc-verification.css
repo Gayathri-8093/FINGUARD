@@ -11,6 +11,8 @@ th, td {
 .status {
   padding: 4px 10px;
   border-radius: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
   color: white;
   font-size: 12px;
 }

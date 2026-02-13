@@ -24,7 +24,7 @@ export interface OnboardingApplication {
 
   status: string;
 
-  created_at: string;
+  createdAt: string;
 
 }
  

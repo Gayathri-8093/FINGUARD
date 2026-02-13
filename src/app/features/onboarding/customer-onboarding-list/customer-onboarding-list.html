@@ -1,4 +1,4 @@
-<div class="onboarding-container">
+<!-- <div class="onboarding-container">
   <div class="header">
     <h2>Customer Onboarding & KYC</h2>
     <button class="primary-btn" (click)="goToNewOnboarding()">+ New Onboarding</button>
@@ -21,7 +21,7 @@
           <td>{{ app.applicationId }}</td>
           <td>{{ app.fullName }}</td>
           <td>{{ app.mobile }}</td>
-          <td>{{ app.created_at|date:'mediumDate' }}</td>
+          <td>{{ app.createdAt|date:'mediumDate' }}</td>
           <td>
             <span class="status"
               [ngClass]="app.status.toLowerCase()">
@@ -30,6 +30,90 @@
           </td>
         </tr>
       
+    </tbody>
+  </table>
+</div> -->
+
+
+
+<!-- <div class="onboarding-container">
+  <div class="header">
+    <h2>Customer Onboarding & KYC</h2>
+    <button class="primary-btn" (click)="goToNewOnboarding()">+ New Onboarding</button>
+  </div>
+
+  <table class="onboarding-table">
+    <thead>
+      <tr>
+        <th>Application ID</th>
+        <th>Customer Name</th>
+        <th>Mobile</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let app of applications">
+        <td>{{ app.applicationId }}</td>
+        <td>{{ app.fullName }}</td>
+        <td>{{ app.mobile }}</td>
+        <td>{{ app.createdAt | date:'mediumDate' }}</td>
+        <td>
+          <span class="status"
+            [ngClass]="app.status?.toLowerCase() || 'pending'">
+            {{ app.status }}
+          </span>
+        </td>
+      </tr>
+      
+      <tr *ngIf="applications.length === 0">
+        <td colspan="5" style="text-align: center; padding: 20px;">No recent applications found.</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+<div class="onboarding-container">
+  <div class="header">
+    <h2>Customer Onboarding & KYC</h2>
+    <button class="primary-btn" (click)="goToNewOnboarding()">+ New Onboarding</button>
+  </div>
+
+  <table class="onboarding-table">
+    <thead>
+      <tr>
+        <th>Application ID</th>
+        <th>Customer Name</th>
+        <th>Mobile</th>
+        <th>Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngIf="isLoading">
+        <td colspan="5" style="text-align: center; padding: 30px;">
+          <span class="loading-text">Fetching latest applications...</span>
+        </td>
+      </tr>
+
+      <tr *ngFor="let app of applications">
+        <td>{{ app.applicationId }}</td>
+        <td>{{ app.fullName }}</td>
+        <td>{{ app.mobile }}</td>
+        <td>{{ app.createdAt | date:'mediumDate' }}</td>
+        <td>
+          <span class="status"
+            [ngClass]="app.status?.toLowerCase() || 'pending'">
+            {{ app.status }}
+          </span>
+        </td>
+      </tr>
+      
+      <tr *ngIf="!isLoading && applications.length === 0">
+        <td colspan="5" style="text-align: center; padding: 20px;">No recent applications found.</td>
+      </tr>
     </tbody>
   </table>
 </div>

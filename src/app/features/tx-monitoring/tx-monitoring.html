@@ -83,11 +83,32 @@
               </span>
             </td>
             <td>
-              <button class="view-btn"> View</button>
+              <button class="view-btn" (click)="viewTransaction(t)"> View</button>
             </td>
           </tr>
         }
       </tbody>
     </table>
+  </div>
+</div>
+
+    <!-- Popup Modal -->
+<div class="modal-overlay" *ngIf="selectedTransaction">
+  <div class="modal-box">
+    <h3>Transaction Details</h3>
+ 
+    <p><strong>ID:</strong> {{ selectedTransaction.id }}</p>
+    <p><strong>Customer:</strong> {{ selectedTransaction.customer }}</p>
+    <p><strong>Amount:</strong> ₹{{ selectedTransaction.amount }}</p>
+    <p><strong>Channel:</strong> {{ selectedTransaction.channel }}</p>
+    <p><strong>Timestamp:</strong> {{ selectedTransaction.timestamp }}</p>
+    <p><strong>Risk:</strong> {{ selectedTransaction.risk }}</p>
+    <p><strong>Status:</strong> {{ selectedTransaction.status }}</p>
+ 
+    <div class="modal-actions">
+      <button class="approve-btn" (click)="approveTransaction()">Approve</button>
+      <button class="reject-btn" (click)="rejectTransaction()">Reject</button>
+      <button class="close-btn" (click)="closePopup()">Close</button>
+    </div>
   </div>
 </div>

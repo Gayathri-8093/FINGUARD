@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { OnboardingApplication } from '../../core/models/onboarding.model';
 import { Onboarding } from '../../core/services/onboarding';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-kyc-verification',
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './kyc-verification.html',
   styleUrl: './kyc-verification.css',
 })
@@ -19,32 +20,69 @@ export class KycVerification implements OnInit{
  
   kycList: OnboardingApplication[] = [];
     constructor(private onboardingService: Onboarding){}
-    ngOnInit() : void{
-      this.kycList = this.onboardingService.getApplications();
-    }
+    ngOnInit(): void {
+ this.loadKyc();
+}
+loadKyc() {
+ this.onboardingService.getAll()
+   .subscribe((data: any) => {
+     this.kycList = data;
+   });
+}
  
   reviewKyc(kyc: OnboardingApplication) {
     this.selectedKyc = kyc;
     this.view = 'review';
   }
  
-  approve() {
-    if (!this.selectedKyc) return;
-    this.selectedKyc.status = 'Approved';
-    alert('KYC Approved');
-    this.back();
-  }
+ approve() {
+
+  if (!this.selectedKyc) return;
+
+  this.onboardingService
+
+    .updateStatus(this.selectedKyc.id, 'APPROVED')
+
+    .subscribe(() => {
+
+      alert('KYC Approved');
+
+      this.loadKyc();   // reload from DB
+
+      this.back();
+
+    });
+
+}
  
-  reject() {
-    if (!this.remarks) {
-      alert('Remarks required');
-      return;
-    }
-    if (!this.selectedKyc) return;
-    this.selectedKyc.status = 'Rejected';
-    alert('KYC Rejected');
-    this.back();
+reject() {
+
+  if (!this.selectedKyc) return;
+
+  if (!this.remarks) {
+
+    alert('Remarks required');
+
+    return;
+
   }
+
+  this.onboardingService
+
+    .updateStatus(this.selectedKyc.id, 'REJECTED')
+
+    .subscribe(() => {
+
+      alert('KYC Rejected');
+
+      this.loadKyc();
+
+      this.back();
+
+    });
+
+}
+ 
  
   back() {
     this.view = 'list';

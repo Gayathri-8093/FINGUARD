@@ -16,12 +16,12 @@
     </thead>
 
     <tbody>
-      @for (app of applications; track app) {
-        <tr>
+      <tr *ngFor="let app of applications">
+        
           <td>{{ app.applicationId }}</td>
-          <td>{{ app.name }}</td>
+          <td>{{ app.fullName }}</td>
           <td>{{ app.mobile }}</td>
-          <td>{{ app.date }}</td>
+          <td>{{ app.created_at|date:'mediumDate' }}</td>
           <td>
             <span class="status"
               [ngClass]="app.status.toLowerCase()">
@@ -29,7 +29,7 @@
             </span>
           </td>
         </tr>
-      }
+      
     </tbody>
   </table>
 </div>

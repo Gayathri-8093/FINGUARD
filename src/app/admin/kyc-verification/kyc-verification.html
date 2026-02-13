@@ -19,10 +19,10 @@
         @for (kyc of kycList; track kyc) {
           <tr>
             <td>{{ kyc.applicationId }}</td>
-            <td>{{ kyc.name }}</td>
+            <td>{{ kyc.fullName }}</td>
             <td>{{ kyc.email }}</td>
             <td>{{ kyc.mobile }}</td>
-            <td>{{ kyc.date }}</td>
+            <td>{{ kyc.created_at|date:"mediumDate" }}</td>
             <td>
               <span class="status"
                 [class.pending]="kyc.status === 'Pending'"
@@ -46,7 +46,7 @@
   <section class="review-page">
     <h1 class="page-title">KYC Verification</h1>
     <div class="card">
-      <p><strong>Name:</strong> {{ selectedKyc?.name }}</p>
+      <p><strong>Name:</strong> {{ selectedKyc?.fullName }}</p>
       <p><strong>Email:</strong> {{ selectedKyc?.email }}</p>
       <p><strong>Mobile:</strong> {{ selectedKyc?.mobile }}</p>
       <p><strong>Status:</strong> {{ selectedKyc?.status }}</p>

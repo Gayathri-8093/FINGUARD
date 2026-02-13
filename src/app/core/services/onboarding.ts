@@ -1,34 +1,27 @@
 import { Injectable } from '@angular/core';
-import { OnboardingApplication } from '../models/onboarding.model';
-
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class Onboarding {
-   private applications: OnboardingApplication[] = [
-    {
-      applicationId: 'KYC1001',
-      name: 'Ramesh Kumar',
-      mobile: '9849891099',
-      email: 'alice@example.com',
-      date: '12-May-2026',
-      status: 'Pending'
-    },
-    {
-      applicationId: 'KYC1002',
-      name: 'Anjali Sharma',
-      mobile: '8027893779',
-      email: 'bob@example.com',
-      date: '11-May-2026',
-      status: 'Approved'
-    }
-  ];
- 
-  getApplications(): OnboardingApplication[] {
-    return this.applications;
+export class Onboarding{
+  private baseUrl = `${environment.apiBaseUrl}/api/onboarding`;
+  constructor(private http: HttpClient) { }
+  create(data: any): Observable<any> {
+    return this.http.post(this.baseUrl, data);
   }
- 
-  addApplication(app: OnboardingApplication) {
-    this.applications.unshift(app); 
+  getAll(): Observable<any> {
+    return this.http.get(this.baseUrl);
+  }
+  updateStatus(id: number, status: string): Observable<any> {
+    return this.http.put(
+      `${this.baseUrl}/${id}/status?status=${status}`, {}
+    );
+  }
+  uploadFile(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${this.baseUrl}/upload`, formData);
   }
 }

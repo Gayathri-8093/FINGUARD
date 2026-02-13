@@ -18,10 +18,16 @@ export class CustomerOnboardingList implements OnInit {
     private onboarding: Onboarding,
     private router: Router
   ) {}
- 
-  ngOnInit() {
-    this.applications = this.onboarding.getApplications();
-  }
+  ngOnInit(): void {
+ this.loadApplications();
+}
+loadApplications() {
+ this.onboarding.getAll()
+   .subscribe((data: any) => {
+    console.log("API DATA:",data);
+     this.applications = data;
+   });
+}
  
   goToNewOnboarding() {
     this.router.navigate(['/banker/onboarding/new']);

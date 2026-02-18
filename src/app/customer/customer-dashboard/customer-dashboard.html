@@ -17,9 +17,6 @@
     <select [(ngModel)]="transaction.channel">
       <option value="UPI">UPI</option>
       <option value="OnlineBanking">Online Banking</option>
-      <!-- <option disabled>NEFT (Coming Soon)</option>
-      <option disabled>RTGS (Coming Soon)</option>
-      <option disabled>IMPS (Coming Soon)</option> -->
     </select>
 
     <label>Recipient Customer ID</label>
@@ -66,7 +63,7 @@
       <tbody>
         <tr *ngFor="let tx of transactions">
           <td>{{ tx.id }}</td>
-          <td>{{ tx.recipientId }}</td>
+          <td>{{ tx.recipient.id }}</td>
           <td>₹{{ tx.amount | number: '1.0-0' }}</td>
           <td>{{ tx.channel }}</td>
           <td>
@@ -79,16 +76,9 @@
               {{ tx.status }}
             </span>
           </td>
-          <td>{{ tx.timestamp | date:'medium' }}</td>
-          <td>
-            <button
-              *ngIf="tx.status === 'PENDING'"
-              [disabled]="isBusy"
-              (click)="approveTx(tx.id)"
-            >
-              Approve
-            </button>
-          </td>
+          <td>{{ tx.createdAt | date:'medium' }}</td>
+          
+          
         </tr>
 
         <tr *ngIf="transactions.length === 0">

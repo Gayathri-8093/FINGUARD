@@ -26,9 +26,7 @@ export class AuthService {
     return this.http.post<any>(`${this.API_URL}/register`, payload);
   }
  
-  // ========================
-  // LOGIN
-  // ========================
+
   login(payload: { email: string; password: string }) {
     return this.http
       .post<{ token: string }>(`${this.API_URL}/login`, payload)
@@ -39,13 +37,17 @@ export class AuthService {
           const claims = this.parseJwt(res.token);
           localStorage.setItem('email', claims.sub);
           localStorage.setItem('role', claims.role);
+
+            if (claims.userId) {
+            localStorage.setItem('userId', claims.userId.toString());
+          } else if (claims.id) {
+            localStorage.setItem('userId', claims.id.toString());
+          }
         })
       );
   }
  
-  // ========================
-  // ROLE & AUTH HELPERS
-  // ========================
+ 
   getRole(): UserRole | null {
     return localStorage.getItem('role') as UserRole | null;
   }
@@ -75,16 +77,11 @@ export class AuthService {
     return !!role && roles.includes(role);
   }
  
-  // ========================
-  // LOGOUT
-  // ========================
+
   logout(): void {
     localStorage.clear();
   }
- 
-  // ========================
-  // JWT PARSER
-  // ========================
+
   private parseJwt(token: string): any {
     const base64 = token
       .split('.')[1]

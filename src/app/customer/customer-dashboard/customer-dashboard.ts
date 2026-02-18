@@ -1,4 +1,3 @@
-// src/app/features/customer-dashboard/customer-dashboard.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +18,7 @@ export class CustomerDashboard implements OnInit {
   userName='';
   transactions: Transaction[] = [];
 
-  // password is ignored in the mock but kept for UI consistency
+
   transaction: {
     channel: 'UPI';
     recipientId: string;
@@ -37,75 +36,70 @@ export class CustomerDashboard implements OnInit {
   constructor(private dashboardService: CustomerTxService) {}
 
   ngOnInit(): void {
-    this.userName = localStorage.getItem('name') || 'Customer';
-    this.loadDashboard();
-  }
 
-  loadDashboard() {
-    this.dashboardService.getBalance().subscribe((res) => (this.balance = res.balance));
-    this.dashboardService.getTransactions().subscribe((res) => (this.transactions = res));
-  }
+  this.loadDashboard();
 
-  submitTransaction() {
-    const { recipientId, amount, channel } = this.transaction;
+}
 
-    // Quick client-side validation
-    if (!recipientId?.trim()) {
-      alert('Please enter a valid Recipient Customer ID');
-      return;
-    }
-    if (!amount || Number(amount) <= 0) {
-      alert('Please enter a valid amount (> 0)');
-      return;
-    }
-    if (channel !== 'UPI') {
-      alert('Only UPI is supported in mock');
-      return;
-    }
+loadDashboard() {
 
-    this.isBusy = true;
-    this.dashboardService.sendTransaction({
-      channel,
-      recipientId: recipientId.trim(),
-      amount: Number(amount),
-      // password is ignored in the mock
-    })
-    .subscribe({
-      next: (tx) => {
-        const msg =
-          tx.status === 'PENDING'
-            ? 'High-risk transaction created. Status: PENDING (needs approval).'
-            : 'Transaction submitted successfully.';
-        alert(msg);
-        this.resetForm();
-        this.loadDashboard();
-      },
-      error: (err) => {
-        console.error(err);
-        alert(err?.message || 'Transaction failed');
-      },
-      complete: () => (this.isBusy = false),
-    });
-  }
+  const userId = Number(localStorage.getItem('userId'));
 
-  approveTx(id: string) {
-    this.isBusy = true;
-    this.dashboardService.approveTransaction(id).subscribe({
-      next: (tx) => {
-        if (!tx) {
-          alert('Transaction not found or not pending.');
-        } else {
-          alert('Transaction approved successfully.');
-        }
-        this.loadDashboard();
-      },
-      error: (err) => {
-        console.error(err);
-        alert(err?.message || 'Approval failed');
-      },
-      complete: () => (this.isBusy = false),
-    });
-  }
+  this.dashboardService.getBalance(userId)
+
+    .subscribe(balance => this.balance = balance);
+
+  this.dashboardService.getTransactions(userId)
+
+    .subscribe(res => this.transactions = res);
+
+}
+
+submitTransaction() {
+
+  const userId = Number(localStorage.getItem('userId'));
+
+  const payload = {
+
+    senderId: userId,
+
+    recipientId: Number(this.transaction.recipientId),
+
+    amount: Number(this.transaction.amount),
+
+    channel: this.transaction.channel,
+
+    password: this.transaction.password
+
+  };
+
+  this.isBusy = true;
+
+  this.dashboardService.sendTransaction(payload).subscribe({
+
+    next: (res) => {
+
+      alert("Transaction Status: " + res.status);
+
+      this.resetForm();
+
+      this.loadDashboard();
+
+    },
+
+    error: (err) => {
+
+      alert(err.error.message);
+
+    },
+
+    complete: () => this.isBusy = false
+
+  });
+
+}
+ 
+ 
 
   private resetForm() {
     this.transaction.recipientId = '';

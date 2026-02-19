@@ -14,9 +14,9 @@ export class Onboarding{
   getAll(): Observable<any> {
     return this.http.get(this.baseUrl);
   }
-  updateStatus(id: number, status: string): Observable<any> {
+  updateStatus(applicationId: string, status: string): Observable<any> {
     return this.http.put(
-      `${this.baseUrl}/${id}/status?status=${status}`, {}
+      `${this.baseUrl}/${applicationId}/status?status=${status}`, {}
     );
   }
   uploadFile(file: File): Observable<any> {

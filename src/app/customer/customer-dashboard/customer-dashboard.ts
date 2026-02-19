@@ -31,7 +31,7 @@ export class CustomerDashboard implements OnInit {
     password: '',
   };
 
-  isBusy = false;
+  // isBusy = false;
 
   constructor(private dashboardService: CustomerTxService) {}
 
@@ -73,7 +73,7 @@ submitTransaction() {
 
   };
 
-  this.isBusy = true;
+  // this.isBusy = true;
 
   this.dashboardService.sendTransaction(payload).subscribe({
 
@@ -90,10 +90,11 @@ submitTransaction() {
     error: (err) => {
 
       alert(err.error.message);
+      // this.isBusy = false;
 
     },
 
-    complete: () => this.isBusy = false
+    // complete: () => this.isBusy = false
 
   });
 

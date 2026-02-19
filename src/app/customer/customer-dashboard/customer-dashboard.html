@@ -37,8 +37,11 @@
       placeholder="(ignored in mock)"
     />
 
-    <button [disabled]="isBusy" (click)="submitTransaction()">
+    <!-- <button [disabled]="isBusy" (click)="submitTransaction()">
       {{ isBusy ? 'Processing...' : 'Send Transaction' }}
+    </button> -->
+    <button (click)="submitTransaction()">
+      {{'Send Transaction' }}
     </button>
   </div>
 

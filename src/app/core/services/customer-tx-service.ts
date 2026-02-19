@@ -43,9 +43,9 @@ export class CustomerTxService {
   constructor(private http: HttpClient) {}
 
   sendTransaction(payload: any): Observable<Transaction> {
-  const token = localStorage.getItem('token');
+  //const token = localStorage.getItem('token');
   return this.http.post<Transaction>(this.baseUrl, payload, {
-    headers: { 'Authorization': `Bearer ${token}` }
+    //headers: { 'Authorization': `Bearer ${token}` }
   });
 }
 

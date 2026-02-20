@@ -1,17 +1,17 @@
 export interface OnboardingApplication {
-  id: number;
-  applicationId: string;
+  applicationId: string;    // Primary Key (e.g., KYCE07FA)
   fullName: string;
-  dateOfBirth: string;
-  gender: string;
-  address: string;
-  mobile: string;
   email: string;
-  aadhaarFront: string;
-  aadhaarBack: string;
-  panCard: string;
-  photo: string;
-  status: string;
-  createdAt: string;
+  mobile: string;
+  address: string;
+  gender: string;
+  dateOfBirth: string;
+  panCard: string;          // Filename from upload
+  aadhaarFront: string;     // Filename from upload
+  aadhaarBack: string;      // Filename from upload
+  photo: string;            // Filename from upload
+  status: string;           // PENDING, APPROVED, REJECTED
+  balance?: number;         // Initialized in DB
+  createdAt?: string;
 }
  

@@ -34,12 +34,6 @@ export class KycVerification implements OnInit{
     // Initial load
     this.loadKyc();
   }
-// loadKyc() {
-//  this.onboardingService.getAll()
-//    .subscribe((data: any) => {
-//      this.kycList = data;
-//    });
-// }
   
   loadKyc() {
     this.isLoading = true;
@@ -66,53 +60,49 @@ export class KycVerification implements OnInit{
     this.selectedKyc = kyc;
     this.view = 'review';
   }
- 
- approve() {
-
+approve() {
   if (!this.selectedKyc) return;
 
-  this.onboardingService
+  // Change .id to .applicationId to match your database primary key
+  const appId = this.selectedKyc.applicationId; 
 
-    .updateStatus(this.selectedKyc.id, 'APPROVED')
-
-    .subscribe(() => {
-
-      alert('KYC Approved');
-
-      this.loadKyc();   // reload from DB
-
-      this.back();
-
-    });
-
-}
- 
-reject() {
-
-  if (!this.selectedKyc) return;
-
-  if (!this.remarks) {
-
-    alert('Remarks required');
-
+  if (!appId) {
+    alert("Error: Application ID is missing.");
     return;
-
   }
 
   this.onboardingService
-
-    .updateStatus(this.selectedKyc.id, 'REJECTED')
-
-    .subscribe(() => {
-
-      alert('KYC Rejected');
-
-      this.loadKyc();
-
-      this.back();
-
+    .updateStatus(appId, 'APPROVED')
+    .subscribe({
+      next: () => {
+        alert('KYC Approved');
+        this.loadKyc(); 
+        this.back();
+      },
+      error: (err) => alert("Failed to approve: " + err.message)
     });
+}
 
+reject() {
+  if (!this.selectedKyc) return;
+
+  if (!this.remarks) {
+    alert('Remarks required for rejection');
+    return;
+  }
+
+  const appId = this.selectedKyc.applicationId;
+
+  this.onboardingService
+    .updateStatus(appId, 'REJECTED')
+    .subscribe({
+      next: () => {
+        alert('KYC Rejected');
+        this.loadKyc();
+        this.back();
+      },
+      error: (err) => alert("Failed to reject: " + err.message)
+    });
 }
  
  

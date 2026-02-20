@@ -1,7 +1,5 @@
-<!-- src/app/features/customer-dashboard/customer-dashboard.html -->
  <div class="dashboard">
-  <!-- Balance -->
-   <h3>Heyy {{userName}}(FIN12XXXX)</h3>
+   <h3>Heyy {{userName}}  {{applicationId}}</h3>
   <div class="balance-card">
     <div>
       <p>Available Balance</p>
@@ -9,7 +7,6 @@
     </div>
   </div>
 
-  <!-- Make Transaction -->
   <div class="card">
     <h3>Make a Transaction</h3>
 
@@ -37,15 +34,12 @@
       placeholder="(ignored in mock)"
     />
 
-    <!-- <button [disabled]="isBusy" (click)="submitTransaction()">
-      {{ isBusy ? 'Processing...' : 'Send Transaction' }}
-    </button> -->
+ 
     <button (click)="submitTransaction()">
       {{'Send Transaction' }}
     </button>
   </div>
 
-  <!-- Transaction History -->
   <div class="card">
     <h3>Transaction History</h3>
 

@@ -15,6 +15,7 @@ import {
 export class CustomerDashboard implements OnInit {
   balance = 0;
   userName='';
+  applicationId = '';
   transactions: Transaction[] = [];
   transaction: {
     channel: 'UPI';
@@ -40,6 +41,14 @@ export class CustomerDashboard implements OnInit {
 loadDashboard() {
   const userId = Number(localStorage.getItem('userId'));
   if (!userId) return;
+  this.dashboardService.getProfile(userId).subscribe({
+      next: (data) => {
+        this.userName = data.fullName;
+        this.applicationId = data.applicationId;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error("Profile fetch error:", err)
+    });
   this.dashboardService.getBalance(userId).subscribe({
     next: (val) => {
       this.balance = val;

@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UiState {
+  private refreshSubject = new Subject<void>();
+  refresh$ = this.refreshSubject.asObservable();
+
   // Sidebar State
   private sidebarOpenSubject = new BehaviorSubject<boolean>(false);
   sidebarOpen$ = this.sidebarOpenSubject.asObservable();

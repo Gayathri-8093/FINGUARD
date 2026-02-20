@@ -23,13 +23,26 @@ export class Header implements OnInit{
   ) {}
 
   ngOnInit() {
+  // this.userName = localStorage.getItem('name') || 'User';
+  // this.userEmail = localStorage.getItem('email') || '';
+  // this.userRole = localStorage.getItem('role') as any;
+
+  // setTimeout(() => {
+  //   this.uiStateService.triggerRefresh();
+  // }, 100); 
+  this.loadUserData();
+
+  // Listen for the signal from the Dashboard
+  this.uiStateService.refresh$.subscribe(() => {
+    this.loadUserData();
+  });
+}
+
+  loadUserData() {
   this.userName = localStorage.getItem('name') || 'User';
   this.userEmail = localStorage.getItem('email') || '';
   this.userRole = localStorage.getItem('role') as any;
-
-  setTimeout(() => {
-    this.uiStateService.triggerRefresh();
-  }, 100); 
+  this.cdr.detectChanges();
 }
 
   toggleSidebar() {

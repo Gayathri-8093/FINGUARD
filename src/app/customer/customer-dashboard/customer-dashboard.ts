@@ -41,16 +41,6 @@ export class CustomerDashboard implements OnInit {
 }
 
 loadDashboard() {
-  // const userId = Number(localStorage.getItem('userId'));
-  // if (!userId) return;
-  // this.dashboardService.getProfile(userId).subscribe({
-  //     next: (data) => {
-  //       this.userName = data.fullName;
-  //       this.applicationId = data.applicationId;
-  //       this.cdr.detectChanges();
-  //     },
-  //     error: (err) => console.error("Profile fetch error:", err)
-  //   });
   const userId = Number(localStorage.getItem('userId'));
   if (!userId) return;
 

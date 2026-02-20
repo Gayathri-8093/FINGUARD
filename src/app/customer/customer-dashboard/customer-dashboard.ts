@@ -5,6 +5,7 @@ import {
   CustomerTxService,
   Transaction,
 } from '../../core/services/customer-tx-service';
+import { UiState } from '../../shared/services/ui-state';
 @Component({
   selector: 'app-customer-dashboard',
   standalone: true,
@@ -29,6 +30,7 @@ export class CustomerDashboard implements OnInit {
     password: '',
   };
   constructor(private dashboardService: CustomerTxService,
+    private uiStateService: UiState,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -39,16 +41,35 @@ export class CustomerDashboard implements OnInit {
 }
 
 loadDashboard() {
+  // const userId = Number(localStorage.getItem('userId'));
+  // if (!userId) return;
+  // this.dashboardService.getProfile(userId).subscribe({
+  //     next: (data) => {
+  //       this.userName = data.fullName;
+  //       this.applicationId = data.applicationId;
+  //       this.cdr.detectChanges();
+  //     },
+  //     error: (err) => console.error("Profile fetch error:", err)
+  //   });
   const userId = Number(localStorage.getItem('userId'));
   if (!userId) return;
+
   this.dashboardService.getProfile(userId).subscribe({
-      next: (data) => {
+    next: (data) => {
+      if (data) {
         this.userName = data.fullName;
         this.applicationId = data.applicationId;
+        
+        // Save to localStorage for the Header to find
+        localStorage.setItem('name', data.fullName);
+        
+        // Notify the Header to refresh its data
+        this.uiStateService.triggerRefresh(); 
+        
         this.cdr.detectChanges();
-      },
-      error: (err) => console.error("Profile fetch error:", err)
-    });
+      }
+    }
+  });
   this.dashboardService.getBalance(userId).subscribe({
     next: (val) => {
       this.balance = val;

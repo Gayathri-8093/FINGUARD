@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Transaction } from '../../core/models/transaction.model';
 import { TransactionService } from '../../core/services/transaction.service';
@@ -11,65 +11,75 @@ import { TransactionService } from '../../core/services/transaction.service';
   templateUrl: './tx-monitoring.html',
   styleUrl: './tx-monitoring.css',
 })
-
-export class TxMonitoring {
+export class TxMonitoring implements OnInit {
   searchText = '';
   selectedRisk = 'ALL';
   selectedStatus = 'ALL';
-  popupMessage : string = '';
-  showPopup : boolean = false;
-  
+  popupMessage: string = '';
+  showPopup: boolean = false;
 
-  selectedTransaction: any | null = null;
+  selectedTransaction: Transaction | null = null;
   transactions: Transaction[] = [];
-  constructor(private transactionService: TransactionService) {
-    this.transactions = this.transactionService.getTransactions();
+
+  constructor(private transactionService: TransactionService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.refreshTransactions();
   }
-  get filteredTransactions() {
+
+  get filteredTransactions(): Transaction[] {
     const search = this.searchText.toLowerCase().trim();
     return this.transactions.filter(t =>
-      (!search || t.id.toLowerCase().includes(search) || t.customer.toLowerCase().includes(search)) &&
-      (this.selectedRisk === 'ALL' || t.risk === this.selectedRisk) &&
-      (this.selectedStatus === 'ALL' || t.status === this.selectedStatus)
+      (!search || 
+        t.id?.toString().toLowerCase().includes(search) || 
+        t.sender?.username?.toLowerCase().includes(search)) &&
+      (this.selectedRisk === 'ALL' || t.riskLevel === this.selectedRisk) &&
+      (this.selectedStatus === 'ALL' || t.status?.toUpperCase() === this.selectedStatus.toUpperCase())
     );
   }
 
-  refreshTransactions(){
-    this.transactions = this.transactionService.getTransactions();
+  refreshTransactions(): void {
+    // Calling the correct method name from your service
+    this.transactionService.getAllTransactions().subscribe({
+      next: (data: Transaction[]) => {
+        this.transactions = data;
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => console.error('Error fetching transactions:', err)
+    });
   }
 
-  viewTransaction(tx:any){
+  viewTransaction(tx: Transaction): void {
     this.selectedTransaction = tx;
   }
 
-  approveTransaction(){
-    if(this.selectedTransaction){
-
-      this.transactionService.updateStatus(
-        this.selectedTransaction.id,
-        'completed'
-      );
-      this.refreshTransactions();
-      this.selectedTransaction= null;
-      alert('Transaction Approved');
+  approveTransaction(): void {
+    if (this.selectedTransaction) {
+      this.transactionService.updateStatus(this.selectedTransaction.id, 'COMPLETED').subscribe({
+        next: () => {
+          this.refreshTransactions();
+          this.selectedTransaction = null;
+          alert('Transaction Approved');
+        }
+      });
     }
   }
 
-  rejectTransaction(){
-    if(this.selectedTransaction){
-      this.transactionService.updateStatus(
-        this.selectedTransaction.id,'flagged'
-      );
-      this.refreshTransactions();
-      this.selectedTransaction= null;
-      alert('Transaction Rejected');
+  rejectTransaction(): void {
+    if (this.selectedTransaction) {
+      this.transactionService.updateStatus(this.selectedTransaction.id, 'FLAGGED').subscribe({
+        next: () => {
+          this.refreshTransactions();
+          this.selectedTransaction = null;
+          alert('Transaction Rejected');
+        }
+      });
     }
   }
 
-  closePopup(){
-    this.selectedTransaction = null;   
+  closePopup(): void {
+    this.selectedTransaction = null;
   }
-
-
-
 }

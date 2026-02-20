@@ -1,76 +1,43 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Transaction } from '../models/transaction.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TransactionService {
-  private transactions: Transaction[]=
-    [
-   {
-     id: 'TXN-1001',
-     customer: 'Alice Johnson',
-     amount: 25000,
-     channel: 'Online Banking',
-     timestamp: '2024-12-28 10:15:23',
-     location: 'Lagos, Nigeria',
-     risk: 'HIGH',
-     status: 'flagged'
-   },
-   {
-     id: 'TXN-1002',
-     customer: 'Bob Smith',
-     amount: 5000,
-     channel: 'UPI',
-     timestamp: '2024-12-28 10:12:45',
-     location: 'Abuja, Nigeria',
-     risk: 'LOW',
-     status: 'completed'
-   },
-   {
-     id: 'TXN-1003',
-     customer: 'Carol White',
-     amount: 15000,
-     channel: 'ATM',
-     timestamp: '2024-12-28 10:08:12',
-     location: 'Ibadan, Nigeria',
-     risk: 'MEDIUM',
-     status: 'pending'
-   },
-    {
-     id: 'TXN-1004',
-     customer: 'David Brown',
-     amount: 50000,
-     channel: 'ATM',
-     timestamp: '2024-12-28 09:45:33',
-     location: 'Lagos, Nigeria',
-     risk: 'HIGH',
-     status: 'flagged'
-   },
-   {
-     id: 'TXN-1005',
-     customer: 'Eve Davis',
-     amount: 3000,
-     channel: 'UPI',
-     timestamp: '2024-12-28 09:30:18',
-     location: 'Benin, Nigeria',
-     risk: 'LOW',
-     status: 'completed'
-   }
-  ];
-  getTransactions() : Transaction[] {
-    return this.transactions;
+  // Uses the URL from your environment.ts: http://localhost:9091/api/transactions
+  private apiUrl = `${environment.apiBaseUrl}/api/transactions`;
+
+  constructor(private http: HttpClient) {}
+
+  /**
+   * Fetches all transactions from the MySQL database via Spring Boot.
+   * Matches Spring Boot: @GetMapping("/all")
+   */
+  getAllTransactions(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.apiUrl}/all`);
   }
 
-  updateStatus(id: string, newStatus: 'flagged'|'completed'|'pending') {
-  const tx = this.transactions.find(t => t.id === id);
-  if (tx) {
-    const tx = this.transactions.find(t=> t.id === id);
-    if (tx){
-      tx.status = newStatus;
-    }
-    
+  /**
+   * Updates the status of a specific transaction.
+   * Matches Spring Boot: @PutMapping("/{id}/status") 
+   * Note: It uses @RequestParam for the status string.
+   */
+  updateStatus(id: number | string, newStatus: string): Observable<any> {
+    // Passing status as a query parameter as required by your @RequestParam in Java
+    return this.http.put(`${this.apiUrl}/${id}/status`, null, {
+      params: { status: newStatus }
+    });
   }
-}
-  
+
+  /**
+   * Optional: Fetch balance for a specific user
+   * Matches Spring Boot: @GetMapping("/balance/{userId}")
+   */
+  getBalance(userId: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}/balance/${userId}`);
+  }
 }

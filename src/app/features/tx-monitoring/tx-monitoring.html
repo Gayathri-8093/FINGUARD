@@ -65,7 +65,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (t of filteredTransactions; track t; let i = $index) {
+        <!-- @for (t of filteredTransactions; track t; let i = $index) {
           <tr [class.alt]="i % 2 === 1">
             <td>{{ t.id }}</td>
             <td>{{ t.customer }}</td>
@@ -86,7 +86,26 @@
               <button class="view-btn" (click)="viewTransaction(t)"> View</button>
             </td>
           </tr>
-        }
+        } -->
+          @for (t of filteredTransactions; track t.id; let i = $index) {
+  <tr [class.alt]="i % 2 === 1">
+    <td>{{ t.id }}</td>
+    <td>{{ t.sender?.username }}</td> <td>₹{{ t.amount | number }}</td>
+    <td>{{ t.channel }}</td>
+    <td>{{ t.createdAt | date:'short' }}</td> <td>
+      <span class="risk" [ngClass]="t.riskLevel?.toLowerCase()">
+        {{ t.riskLevel }} </span>
+    </td>
+    <td>
+      <span class="status" [ngClass]="t.status?.toLowerCase()">
+        {{ t.status }}
+      </span>
+    </td>
+    <td>
+      <button class="view-btn" (click)="viewTransaction(t)"> View</button>
+    </td>
+  </tr>
+}
       </tbody>
     </table>
   </div>
@@ -98,11 +117,11 @@
     <h3>Transaction Details</h3>
  
     <p><strong>ID:</strong> {{ selectedTransaction.id }}</p>
-    <p><strong>Customer:</strong> {{ selectedTransaction.customer }}</p>
-    <p><strong>Amount:</strong> ₹{{ selectedTransaction.amount }}</p>
+    <p><strong>Customer:</strong> {{ selectedTransaction.sender?.username }}</p>
+    <p><strong>Amount:</strong> ₹{{ selectedTransaction.amount|number }}</p>
     <p><strong>Channel:</strong> {{ selectedTransaction.channel }}</p>
-    <p><strong>Timestamp:</strong> {{ selectedTransaction.timestamp }}</p>
-    <p><strong>Risk:</strong> {{ selectedTransaction.risk }}</p>
+    <p><strong>Timestamp:</strong> {{ selectedTransaction.createdAt|date:'medium'}}</p>
+    <p><strong>Risk:</strong> {{ selectedTransaction.riskLevel }}</p>
     <p><strong>Status:</strong> {{ selectedTransaction.status }}</p>
  
     <div class="modal-actions">

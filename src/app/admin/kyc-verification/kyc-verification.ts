@@ -41,7 +41,7 @@ export class KycVerification implements OnInit{
       next: (data: OnboardingApplication[]) => {
         // Sort: Newest first (using a, b parameters)
         this.kycList = data.sort((a: OnboardingApplication, b: OnboardingApplication) => {
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
         });
         
         this.isLoading = false;

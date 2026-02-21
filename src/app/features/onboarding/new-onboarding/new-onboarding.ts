@@ -70,48 +70,7 @@ export class NewOnboarding {
   previousStep() {
     this.currentStep--;
   }
- 
-  // submit() {
-    
-  //   if (this.customerForm.invalid) {
-  //     this.customerForm.markAllAsTouched();
-  //     return;
-  //   }
   
-    
-  //   const formValue = this.customerForm.getRawValue();
- 
-  //   const fullName = formValue.fullName;
-  //   const mobile = formValue.mobile;
-  //   const email = formValue.email;
-  
-    
-  //   if (!fullName || !mobile) {
-  //     return;
-  //   }
-  
-   
-  //   // const newApplication: OnboardingApplication = {
-  //   //   applicationId: 'KYC' + Math.floor(1000 + Math.random() * 9000),
-  //   //   name: fullName,
-  //   //   email: email,
-  //   //   mobile: mobile,
-  //   //   date: new Date().toLocaleDateString(),
-  //   //   status: 'Pending'
-  //   // };
-  
-    
-  //  // this.onboardingService.addApplication(newApplication);
-  
-   
-  //   alert(
-  //     'KYC Submitted Successfully!\n\n' +
-  //     'The application will be reviewed and the status will be updated within 3 working days.'
-  //   );
-  
- 
-  //   this.router.navigate(['/banker/onboarding']);
-  // }
   submit() {
  if (this.customerForm.invalid ||
      !this.mobileVerified ||

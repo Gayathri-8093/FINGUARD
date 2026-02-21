@@ -49,7 +49,7 @@ export class CustomerOnboardingList implements OnInit {
       next: (data) => {
         if (data && data.length > 0) {
           this.applications = data
-            .sort((a: OnboardingApplication, b: OnboardingApplication) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+            .sort((a: OnboardingApplication, b: OnboardingApplication) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
             .slice(0, 10);
           
           this.isLoading = false;
@@ -79,95 +79,3 @@ export class CustomerOnboardingList implements OnInit {
     this.router.navigate(['/banker/onboarding/new']);
   }
 }
-
-//1
-
-// import { CommonModule } from '@angular/common';
-// import { Component, OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { Onboarding } from '../../../core/services/onboarding';
-// import { OnboardingApplication } from '../../../core/models/onboarding.model';
-
-// @Component({
-//   selector: 'app-customer-onboarding-list',
-//   standalone: true,
-//   imports: [CommonModule],
-//   templateUrl: './customer-onboarding-list.html',
-//   styleUrl: './customer-onboarding-list.css',
-// })
-// export class CustomerOnboardingList implements OnInit {
-//   applications: OnboardingApplication[] = [];
-
-//   constructor(
-//     private onboarding: Onboarding,
-//     private router: Router
-//   ) {}
-
-//   ngOnInit(): void {
-//     this.loadApplications();
-//   }
-
-//   loadApplications() {
-//     this.onboarding.getAll().subscribe({
-//       next: (data: OnboardingApplication[]) => {
-//         console.log("API DATA Received:", data);
-        
-//         // 1. Sort by createdAt (Newest first)
-//         // 2. Take only the 10 most recent records
-//         this.applications = data
-//           .sort((a, b) => {
-//             const dateA = new Date(a.createdAt).getTime();
-//             const dateB = new Date(b.createdAt).getTime();
-//             return dateB - dateA; 
-//           })
-//           .slice(0, 10);
-//       },
-//       error: (err) => {
-//         console.error("Failed to load applications for Banker Dashboard:", err);
-//       }
-//     });
-//   }
-
-//   goToNewOnboarding() {
-//     this.router.navigate(['/banker/onboarding/new']);
-//   }
-// }
-
-
-//2
-
-// import { CommonModule } from '@angular/common';
-// import { Component, OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { Onboarding } from '../../../core/services/onboarding';
-// import { OnboardingApplication } from '../../../core/models/onboarding.model';
-
-// @Component({
-//   selector: 'app-customer-onboarding-list',
-//   standalone: true,
-//   imports: [CommonModule],
-//   templateUrl: './customer-onboarding-list.html',
-//   styleUrl: './customer-onboarding-list.css',
-// })
-// export class CustomerOnboardingList implements OnInit {
-//    applications: OnboardingApplication[] = [];
- 
-//   constructor(
-//     private onboarding: Onboarding,
-//     private router: Router
-//   ) {}
-//   ngOnInit(): void {
-//  this.loadApplications();
-// }
-// loadApplications() {
-//  this.onboarding.getAll()
-//    .subscribe((data: any) => {
-//     console.log("API DATA:",data);
-//      this.applications = data;
-//    });
-// }
- 
-//   goToNewOnboarding() {
-//     this.router.navigate(['/banker/onboarding/new']);
-//   }
-// }

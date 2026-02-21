@@ -1,6 +1,4 @@
 <div class="onboarding-wrapper">
-
-  
   <div class="stepper">
     <div class="step" [class.active]="currentStep >= 1">1</div>
     <div class="line"></div>
@@ -9,126 +7,112 @@
     <div class="step" [class.active]="currentStep >= 3">3</div>
   </div>
 
-  
   <div class="step-titles">
     <span>Customer Details</span>
     <span>Document Upload</span>
     <span>Review & Submit</span>
   </div>
 
-  
   @if (currentStep === 1) {
     <div class="step-content">
       <h3>Customer Details</h3>
       <form [formGroup]="customerForm" class="form-grid">
-        <div>
+        <div class="form-group">
           <input placeholder="Full Name" formControlName="fullName" />
           @if (customerForm.get('fullName')?.touched && customerForm.get('fullName')?.invalid) {
-            <small>
-              Full Name is required
-            </small>
+            <small class="error">Name is required</small>
           }
         </div>
-        <div>
+
+        <div class="form-group">
           <input type="date" formControlName="dob" />
           @if (customerForm.get('dob')?.touched && customerForm.get('dob')?.invalid) {
-            <small>
-              Date of Birth is required
-            </small>
+            <small class="error">Date of birth is required</small>
           }
         </div>
-        <div>
+
+        <div class="form-group">
           <select formControlName="gender">
             <option value="">Select Gender</option>
             <option>Male</option>
             <option>Female</option>
             <option>Other</option>
           </select>
-          @if (customerForm.get('gender')?.touched && customerForm.get('gender')?.invalid) {
-            <small>
-              Gender is required
-            </small>
-          }
         </div>
-        <div>
+
+        <div class="form-group">
           <input placeholder="Address" formControlName="address" />
-          @if (customerForm.get('address')?.touched && customerForm.get('address')?.invalid) {
-            <small>
-              Address is required
-            </small>
-          }
         </div>
-        <div>
+        
+        <div class="verification-box">
           <input placeholder="Mobile Number" formControlName="mobile" />
-          <button type="button"
-            class="otp-btn"
-            (click)="sendMobileOtp()"
-            [disabled]="customerForm.get('mobile')?.invalid || mobileOtpSent">
-            Send OTP
+          <button type="button" class="otp-btn" (click)="sendMobileOtp()" [disabled]="mobileVerified">
+            {{ mobileVerified ? 'Verified' : 'Send OTP' }}
           </button>
-          @if (mobileVerified) {
-            <small class="success">✔ Mobile Verified</small>
-          }
+          
           @if (mobileOtpSent && !mobileVerified) {
-            <div>
-              <input
-                type="text"
-                placeholder="Enter Mobile OTP"
-                [(ngModel)]="mobileOtp"
-                [ngModelOptions]="{ standalone: true }" />
-                <button type="button" class="verify-btn" (click)="verifyMobileOtp()">Verify OTP</button>
-              </div>
-            }
-          </div>
-          <div>
-            <input placeholder="Email" formControlName="email" />
-            <button type="button"
-              class="otp-btn"
-              (click)="sendEmailOtp()"
-              [disabled]="customerForm.get('email')?.invalid || emailOtpSent">
-              Send OTP
-            </button>
-            @if (emailVerified) {
-              <small class="success">✔ Email Verified</small>
-            }
-            @if (emailOtpSent && !emailVerified) {
-              <div>
-                <input
-                  type="text"
-                  placeholder="Enter Email OTP"
-                  [(ngModel)]="emailOtp"
-                  [ngModelOptions]="{ standalone: true }" />
-                  <button type="button" class="verify-btn" (click)="verifyEmailOtp()">Verify OTP</button>
-                </div>
-              }
+            <div class="otp-input-group">
+              <input type="text" placeholder="Enter Mobile OTP" [(ngModel)]="mobileOtp" [ngModelOptions]="{standalone: true}" />
+              <button type="button" class="verify-btn" (click)="verifyMobileOtp()">Verify</button>
             </div>
-          </form>
+          }
+          @if (mobileVerified) { <small class="success">✔ Mobile Verified</small> }
         </div>
-      }
 
-      <!-- STEP 2 -->
-      @if (currentStep === 2) {
-        <div class="step-content">
-          <h3>Upload Documents</h3>
-          <div class="form-grid">
-            <input type="file" (change)="onFileSelect($event, 'aadhaarFront')" />
-            <input type="file" (change)="onFileSelect($event, 'aadhaarBack')" />
-            <input type="file" (change)="onFileSelect($event, 'pan')" />
-            <input type="file" (change)="onFileSelect($event, 'photo')" />
-          </div>
-          <p class="disclaimer">
-            ⚠ Images must be JPG/PNG, max size 2MB, clear and readable.
-          </p>
+        <div class="verification-box">
+          <input placeholder="Email Address" formControlName="email" />
+          <button type="button" class="otp-btn" (click)="sendEmailOtp()" 
+                  [disabled]="emailVerified || isSendingEmail || resendCountdown > 0">
+            {{ isSendingEmail ? 'Sending...' : (resendCountdown > 0 ? 'Wait ' + resendCountdown + 's' : 'Send OTP') }}
+          </button>
+          
+          @if (emailOtpSent && !emailVerified) {
+            <div class="otp-input-group">
+              <input type="text" placeholder="Enter Email OTP" [(ngModel)]="emailOtp" [ngModelOptions]="{standalone: true}" />
+              <button type="button" class="verify-btn" (click)="verifyEmailOtp()">Verify</button>
+            </div>
+          }
+          @if (emailVerified) { <small class="success">✔ Email Verified</small> }
         </div>
-      }
+      </form>
+    </div>
+  }
 
-      <!-- STEP 3 -->
-      @if (currentStep === 3) {
-        <div class="step-content">
-          <h3>Review & Submit</h3>
-          <div class="review-box">
-            <h4>Customer Details</h4>
-            <p><strong>Full Name:</strong> {{ customerForm.value.fullName }}</p>
+  @if (currentStep === 2) {
+    <div class="step-content">
+      <h3>Upload Documents</h3>
+      <div class="form-grid">
+        <div class="file-input">
+          <label>Aadhaar Front</label>
+          <input type="file" (change)="onFileSelect($event, 'aadhaarFront')" />
+          <small>{{ aadhaarFrontFile?.name }}</small>
+        </div>
+        <div class="file-input">
+          <label>Aadhaar Back</label>
+          <input type="file" (change)="onFileSelect($event, 'aadhaarBack')" />
+          <small>{{ aadhaarBackFile?.name }}</small>
+        </div>
+        <div class="file-input">
+          <label>PAN Card</label>
+          <input type="file" (change)="onFileSelect($event, 'pan')" />
+          <small>{{ panFile?.name }}</small>
+        </div>
+        <div class="file-input">
+          <label>Profile Photo</label>
+          <input type="file" (change)="onFileSelect($event, 'photo')" />
+          <small>{{ photoFile?.name }}</small>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (currentStep === 3) {
+    <div class="step-content">
+      <div class="review-box">
+        <h3>Review Application</h3>
+        <hr>
+        <div class="review-grid">
+          <p><strong>Full Name:</strong> {{ customerForm.value.fullName }}</p>
             <p><strong>Date of Birth:</strong> {{ customerForm.value.dob }}</p>
             <p><strong>Gender:</strong> {{ customerForm.value.gender }}</p>
             <p><strong>Address:</strong> {{ customerForm.value.address }}</p>
@@ -142,28 +126,27 @@
               {{ customerForm.value.email }}
               <span class="verified">✔ Verified</span>
             </p>
-            <h4>Uploaded Documents</h4>
-            <ul>
+        </div>
+        <h4>Documents Attached:</h4>
+        <ul class="doc-list">
               <li>Aadhaar Front: {{ aadhaarFrontFile?.name || 'Not uploaded' }}</li>
               <li>Aadhaar Back: {{ aadhaarBackFile?.name || 'Not uploaded' }}</li>
               <li>PAN Card: {{ panFile?.name || 'Not uploaded' }}</li>
               <li>Photo: {{ photoFile?.name || 'Not uploaded' }}</li>
-            </ul>
-          </div>
-        </div>
-      }
-
-      <!-- Navigation Buttons -->
-      <div class="actions">
-        @if (currentStep > 1) {
-          <button (click)="previousStep()">Back</button>
-        }
-        @if (currentStep < 3) {
-          <button (click)="nextStep()">Next</button>
-        }
-        @if (currentStep === 3) {
-          <button (click)="submit()">Submit</button>
-        }
+        </ul>
       </div>
-
     </div>
+  }
+
+  <div class="actions">
+    @if (currentStep > 1) { 
+      <button (click)="previousStep()" class="back-btn">Back</button> 
+    }
+    @if (currentStep < 3) { 
+      <button (click)="nextStep()">Next</button> 
+    }
+    @if (currentStep === 3) { 
+      <button (click)="submit()" class="submit-btn" [disabled]="!aadhaarFrontFile || !panFile">Submit KYC</button> 
+    }
+  </div>
+</div>

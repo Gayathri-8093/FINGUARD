@@ -1,60 +1,24 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // Added for API calls
+import { Observable } from 'rxjs'; // Added to handle async data streams
 import { Alert } from '../models/alert.model';
- 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AlertRiskService {
- 
-  private alerts: Alert[] = [
-    {
-      id: 'ALT-001',
-      type: 'Unusual Transaction Pattern',
-      customer: 'Alice Johnson',
-      severity: 'HIGH',
-      timestamp: '2024-12-28 10:15:23',
-      status: 'open',
-      description: 'Multiple high-value transactions to different accounts within 24 hours'
-    },
-    {
-      id: 'ALT-002',
-      type: 'Transcation Check Failed',
-      customer: 'David Brown',
-      severity: 'HIGH',
-      timestamp: '2024-12-28 09:45:33',
-      status: 'in-progress',
-      description: 'Rapid transactions detected within short duration'
-    },
-    {
-      id: 'ALT-003',
-      type: 'Suspicious Login Activity',
-      customer: 'Bob Smith',
-      severity: 'MEDIUM',
-      timestamp: '2024-12-28 08:30:15',
-      status: 'open',
-      description: 'Login from unusual device/location'
-    },
-    {
-      id: 'ALT-004',
-      type: 'Large Cash Withdrawal',
-      customer: 'Carol White',
-      severity: 'LOW',
-      timestamp: '2024-12-27 16:22:10',
-      status: 'closed',
-      description: 'Cash withdrawal above threshold'
-    }
-  ];
- 
-  constructor() {}
- 
-  getAlerts(): Alert[] {
-    return this.alerts;
+  // Summary: Points to the new Spring Boot AlertController endpoint
+  private apiUrl = 'http://localhost:9091/api/alerts'; 
+
+  constructor(private http: HttpClient) {} // Summary: Injected HttpClient
+
+  // Summary: Changed return type to Observable so the component can subscribe to backend data
+  getAlerts(): Observable<Alert[]> {
+    return this.http.get<Alert[]>(this.apiUrl);
   }
- 
-  updateAlertStatus(id: string, status: 'open' | 'in-progress' | 'closed'): void {
-    const alert = this.alerts.find(a => a.id === id);
-    if (alert) {
-      alert.status = status;
-    }
+
+  // Summary: Updates alert status in the database via a PUT request
+  updateAlertStatus(id: string, status: string): Observable<Alert> {
+    return this.http.put<Alert>(`${this.apiUrl}/${id}/status?status=${status}`, {});
   }
 }

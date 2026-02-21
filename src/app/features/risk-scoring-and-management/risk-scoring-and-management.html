@@ -1,52 +1,12 @@
 <div class="risk-container">
-
-  <h2>Risk Scoring & Alert Management</h2>
+  <h2>Risk & Alert Management</h2>
   <p class="subtitle">
-    Monitor risk scores and manage fraud alerts
+    Real-time threat detection and automated risk monitoring
   </p>
 
   <div class="summary">
-    <div class="card">
-      <h3>Open Alerts</h3>
-      <span>{{ openAlertsCount }}</span>
-    </div>
-
-    <div class="card">
-      <h3>In Progress</h3>
-      <span>{{ inProgressAlertsCount }}</span>
-    </div>
-
-    <div class="card">
-      <h3>Closed Today</h3>
-      <span>{{ closedAlertsCount }}</span>
-    </div>
-
-    <div class="card">
-      <h3>Avg Response Time</h3>
-      <span>1.2h</span>
-    </div>
-  </div>
- 
-  <div class="tabs">
-    <button
-      [class.active]="activeTab === 'open'"
-      (click)="activeTab = 'open'">
-      Open
-    </button>
-
-    <button
-      [class.active]="activeTab === 'in-progress'"
-      (click)="activeTab = 'in-progress'">
-      In Progress
-    </button>
-
-    <button
-      [class.active]="activeTab === 'closed'"
-      (click)="activeTab = 'closed'">
-      Closed
-    </button>
-  </div>
- 
+     </div>
+  
   <table class="alerts-table">
     <thead>
       <tr>
@@ -58,39 +18,22 @@
         <th>Status</th>
       </tr>
     </thead>
-
     <tbody>
       <tr *ngFor="let alert of filteredAlerts">
-        <td>{{ alert.id }}</td>
-        <td>{{ alert.type }}</td>
+        <td>{{ alert.id }}</td> <td>{{ alert.type }}</td>
         <td>{{ alert.customer }}</td>
         <td>
-          <span
-            class="badge"
-            [ngClass]="{
-              'high': alert.severity === 'HIGH',
-              'medium': alert.severity === 'MEDIUM',
-              'low': alert.severity === 'LOW'
-            }">
+          <span class="badge" [ngClass]="alert.severity.toLowerCase()">
             {{ alert.severity }}
           </span>
         </td>
-        <td>{{ alert.timestamp }}</td>
+        <td>{{ alert.timestamp | date:'short' }}</td>
         <td>
-          <span
-            class="status"
-            [ngClass]="alert.status">
+          <span class="status" [ngClass]="alert.status">
             {{ alert.status }}
           </span>
         </td>
       </tr>
- 
-      <tr *ngIf="filteredAlerts.length === 0">
-        <td colspan="7" class="no-data">
-          No alerts found
-        </td>
-      </tr>
     </tbody>
   </table>
- 
 </div>

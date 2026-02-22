@@ -31,7 +31,7 @@
               </span>
             </td>
             <td>
-              <button (click)="reviewKyc(kyc)" class="review-kyc-button">Review</button>
+              <button (click)="reviewKyc(kyc)" class="review-kyc-button" [disabled]="kyc.status.toLowerCase() === 'approved'">Review</button>
             </td>
           </tr>
         }

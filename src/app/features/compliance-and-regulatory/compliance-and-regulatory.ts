@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component ,ChangeDetectorRef} from '@angular/core';
 import { ComplianceService } from '../../core/services/compliance.service';
 import { SummaryCard,AuditLog } from '../../core/models/compliance.model';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,9 @@ export class ComplianceAndRegulatory {
    summaryCards: SummaryCard[] = [];
   auditLogs: AuditLog[] = [];
 
-  constructor(private complianceService: ComplianceService) {}
+  constructor(private complianceService: ComplianceService,
+    private cdr:ChangeDetectorRef
+  ) {}
 
   // Summary: Lifecycle hook to trigger data fetch on load
   ngOnInit(): void {
@@ -29,6 +31,7 @@ export class ComplianceAndRegulatory {
     this.complianceService.getAuditLogs().subscribe({
       next: (data: AuditLog[]) => {
         this.auditLogs = data;
+        this.cdr.detectChanges();
       },
       error: (err: any) => console.error('Error fetching logs:', err)
     });

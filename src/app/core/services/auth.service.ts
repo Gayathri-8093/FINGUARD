@@ -14,9 +14,6 @@ export class AuthService {
  
   constructor(private http: HttpClient) {}
  
-  // ========================
-  // REGISTER
-  // ========================
   register(payload: {
     name: string;
     email: string;
@@ -37,6 +34,7 @@ export class AuthService {
           const claims = this.parseJwt(res.token);
           localStorage.setItem('email', claims.sub);
           localStorage.setItem('role', claims.role);
+          localStorage.setItem('name', claims.name);
 
             if (claims.userId) {
             localStorage.setItem('userId', claims.userId.toString());

@@ -1,19 +1,9 @@
-// export interface Transaction {
-//  id: string;
-//  customer: string;
-//  amount: number;
-//  channel: string;
-//  timestamp: string;
-//  location:string;
-//  risk: 'LOW' | 'MEDIUM' | 'HIGH';
-//  status: 'completed' | 'pending' | 'flagged' | 'blocked';
-// } 
 export interface Transaction {
-  id: number; // Database IDs are usually numbers
+  id: number; 
   sender: {
     id: number;
     username: string;
-    name?: string;
+    name: string;
   };
   recipient: {
     id: number;
@@ -21,8 +11,8 @@ export interface Transaction {
   };
   amount: number;
   channel: string;
-  createdAt: string; // Matches created_at in DB
+  createdAt: string; 
   location?: string;
-  riskLevel: 'LOW' | 'MEDIUM' | 'HIGH'; // Matches risk_level in DB
+  riskLevel: 'LOW' | 'MEDIUM' | 'HIGH'; 
   status: string;
 }

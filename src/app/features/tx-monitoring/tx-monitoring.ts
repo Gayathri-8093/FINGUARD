@@ -41,7 +41,6 @@ export class TxMonitoring implements OnInit {
   }
 
   refreshTransactions(): void {
-    // Calling the correct method name from your service
     this.transactionService.getAllTransactions().subscribe({
       next: (data: Transaction[]) => {
         this.transactions = data;
@@ -69,11 +68,11 @@ export class TxMonitoring implements OnInit {
 
   rejectTransaction(): void {
     if (this.selectedTransaction) {
-      this.transactionService.updateStatus(this.selectedTransaction.id, 'FLAGGED').subscribe({
+      this.transactionService.updateStatus(this.selectedTransaction.id, 'BLOCKED').subscribe({
         next: () => {
           this.refreshTransactions();
           this.selectedTransaction = null;
-          alert('Transaction Rejected');
+          alert('Transaction Blocked');
         }
       });
     }

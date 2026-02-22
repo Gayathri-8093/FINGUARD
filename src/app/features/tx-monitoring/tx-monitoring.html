@@ -44,10 +44,9 @@
       </select>
       <select [(ngModel)]="selectedStatus">
         <option value="ALL">All Status</option>
-        <option value="completed">Completed</option>
-        <option value="pending">Pending</option>
-        <option value="flagged">Flagged</option>
-        <option value="blocked">Blocked</option>
+        <option value="Completed">Completed</option>
+        <option value="Pending">Pending</option>
+        <option value="Blocked">Blocked</option>
       </select>
     </div>
 
@@ -65,32 +64,10 @@
         </tr>
       </thead>
       <tbody>
-        <!-- @for (t of filteredTransactions; track t; let i = $index) {
-          <tr [class.alt]="i % 2 === 1">
-            <td>{{ t.id }}</td>
-            <td>{{ t.customer }}</td>
-            <td>₹{{ t.amount | number }}</td>
-            <td>{{ t.channel }}</td>
-            <td>{{ t.timestamp }}</td>
-            <td>
-              <span class="risk" [ngClass]="t.risk.toLowerCase()">
-                {{ t.risk }}
-              </span>
-            </td>
-            <td>
-              <span class="status" [ngClass]="t.status">
-                {{ t.status }}
-              </span>
-            </td>
-            <td>
-              <button class="view-btn" (click)="viewTransaction(t)"> View</button>
-            </td>
-          </tr>
-        } -->
           @for (t of filteredTransactions; track t.id; let i = $index) {
   <tr [class.alt]="i % 2 === 1">
     <td>{{ t.id }}</td>
-    <td>{{ t.sender?.username }}</td> <td>₹{{ t.amount | number }}</td>
+    <td>{{ t.sender?.name }}</td> <td>₹{{ t.amount | number }}</td>
     <td>{{ t.channel }}</td>
     <td>{{ t.createdAt | date:'short' }}</td> <td>
       <span class="risk" [ngClass]="t.riskLevel?.toLowerCase()">
@@ -102,7 +79,10 @@
       </span>
     </td>
     <td>
-      <button class="view-btn" (click)="viewTransaction(t)"> View</button>
+      <button class="view-btn" (click)="viewTransaction(t)"
+      [disabled]="t.riskLevel !== 'HIGH'"
+    [style.opacity]="t.riskLevel !== 'HIGH' ? '0.5' : '1'"
+    [style.cursor]="t.riskLevel !== 'HIGH' ? 'not-allowed' : 'pointer'"> View</button>
     </td>
   </tr>
 }
@@ -111,7 +91,6 @@
   </div>
 </div>
 
-    <!-- Popup Modal -->
 <div class="modal-overlay" *ngIf="selectedTransaction">
   <div class="modal-box">
     <h3>Transaction Details</h3>

@@ -5,10 +5,11 @@ export interface SummaryCard {
 }
  
 export interface AuditLog {
-  time: string;
+  id?:number;
+  timestamp: string;
   user: string;
   action: string;
   module: string;
   details: string;
-  ip: string;
+  ipAddress: string;
 }

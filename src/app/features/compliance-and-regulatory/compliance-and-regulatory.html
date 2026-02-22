@@ -30,16 +30,14 @@
         </tr>
       </thead>
       <tbody>
-        @for (log of auditLogs; track log) {
-          <tr>
-            <td>{{ log.time }}</td>
-            <td>{{ log.user }}</td>
-            <td class="action">{{ log.action }}</td>
-            <td>{{ log.module }}</td>
-            <td>{{ log.details }}</td>
-            <td>{{ log.ip }}</td>
-          </tr>
-        }
+        <tr *ngFor="let log of auditLogs">
+          <td>{{ log.timestamp | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ log.user }}</td>
+          <td><strong>{{ log.action }}</strong></td>
+          <td>{{ log.module }}</td>
+          <td>{{ log.details }}</td>
+          <td>{{ log.ipAddress }}</td>
+        </tr>
       </tbody>
     </table>
   </div>

@@ -1,4 +1,4 @@
-<div class="compliance-container">
+<!-- <div class="compliance-container">
 
   <h2 class="page-title">Compliance & Audit Logs</h2>
   <p class="subtitle">Track all system activities and user actions</p>
@@ -42,4 +42,35 @@
     </table>
   </div>
 
+</div> -->
+<div class="table-card">
+  <div class="table-header">
+    <h3>Audit Logs</h3>
+    <button class="export-btn" (click)="downloadPDF()">
+      Download PDF Report
+    </button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>User</th>
+        <th>Role</th> <th>Action</th>
+        <th>Module</th>
+        <th>IP Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (log of auditLogs; track log.timestamp) {
+        <tr>
+          <td>{{ log.timestamp | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ log.user }}</td>
+          <td><span class="role-badge">{{ log.role }}</span></td> <td><strong>{{ log.action }}</strong></td>
+          <td>{{ log.module }}</td>
+          <td>{{ log.ipAddress }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
 </div>

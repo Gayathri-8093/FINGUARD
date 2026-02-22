@@ -8,6 +8,7 @@ export interface AuditLog {
   id?:number;
   timestamp: string;
   user: string;
+  role: string;
   action: string;
   module: string;
   details: string;

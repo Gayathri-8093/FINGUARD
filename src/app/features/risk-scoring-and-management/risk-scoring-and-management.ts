@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'; // Added OnInit for lifecycle management
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core'; // Added OnInit for lifecycle management
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertRiskService } from '../../core/services/alert-risk.service';
@@ -19,7 +19,7 @@ export class RiskScoringAndManagement implements OnInit {
   // Summary: Holds the list of alerts fetched from the backend (e.g., ALT-001)
   alerts: Alert[] = [];
 
-  constructor(private alertService: AlertRiskService) {}
+  constructor(private alertService: AlertRiskService,private cdr:ChangeDetectorRef) {}
 
   // Summary: Lifecycle hook to trigger data fetching as soon as the component loads
   ngOnInit(): void {
@@ -31,6 +31,7 @@ export class RiskScoringAndManagement implements OnInit {
     this.alertService.getAlerts().subscribe({
       next: (data: Alert[]) => {
         this.alerts = data;
+        this.cdr.detectChanges();
       },
       error: (err: any) => console.error('Error fetching alerts:', err)
     });

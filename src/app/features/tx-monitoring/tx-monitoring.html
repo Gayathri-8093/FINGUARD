@@ -80,7 +80,7 @@
     </td>
     <td>
       <button class="view-btn" (click)="viewTransaction(t)"
-      [disabled]="t.riskLevel !== 'HIGH'"
+      [disabled]="t.riskLevel !== 'HIGH' || t.status !== 'PENDING'"
     [style.opacity]="t.riskLevel !== 'HIGH' ? '0.5' : '1'"
     [style.cursor]="t.riskLevel !== 'HIGH' ? 'not-allowed' : 'pointer'"> View</button>
     </td>

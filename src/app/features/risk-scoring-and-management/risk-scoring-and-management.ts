@@ -37,22 +37,20 @@ export class RiskScoringAndManagement implements OnInit {
     });
   }
 
-  // Summary: Computed property to count alerts with 'open' status for summary cards
   get openAlertsCount(): number {
     return this.alerts.filter(a => a.status?.toLowerCase() === 'open').length;
   }
 
-  // Summary: Computed property to count alerts currently being investigated
   get inProgressAlertsCount(): number {
     return this.alerts.filter(a => a.status?.toLowerCase() === 'in-progress').length;
   }
 
-  // Summary: Computed property to count resolved alerts
+
   get closedAlertsCount(): number {
     return this.alerts.filter(a => a.status?.toLowerCase() === 'closed').length;
   }
 
-  // Summary: Dynamically filters the table rows based on the user's selected tab
+ 
   get filteredAlerts(): Alert[] {
     return this.alerts.filter(a => a.status?.toLowerCase() === this.activeTab);
   }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 export interface Transaction {
   id: number;
+  recipientAppId: string;
   amount: number;
   channel: string;
   riskLevel: string;
@@ -12,6 +13,7 @@ export interface Transaction {
   recipient: {
     id: number;
     name: string;
+    applicationId?: string;
   };
 }
 export interface UserProfile {

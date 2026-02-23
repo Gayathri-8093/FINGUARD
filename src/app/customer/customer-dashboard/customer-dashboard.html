@@ -17,7 +17,7 @@
     </select>
 
     <label>Recipient Customer ID</label>
-    <input type="text" [(ngModel)]="transaction.recipientId" placeholder="e.g., CUST12345" />
+    <input type="text" name="recipientId" [ngModel]="transaction.recipientId" (input)="transaction.recipientId = $any($event.target).value" placeholder="Enter Recipient ID" />
 
     <label>Amount</label>
     <input
@@ -60,7 +60,7 @@
       <tbody>
         <tr *ngFor="let tx of transactions">
           <td>{{ tx.id }}</td>
-          <td>{{ tx.recipient.id }}</td>
+          <td>{{ tx.recipientAppId }}</td>
           <td>₹{{ tx.amount | number: '1.0-0' }}</td>
           <td>{{ tx.channel }}</td>
           <td>

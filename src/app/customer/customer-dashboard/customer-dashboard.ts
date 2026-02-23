@@ -77,9 +77,18 @@ loadDashboard() {
 }
 submitTransaction() {
   const userId = Number(localStorage.getItem('userId'));
+  const recipientId = this.transaction.recipientId;
+  
+  if (!this.transaction.recipientId || this.transaction.recipientId.toString().trim() === '') {
+    alert("Error: Please enter a Recipient ID.");
+    return;
+  }
+
+  const recipientIdNum = Number(this.transaction.recipientId);
+  
   const payload = {
     senderId: userId,
-    recipientId: Number(this.transaction.recipientId),
+    recipientId: recipientId,
     amount: Number(this.transaction.amount),
     channel: this.transaction.channel,
     password: this.transaction.password

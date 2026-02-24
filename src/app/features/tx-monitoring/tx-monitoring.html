@@ -7,24 +7,24 @@
 
   <div class="cards">
     <div class="card">
-      <span>Total Today</span>
-      <h2>12,847</h2>
-      <small class="green">↑ 12% vs yesterday</small>
+      <span>Number of transactions</span>
+      <h2>{{ summary.totalToday }}</h2>
+      <!-- <small class="green">↑ 12% vs yesterday</small> -->
     </div>
     <div class="card">
-      <span>Flagged</span>
-      <h2 class="red">2</h2>
+      <span>Pending</span>
+      <h2 class="red">{{ summary.pendingCount }}</h2>
       <small>High priority</small>
     </div>
     <div class="card">
       <span>Blocked</span>
-      <h2>0</h2>
+      <h2>{{ summary.blockedCount }}</h2>
       <small>Fraud prevented</small>
     </div>
     <div class="card">
       <span>Total Amount</span>
-      <h2>₹1.2B</h2>
-      <small class="green">↑ 8% vs yesterday</small>
+      <h2>{{ summary.totalAmount | number}}</h2>
+      <!-- <small class="green">↑ 8% vs yesterday</small> -->
     </div>
   </div>
 

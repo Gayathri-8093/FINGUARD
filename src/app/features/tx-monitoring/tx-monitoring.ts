@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Transaction } from '../../core/models/transaction.model';
 import { TransactionService } from '../../core/services/transaction.service';
+import { TransactionSummary } from '../../core/models/transaction.model';
+
 
 @Component({
   selector: 'app-tx-monitoring',
@@ -20,8 +22,11 @@ export class TxMonitoring implements OnInit {
 
   selectedTransaction: Transaction | null = null;
   transactions: Transaction[] = [];
+  
+  summary: TransactionSummary = { totalToday: 0, pendingCount: 0, blockedCount: 0, totalAmount: 0 };
 
-  constructor(private transactionService: TransactionService,
+  constructor(
+    private transactionService: TransactionService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -47,6 +52,14 @@ export class TxMonitoring implements OnInit {
         this.cdr.detectChanges();
       },
       error: (err: any) => console.error('Error fetching transactions:', err)
+    });
+
+    this.transactionService.getTransactionSummary().subscribe({
+      next: (data: TransactionSummary) => {
+        this.summary = data;
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => console.error('Error fetching summary:', err)
     });
   }
 
@@ -77,7 +90,7 @@ export class TxMonitoring implements OnInit {
       });
     }
   }
-
+  
   closePopup(): void {
     this.selectedTransaction = null;
   }

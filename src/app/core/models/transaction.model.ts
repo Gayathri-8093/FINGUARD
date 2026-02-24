@@ -16,3 +16,9 @@ export interface Transaction {
   riskLevel: 'LOW' | 'MEDIUM' | 'HIGH'; 
   status: string;
 }
+export interface TransactionSummary {
+  totalToday: number;
+  pendingCount: number;
+  blockedCount: number;
+  totalAmount: number;
+}

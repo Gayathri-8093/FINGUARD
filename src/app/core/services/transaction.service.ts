@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Transaction } from '../models/transaction.model';
 import { environment } from '../../../environments/environment';
+import { TransactionSummary } from '../models/transaction.model';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +40,8 @@ export class TransactionService {
    */
   getBalance(userId: number): Observable<number> {
     return this.http.get<number>(`${this.apiUrl}/balance/${userId}`);
+  }
+  getTransactionSummary():Observable<TransactionSummary>{
+    return this.http.get<TransactionSummary>(`${this.apiUrl}/summary`);
   }
 }

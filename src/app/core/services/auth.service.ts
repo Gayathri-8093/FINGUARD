@@ -43,6 +43,7 @@ export class AuthService {
           }
         })
       );
+      
   }
  
  
@@ -88,5 +89,6 @@ export class AuthService {
  
     return JSON.parse(atob(base64));
   }
+  
 }
  

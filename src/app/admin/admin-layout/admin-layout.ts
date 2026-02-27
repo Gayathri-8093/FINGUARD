@@ -19,20 +19,17 @@ export class AdminLayout implements OnInit, OnDestroy {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 
-   private routerSub!: Subscription; //creating a subscription oobj and ! mean promising it to assign the value later
-  
-   //DI
-  constructor(
-    private router: Router,
-    private uiStateService: UiState
-  ) {}
+   private routerSub!: Subscription;
+
+    constructor(
+      private router: Router,
+      private uiStateService: UiState
+    ) {}
  
   ngOnInit() {
-    // Listen to sidebar open/close
-    this.uiStateService.sidebarOpen$ // sidebarOpen$ -> observable a/o stream of data
+    this.uiStateService.sidebarOpen$
       .subscribe(open => this.isSidebarOpen = open);
  
-    // Close sidebar on route change
     this.routerSub = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {

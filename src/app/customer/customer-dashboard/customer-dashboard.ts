@@ -50,10 +50,8 @@ loadDashboard() {
         this.userName = data.fullName;
         this.applicationId = data.applicationId;
         
-        // Save to localStorage for the Header to find
         localStorage.setItem('name', data.fullName);
         
-        // Notify the Header to refresh its data
         this.uiStateService.triggerRefresh(); 
         
         this.cdr.detectChanges();

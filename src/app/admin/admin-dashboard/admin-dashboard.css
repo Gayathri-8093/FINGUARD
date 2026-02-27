@@ -6,25 +6,21 @@
   box-sizing: border-box;
 }
  
-
 .page-title {
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 20px;
   color: #1e293b; 
 }
- 
 
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
-
   flex: 1;
   transition: all 0.3s ease;
 }
  
-
 .card {
   background: #ffffff;
   border-radius: 12px;
@@ -44,7 +40,6 @@
     border-color 0.2s ease;
 }
  
-
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);

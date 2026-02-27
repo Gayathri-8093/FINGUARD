@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 
-// go up two levels then into "app" dir
 import { Header } from '../../shared/header/header';
 import { Footer } from '../../shared/footer/footer';
-import { Sidebar } from '../../shared/sidebar/sidebar'; // ✅ this path if you have src/app/app/sidebar
+import { Sidebar } from '../../shared/sidebar/sidebar'; 
 import { filter, Subscription } from 'rxjs';
 import { UiState } from '../../shared/services/ui-state';
 
@@ -30,11 +29,9 @@ export class CustomerLayout {
     ) {}
    
     ngOnInit() {
-      // used to sidebar open/close
       this.uiStateService.sidebarOpen$
         .subscribe(open => this.isSidebarOpen = open);
    
-      //used to close the sidebar when route changes
       this.routerSub = this.router.events
         .pipe(filter(event => event instanceof NavigationEnd))
         .subscribe(() => {

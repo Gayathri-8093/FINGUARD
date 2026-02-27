@@ -26,12 +26,10 @@ export class KycVerification implements OnInit{
       private uiState: UiState
     ){}
     ngOnInit(): void {
-    // Logic: Listen for the refresh signal from the Header
     this.uiState.refreshRequested$.subscribe(() => {
       this.loadKyc();
     });
 
-    // Initial load
     this.loadKyc();
   }
   
@@ -39,13 +37,11 @@ export class KycVerification implements OnInit{
     this.isLoading = true;
     this.onboardingService.getAll().subscribe({
       next: (data: OnboardingApplication[]) => {
-        // Sort: Newest first (using a, b parameters)
         this.kycList = data.sort((a: OnboardingApplication, b: OnboardingApplication) => {
           return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
         });
         
         this.isLoading = false;
-        // THIS IS THE FIX: Forces the Admin list to show up on refresh
         this.cdr.detectChanges(); 
       },
       error: (err) => {
@@ -63,7 +59,6 @@ export class KycVerification implements OnInit{
 approve() {
   if (!this.selectedKyc) return;
 
-  // Change .id to .applicationId to match your database primary key
   const appId = this.selectedKyc.applicationId; 
 
   if (!appId) {

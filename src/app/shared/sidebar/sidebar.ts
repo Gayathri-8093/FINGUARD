@@ -8,14 +8,14 @@ import { AuthService } from '../../core/services/auth.service';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './sidebar.html',
-  styleUrls: ['./sidebar.css'], // corrected to plural
+  styleUrls: ['./sidebar.css'], 
 })
 export class Sidebar implements OnInit {
   @Input() isOpen = false;
 
   isAdmin = false;
   isBanker = false;
-  isCustomer = false; // ⭐ NEW
+  isCustomer = false; 
 
   constructor(
     private uiStateService: UiState,
@@ -23,14 +23,11 @@ export class Sidebar implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // react to open/close
     this.uiStateService.sidebarOpen$.subscribe(open => (this.isOpen = open));
 
-    // role flags (keep your existing pattern)
     this.isAdmin = this.safeBool(() => this.authService.isAdmin());
     this.isBanker = this.safeBool(() => this.authService.isBanker());
 
-    // ⭐ NEW: Try isCustomer(); fallback to generic helpers if your service doesn't have it
     this.isCustomer =
       this.safeBool(() => (this.authService as any).isCustomer?.()) ||
       this.safeBool(() => (this.authService as any).isInRole?.('CUSTOMER')) ||
@@ -44,7 +41,6 @@ export class Sidebar implements OnInit {
     this.uiStateService.closeSidebar();
   }
 
-  /** Guard against undefined method access or thrown errors */
   private safeBool(fn: () => any): boolean {
     try {
       const v = fn();

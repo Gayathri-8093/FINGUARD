@@ -21,9 +21,6 @@ export const routes: Routes = [
       
   },
 
-
- 
-
   {
     path: 'admin',
     loadComponent: () => import('./admin/admin-layout/admin-layout').then(m => m.AdminLayout),
@@ -36,8 +33,6 @@ export const routes: Routes = [
     canActivate: [BankerGuard],
     loadChildren: () => import('./banker/banker.routes').then(m => m.bankerRoutes)
   },
-
-  // 🔧 FIXED PATHS: include subfolder names
   {
     path: 'customer',
     loadComponent: () =>

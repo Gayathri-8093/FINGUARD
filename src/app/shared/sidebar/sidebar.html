@@ -1,7 +1,6 @@
 <aside class="sidebar" [class.open]="isOpen">
   <nav>
 
-    <!-- ADMIN MENU -->
     @if (isAdmin) {
       <a routerLink="/admin/dashboard" (click)="onMenuClick()">Dashboard</a>
       <a routerLink="/admin/verification" (click)="onMenuClick()">Kyc Verification</a>
@@ -11,7 +10,6 @@
       <a routerLink="/admin/analytics" (click)="onMenuClick()">Analytics & Dashboard</a>
     }
 
-    <!-- BANKER MENU -->
     @if (isBanker) {
       <a routerLink="/banker/dashboard" (click)="onMenuClick()">Dashboard</a>
       <a routerLink="/banker/onboarding" (click)="onMenuClick()">Customer Onboarding</a>
@@ -21,10 +19,8 @@
       <a routerLink="/banker/analytics" (click)="onMenuClick()">Analytics & Dashboard</a>
     }
 
-    <!-- ⭐ CUSTOMER MENU (NEW) -->
     @if (isCustomer) {
       <a routerLink="/customer/dashboard" (click)="onMenuClick()">Dashboard</a>
-      <!-- Add more customer pages later -->
     }
 
   </nav>

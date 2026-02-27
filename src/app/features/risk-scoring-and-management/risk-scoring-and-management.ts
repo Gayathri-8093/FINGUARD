@@ -13,20 +13,16 @@ import { Alert } from '../../core/models/alert.model';
 })
 
 export class RiskScoringAndManagement implements OnInit {
-  // Summary: Maintains the current tab state for the UI filter
   activeTab: 'open' | 'in-progress' | 'closed' = 'open';
 
-  // Summary: Holds the list of alerts fetched from the backend (e.g., ALT-001)
   alerts: Alert[] = [];
 
   constructor(private alertService: AlertRiskService,private cdr:ChangeDetectorRef) {}
 
-  // Summary: Lifecycle hook to trigger data fetching as soon as the component loads
   ngOnInit(): void {
     this.loadAlerts();
   }
 
-  // Summary: Calls the service to fetch real-time alerts and updates the local array
   loadAlerts(): void {
     this.alertService.getAlerts().subscribe({
       next: (data: Alert[]) => {

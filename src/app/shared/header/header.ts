@@ -53,9 +53,8 @@ export class Header implements OnInit{
     else if (this.userRole === 'BANKER') targetPath = '/banker/dashboard';
     else targetPath = '/customer/dashboard';
 
-    // Logic: If already on the page, force a data reload instead of just navigating
     if (currentUrl === targetPath) {
-        window.location.reload(); // Hard refresh if they click home while home
+        window.location.reload(); 
     } else {
         this.router.navigate([targetPath]);
     }

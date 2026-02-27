@@ -27,11 +27,9 @@ export class BankerLayout implements OnInit, OnDestroy{
   ) {}
  
   ngOnInit() {
-    // used to sidebar open/close
     this.uiStateService.sidebarOpen$
       .subscribe(open => this.isSidebarOpen = open);
  
-    //used to close the sidebar when route changes
     this.routerSub = this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {

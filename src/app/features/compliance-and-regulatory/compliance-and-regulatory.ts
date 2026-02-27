@@ -3,8 +3,8 @@ import { Component ,ChangeDetectorRef} from '@angular/core';
 import { ComplianceService } from '../../core/services/compliance.service';
 import { SummaryCard,AuditLog } from '../../core/models/compliance.model';
 import { CommonModule } from '@angular/common';
-import jsPDF from 'jspdf'; // For PDF generation
-import autoTable from 'jspdf-autotable'; // For table formatting in PDF
+import jsPDF from 'jspdf'; 
+import autoTable from 'jspdf-autotable'; 
 
 @Component({
   selector: 'app-compliance-and-regulatory',
@@ -20,13 +20,11 @@ export class ComplianceAndRegulatory {
     private cdr:ChangeDetectorRef
   ) {}
 
-  // Summary: Lifecycle hook to trigger data fetch on load
   ngOnInit(): void {
     this.summaryCards = this.complianceService.getSummaryCards();
     this.loadAuditLogs();
   }
 
-  // Summary: Subscribes to the backend stream to populate the table
   loadAuditLogs(): void {
     this.complianceService.getAuditLogs().subscribe({
       next: (data: AuditLog[]) => {
@@ -41,7 +39,6 @@ export class ComplianceAndRegulatory {
     const doc = new jsPDF();
     doc.text('FinGuard System Audit Logs', 14, 15);
     
-    // Summary: Maps data into the table format for the PDF
     const tableData = this.auditLogs.map(log => [
       log.timestamp,
       log.user,

@@ -67,14 +67,14 @@
           @for (t of filteredTransactions; track t.id; let i = $index) {
   <tr [class.alt]="i % 2 === 1">
     <td>{{ t.id }}</td>
-    <td>{{ t.sender?.name }}</td> <td>₹{{ t.amount | number }}</td>
+    <td>{{ t.sender.name }}</td> <td>₹{{ t.amount | number }}</td>
     <td>{{ t.channel }}</td>
     <td>{{ t.createdAt | date:'short' }}</td> <td>
-      <span class="risk" [ngClass]="t.riskLevel?.toLowerCase()">
+      <span class="risk" [ngClass]="t.riskLevel.toLowerCase()">
         {{ t.riskLevel }} </span>
     </td>
     <td>
-      <span class="status" [ngClass]="t.status?.toLowerCase()">
+      <span class="status" [ngClass]="t.status.toLowerCase()">
         {{ t.status }}
       </span>
     </td>
@@ -96,7 +96,7 @@
     <h3>Transaction Details</h3>
  
     <p><strong>ID:</strong> {{ selectedTransaction.id }}</p>
-    <p><strong>Customer:</strong> {{ selectedTransaction.sender?.username }}</p>
+    <p><strong>Customer:</strong> {{ selectedTransaction.sender.username }}</p>
     <p><strong>Amount:</strong> ₹{{ selectedTransaction.amount|number }}</p>
     <p><strong>Channel:</strong> {{ selectedTransaction.channel }}</p>
     <p><strong>Timestamp:</strong> {{ selectedTransaction.createdAt|date:'medium'}}</p>

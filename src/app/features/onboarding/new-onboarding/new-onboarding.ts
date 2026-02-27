@@ -55,49 +55,62 @@ export class NewOnboarding {
     });
   }
 
-  sendEmailOtp() {
-    const email = this.customerForm.controls.email.value;
-    if (this.customerForm.controls.email.invalid) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-    this.isSendingEmail = true;
+  // sendEmailOtp() {
+  //   const email = this.customerForm.controls.email.value;
+  //   if (this.customerForm.controls.email.invalid) {
+  //     alert('Please enter a valid email address.');
+  //     return;
+  //   }
+  //   this.isSendingEmail = true;
 
-    this.onboardingService.sendOtp(email).subscribe({
-      next: () => {
-        this.emailOtpSent = true;
-        this.isSendingEmail = false;
-        this.startResendTimer();
-        alert('OTP sent to ' + email);
-      },
-      error: () => {
-        this.isSendingEmail = false;
-        alert('Backend Error: Could not send OTP.');
-      }
-    });
+  //   this.onboardingService.sendOtp(email).subscribe({
+  //     next: () => {
+  //       this.emailOtpSent = true;
+  //       this.isSendingEmail = false;
+  //       this.startResendTimer();
+  //       alert('OTP sent to ' + email);
+  //     },
+  //     error: () => {
+  //       this.isSendingEmail = false;
+  //       alert('Backend Error: Could not send OTP.');
+  //     }
+  //   });
+  // }
+
+  // verifyEmailOtp() {
+  //   const email = this.customerForm.controls.email.value;
+  //   this.onboardingService.verifyOtp(email, this.emailOtp).subscribe({
+  //     next: (res: any) => {
+  //       if (res.success) {
+  //         this.emailVerified = true;
+  //         alert('Email Verified!');
+  //       } else {
+  //         alert('Invalid Code');
+  //       }
+  //     },
+  //     error: () => alert('Verification service unavailable.')
+  //   });
+  // }
+
+  // startResendTimer() {
+  //   this.resendCountdown = 60;
+  //   const interval = setInterval(() => {
+  //     this.resendCountdown--;
+  //     if (this.resendCountdown <= 0) clearInterval(interval);
+  //   }, 1000);
+  // }
+   sendEmailOtp() {
+    this.emailOtpSent = true;
+    alert('Email OTP sent (Demo: 123456)');
   }
 
   verifyEmailOtp() {
-    const email = this.customerForm.controls.email.value;
-    this.onboardingService.verifyOtp(email, this.emailOtp).subscribe({
-      next: (res: any) => {
-        if (res.success) {
-          this.emailVerified = true;
-          alert('Email Verified!');
-        } else {
-          alert('Invalid Code');
-        }
-      },
-      error: () => alert('Verification service unavailable.')
-    });
-  }
-
-  startResendTimer() {
-    this.resendCountdown = 60;
-    const interval = setInterval(() => {
-      this.resendCountdown--;
-      if (this.resendCountdown <= 0) clearInterval(interval);
-    }, 1000);
+    if (this.emailOtp === '123456') {
+      this.emailVerified = true;
+      alert('Mobile Verified!');
+    } else {
+      alert('Invalid Email OTP');
+    }
   }
 
   sendMobileOtp() {

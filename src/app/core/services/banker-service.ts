@@ -11,7 +11,6 @@ export class BankerService {
   constructor(private http: HttpClient) {}
 
   getDashboard() {
-    // This will hit http://localhost:9091/banker/dashboard
     return this.http.get<any>(`${this.API_URL}/dashboard`);
   }
 }

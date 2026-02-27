@@ -11,16 +11,6 @@ export class Onboarding {
 
   constructor(private http: HttpClient) { }
 
-  // --- NEW: Added these to fix your errors ---
-  sendOtp(email: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/send-otp`, { email });
-  }
-
-  verifyOtp(email: string, otp: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/verify-otp`, { email, otp });
-  }
-  // ------------------------------------------
-
   create(data: any): Observable<any> {
     return this.http.post(this.baseUrl, data);
   }

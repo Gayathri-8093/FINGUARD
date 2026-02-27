@@ -1,140 +1,27 @@
 <div class="analytics-container">
- 
   <h2>Analytics & Insights Dashboard</h2>
-  <p class="subtitle">
-
-    Comprehensive analytics with fraud trends and predictive insights
-  </p>
-  <div class="cards">
-    <div class="card">
-      <h4>Fraud Prevention Rate</h4>
-      <h2 class="green">95.3%</h2>
-      <span class="up">↑ 2.1% this month</span>
-    </div>
-    <div class="card">
-      <h4>Total Fraud Attempts</h4>
-      <h2>285</h2>
-      <span class="down">↓ 12% vs last month</span>
-    </div>
-    <div class="card">
-      <h4>Amount Saved</h4>
-      <h2 class="blue">₹6.14B</h2>
-      <span class="up">Year to date</span>
-    </div>
-    <div class="card">
-      <h4>Avg Response Time</h4>
-      <h2>1.2h</h2>
-      <span class="up">↓ 15% improvement</span>
-    </div>
-  </div>
+  <p class="subtitle">Comprehensive analytics with fraud trends and predictive insights</p>
 
   <div class="grid-2">
     <div class="box">
-      <h3>Fraud Trends</h3>
-      <canvas id="fraudTrends"></canvas>
+      <h4>Transaction Status Breakdown</h4>
+      <canvas id="fraudTrends"></canvas> 
     </div>
     <div class="box">
-      <h3>Risk Distribution</h3>
+      <h4>Risk Level Distribution</h4>
       <canvas id="riskChart"></canvas>
     </div>
   </div>
+
   <div class="grid-2">
     <div class="box">
-      <h3>Transaction Volume</h3>
+      <h4>Alert Severity Over Time</h4>
       <canvas id="transactionVolume"></canvas>
     </div>
     <div class="card channel-performance">
-      <h3>Channel Performance</h3>
-      <p class="subtitle">Fraud rate by transaction channel</p>
+      <h4>Transaction Volume by Channel</h4>
+      <p class="subtitle">Activity across different banking channels</p>
       <canvas id="channelPerformanceChart"></canvas>
-      <div class="chart-legend">
-        <span class="legend-item fraud">
-          <span class="dot"></span> Fraud Cases
-        </span>
-        <span class="legend-item total">
-          <span class="dot"></span> Total Transactions
-        </span>
-      </div>
     </div>
   </div>
- 
-  <div class="tab-switch">
-    <button
-
-      [class.active]="activeTab === 'patterns'"
-
-      (click)="setTab('patterns')">
-
-      Top Fraud Patterns
-    </button>
-    <button
-
-      [class.active]="activeTab === 'drilldown'"
-
-      (click)="setTab('drilldown')">
-
-      Drilldown Data
-    </button>
-  </div>
-  
-  @if (activeTab === 'patterns') {
-    <div class="box">
-      <h3>Top Fraud Patterns</h3>
-      <p class="subtitle">Most common fraud patterns detected this month</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Pattern</th>
-            <th>Count</th>
-            <th>Trend</th>
-            <th>Change</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Unusual transaction amount</td>
-            <td>156</td>
-            <td class="up">Increasing</td>
-            <td class="up">+12%</td>
-          </tr>
-          <tr>
-            <td>Multiple failed login attempts</td>
-            <td>134</td>
-            <td class="down">Decreasing</td>
-            <td class="down">-8%</td>
-          </tr>
-          <tr>
-            <td>Velocity check failure</td>
-            <td>89</td>
-            <td class="up">Increasing</td>
-            <td class="up">+23%</td>
-          </tr>
-          <tr>
-            <td>Location mismatch</td>
-            <td>67</td>
-            <td class="up">Increasing</td>
-            <td class="up">+15%</td>
-          </tr>
-          <tr>
-            <td>Suspicious beneficiary</td>
-            <td>45</td>
-            <td class="down">Decreasing</td>
-            <td class="down">-5%</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  }
-
-  @if (activeTab === 'drilldown') {
-    <div class="box drilldown">
-      <h3>Drilldown Data</h3>
-      <p class="subtitle">
-        Click on any chart above to view detailed data
-      </p>
-      <div class="drilldown-empty">
-        <span class="pulse-icon">〰️</span>
-        Select a chart to view detailed breakdown
-      </div>
-    </div>
-  }
+</div>

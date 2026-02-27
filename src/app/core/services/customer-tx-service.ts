@@ -28,9 +28,9 @@ export class CustomerTxService {
   private userUrl = `${environment.apiBaseUrl}/api/onboarding`;
   constructor(private http: HttpClient) {}
   sendTransaction(payload: any): Observable<Transaction> {
-  //const token = localStorage.getItem('token');
+
   return this.http.post<Transaction>(this.baseUrl, payload, {
-    //headers: { 'Authorization': `Bearer ${token}` }
+ 
   });
 }
 

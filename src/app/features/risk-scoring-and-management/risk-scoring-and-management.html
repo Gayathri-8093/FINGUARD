@@ -15,7 +15,7 @@
         <th>Customer</th>
         <th>Severity</th>
         <th>Timestamp</th>
-        <th>Status</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -28,11 +28,7 @@
           </span>
         </td>
         <td>{{ alert.timestamp | date:'short' }}</td>
-        <td>
-          <span class="status" [ngClass]="alert.status">
-            {{ alert.status }}
-          </span>
-        </td>
+        
       </tr>
     </tbody>
   </table>

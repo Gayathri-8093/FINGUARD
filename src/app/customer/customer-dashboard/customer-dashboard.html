@@ -17,7 +17,7 @@
     </select>
 
     <label>Recipient Customer ID</label>
-    <input type="text" name="recipientId" [ngModel]="transaction.recipientId" (input)="transaction.recipientId = $any($event.target).value" placeholder="Enter Recipient ID" />
+    <input type="text" name="recipientId" [ngModel]="transaction.recipientId" (input)="transaction.recipientId = $any($event.target).value" placeholder="Enter Recipient ID" autocomplete="off"/>
 
     <label>Amount</label>
     <input
@@ -31,7 +31,8 @@
     <input
       type="password"
       [(ngModel)]="transaction.password"
-      placeholder="(ignored in mock)"
+      placeholder="Enter your login password"
+      autocomplete="new-password"
     />
 
  

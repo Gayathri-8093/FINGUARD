@@ -63,7 +63,7 @@ export class NewOnboarding {
   verifyEmailOtp() {
     if (this.emailOtp === '123456') {
       this.emailVerified = true;
-      alert('Mobile Verified!');
+      alert('Email Verified!');
     } else {
       alert('Invalid Email OTP');
     }

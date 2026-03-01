@@ -11,7 +11,7 @@ export class Onboarding {
 
   constructor(private http: HttpClient) { }
 
-  create(data: any): Observable<any> {
+  create(data: FormData): Observable<any> {
     return this.http.post(this.baseUrl, data);
   }
 

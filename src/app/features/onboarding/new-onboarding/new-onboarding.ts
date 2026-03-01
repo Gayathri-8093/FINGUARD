@@ -55,7 +55,7 @@ export class NewOnboarding {
     });
   }
   
-   sendEmailOtp() {
+  sendEmailOtp() {
     this.emailOtpSent = true;
     alert('Email OTP sent (Demo: 123456)');
   }
@@ -97,25 +97,45 @@ export class NewOnboarding {
   previousStep() { this.currentStep--; }
 
   submit() {
-    const formValue = this.customerForm.value;
-    const requestData = {
+    // 1. Check if all files are selected
+    if (!this.aadhaarFrontFile || !this.aadhaarBackFile || !this.panFile || !this.photoFile) {
+      alert("Please upload all required documents before submitting.");
+      return;
+    }
+
+    const formValue = this.customerForm.getRawValue();
+    const formData = new FormData();
+
+    // 2. Prepare JSON data as a Blob for the @RequestPart("customer") in Spring Boot
+    const customerData = {
       fullName: formValue.fullName,
-      dateOfBirth: formValue.dob,
-      gender: formValue.gender,
-      address: formValue.address,
-      mobile: formValue.mobile,
       email: formValue.email,
-      aadhaarFront: this.aadhaarFrontFile?.name,
-      aadhaarBack: this.aadhaarBackFile?.name,
-      panCard: this.panFile?.name,
-      photo: this.photoFile?.name
+      mobile: formValue.mobile,
+      address: formValue.address,
+      dateOfBirth: formValue.dob, // Ensure this matches backend LocalDate format (YYYY-MM-DD)
+      gender: formValue.gender
     };
-    this.onboardingService.create(requestData).subscribe({
+
+    formData.append('customer', new Blob([JSON.stringify(customerData)], {
+      type: 'application/json'
+    }));
+
+    // 3. Append physical files using keys that match your Java @RequestPart names
+    formData.append('aadhaarFront', this.aadhaarFrontFile);
+    formData.append('aadhaarBack', this.aadhaarBackFile);
+    formData.append('panCard', this.panFile);
+    formData.append('photo', this.photoFile);
+
+    // 4. Call the service
+    this.onboardingService.create(formData).subscribe({
       next: () => {
         alert('KYC Submitted Successfully');
         this.router.navigate(['/banker/onboarding']);
       },
-      error: () => alert('Failed to submit KYC. Please try again.')
+      error: (err) => {
+        console.error("KYC Submission Error:", err);
+        alert('Failed to submit KYC. Please check the console for details.');
+      }
     });
   }
 

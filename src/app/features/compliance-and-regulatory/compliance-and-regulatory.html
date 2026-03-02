@@ -29,3 +29,20 @@
     </tbody>
   </table>
 </div>
+<div class="pagination-controls" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px;">
+  <button 
+    (click)="goToPreviousPage()" 
+    [disabled]="currentPage === 0"
+    class="btn btn-outline-primary">
+    Previous
+  </button>
+  
+  <span style="align-self: center;">Page {{currentPage + 1}} of {{totalPages}}</span>
+  
+  <button 
+    (click)="goToNextPage()" 
+    [disabled]="currentPage >= totalPages - 1"
+    class="btn btn-outline-primary">
+    Next
+  </button>
+</div>

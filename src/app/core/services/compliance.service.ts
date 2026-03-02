@@ -20,8 +20,8 @@ export class ComplianceService {
     ];
   }
 
-  getAuditLogs(): Observable<AuditLog[]> {
-    return this.http.get<AuditLog[]>(this.apiUrl);
+  getAuditLogs(page: number = 0): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?page=${page}`);
   }
   
 }

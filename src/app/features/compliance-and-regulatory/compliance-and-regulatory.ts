@@ -105,10 +105,9 @@ export class ComplianceAndRegulatory implements OnInit {
   loadAuditLogs(page: number): void {
     this.complianceService.getAuditLogs(page).subscribe({
       next: (data: any) => {
-        // Accessing .content to fix the Symbol.iterator error
         this.auditLogs = data.content; 
         this.totalPages = data.totalPages;
-        this.currentPage = data.number; // Sync current page with backend state
+        this.currentPage = data.number; 
         this.cdr.detectChanges();
       },
       error: (err: any) => console.error('Error fetching logs:', err)

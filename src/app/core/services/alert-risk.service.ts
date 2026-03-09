@@ -14,8 +14,4 @@ export class AlertRiskService {
   getAlerts(): Observable<Alert[]> {
     return this.http.get<Alert[]>(this.apiUrl);
   }
-
-  updateAlertStatus(id: string, status: string): Observable<Alert> {
-    return this.http.put<Alert>(`${this.apiUrl}/${id}/status?status=${status}`, {});
-  }
 }

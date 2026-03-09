@@ -32,21 +32,7 @@ export class RiskScoringAndManagement implements OnInit {
       error: (err: any) => console.error('Error fetching alerts:', err)
     });
   }
-
-  get openAlertsCount(): number {
-    return this.alerts.filter(a => a.status?.toLowerCase() === 'open').length;
-  }
-
-  get inProgressAlertsCount(): number {
-    return this.alerts.filter(a => a.status?.toLowerCase() === 'in-progress').length;
-  }
-
-
-  get closedAlertsCount(): number {
-    return this.alerts.filter(a => a.status?.toLowerCase() === 'closed').length;
-  }
-
- 
+   
   get filteredAlerts(): Alert[] {
     return this.alerts.filter(a => a.status?.toLowerCase() === this.activeTab);
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectorRef } from '@angular/core'; // Added OnInit for lifecycle management
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertRiskService } from '../../core/services/alert-risk.service';

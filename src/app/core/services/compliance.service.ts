@@ -12,8 +12,8 @@ export class ComplianceService {
   constructor(private http: HttpClient) {}
 
 
-  getAuditLogs(page: number = 0): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}?page=${page}`);
+  getAuditLogs(page: number = 0, size:number=10): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?page=${page}&size=${size}`);
   }
   
 }
